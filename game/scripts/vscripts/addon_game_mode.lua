@@ -50,6 +50,7 @@ Precache = require( "precache" )
 
 WebApi.customGame = "Dota12v12"
 
+LinkLuaModifier("modifier_global_dummy_custom", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_dummy_inventory", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
@@ -998,7 +999,6 @@ function CMegaDotaGameMode:OnMatchDone(keys)
 			local stats = CUSTOM_GAME_STATS[i]
 			stats.perk = GamePerks.choosed_perks[i]
 			stats.networth = networth
-			stats.damage_taken = PlayerResource:GetHeroDamageTaken(i, true) + PlayerResource:GetCreepDamageTaken(i, true)
 			stats.total_healing = PlayerResource:GetHealing(i)
 			stats.xpm = stats.experiance / GameRules:GetGameTime() * 60
 
@@ -1123,6 +1123,8 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 		end
 		GamePerks:StartTrackPerks()
+		local global_dummy = CreateUnitByName("npc_dummy_cosmetic_caster", Vector(-10000,-10000,-10000), true, nil, nil, DOTA_TEAM_NEUTRALS)
+		global_dummy:AddNewModifier(global_dummy, nil, "modifier_global_dummy_custom", { duration = -1 })
 	end
 
 	if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then

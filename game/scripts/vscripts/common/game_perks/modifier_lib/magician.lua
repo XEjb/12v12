@@ -40,6 +40,13 @@ local other_keywords = {
 	bounce_range = true,
 	attack_spill_range = true,
 	attack_spill_width = true,
+	range = true,
+}
+
+local other_key_by_abilities = {
+	range = {
+		terrorblade_reflection = true,
+	}
 }
 
 local ignore_abilities = {
@@ -99,7 +106,8 @@ function magician:GetModifierOverrideAbilitySpecial(keys)
 		end
 	end
 
-	if (other_keywords and other_keywords[keys.ability_special_value]) then
+	if (not other_key_by_abilities[keys.ability_special_value] or other_key_by_abilities[keys.ability_special_value][ability_name]) 
+		and (other_keywords and other_keywords[keys.ability_special_value]) then
 		return 1
 	end
 
@@ -112,17 +120,20 @@ end
 
 function magician:GetModifierOverrideAbilitySpecialValue(keys)
 	local value = keys.ability:GetLevelSpecialValueNoOverride(keys.ability_special_value, keys.ability_special_level)
+	local ability_name = keys.ability.GetAbilityName and keys.ability:GetAbilityName()
+	
 	for keyword, _ in pairs(aoe_keywords) do
 		if string.find(keys.ability_special_value, keyword) then
 			return value * (self.v or 1)
 		end
 	end
 
-	if (other_keywords and other_keywords[keys.ability_special_value]) then
+	if (not ability_name or not other_key_by_abilities[keys.ability_special_value] or other_key_by_abilities[keys.ability_special_value][ability_name]) and 
+		(other_keywords and other_keywords[keys.ability_special_value]) then
 		return value * (self.v or 1)
 	end
 
-	if keys.ability.GetAbilityName and talents_amplify[keys.ability:GetAbilityName()] and keys.ability_special_value == "value" then
+	if ability_name and talents_amplify[ability_name] and keys.ability_special_value == "value" then
 		return value * (self.v or 1)
 	end
 	
