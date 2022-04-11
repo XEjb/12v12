@@ -99,6 +99,13 @@ local disabledAbilities = {
 }
 
 function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit, orderVector, units)
+	if orderType == DOTA_UNIT_ORDER_MOVE_TO_TARGET then
+		if (target and target:GetTeam() == unit:GetTeam() and PlayerResource:IsDisableHelpSetForPlayerID(target:GetPlayerOwnerID(), unit:GetPlayerOwnerID())) then
+			DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")
+			return false
+		end
+	end
+	
 	if not unit or not ability then
 		return
 	end
