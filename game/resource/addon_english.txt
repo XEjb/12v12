@@ -1026,7 +1026,7 @@
 		"LoadingTip_12"				"12v12 is open source and is developed by a team of developers who are committed to working on this game for the years to come. If you enjoy this custom game and can afford it, please consider supporting us."
 		"LoadingTip_13"				"Save your favourite chat wheel lines by right-clicking them. This will put them into the 'Favourites' sub menu. These are saved/loaded between games."
 		"LoadingTip_14"				"If the enemy team has 150 more average rating, your team will get <font color='#ebce0d'>5%</font> bonus gold and <font color='#ebce0d'>2.5%</font> experience from all sources plus <font color='#ebce0d'>2%</font> bonus gold and <font color='#ebce0d'>1%</font> experience for each additional 100 rating difference"
-		"LoadingTip_15"				"Elder Titan gains 25% reduced bonuses per hero hit by Astral Spirit."
+		"LoadingTip_15"				"Elder Titan gains 25% reduced bonuses per hero hit by Astral Spirit. Silencer's Glaives of Wisdom Int Steal has been reduced to 2 at max level."
 
 		"auto_team_add_patreon"						"Congratulations! You have received free supporter perks, for balance reasons!"
 
