@@ -98,7 +98,6 @@ amplified_modifier = {
 	["modifier_razor_eye_of_the_storm"] = true,
 	["modifier_slark_shadow_dance_aura"] = true,
 	["modifier_slark_shadow_dance_visual"] = true,
-	["modifier_slark_depth_shroud"] = true,
 	["modifier_sniper_take_aim_bonus"] = true,
 	["modifier_templar_assassin_refraction_damage"] = true,
 	["modifier_templar_assassin_refraction_absorb"] = true,
