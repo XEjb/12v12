@@ -48,7 +48,7 @@
 }
 
 #GamePerksMenu {
-	width: 1275px;
+	/*width: 1275px;*/
 	height: 550px;
 	margin-bottom: 25%;
 	align: center bottom;
@@ -79,11 +79,28 @@
 	letter-spacing: 1px;
 	text-shadow: 1px 1px 2px 3 #000000ff;
 }
-#PerksGrid {
-	width: 100%;
+
+#CloseGamePerks {
+	width: 30px;
+	height: 30px;
+	align: right center;
+	wash-color: #99afd6;
+	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
+	background-size: 22px 22px;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	transition: brightness 0.2s ease-in-out 0s;
+	margin-right: 5px;
 }
+
+#CloseGamePerks:hover {
+	brightness: 1.5;
+}
+/*#PerksGrid {*/
+/*	width: 100%;*/
+/*}*/
 #GamePerksTierList {
-	width: 100%;
+	/*width: 100%;*/
 	padding-top: 7px;
 	flow-children: right;
 	overflow: squish scroll;
@@ -158,29 +175,6 @@
 	brightness: 1.3;
 	pre-transform-scale2d: 1.05;
 }
-
-#CloseGamePerks {
-	width: 30px;
-	height: 30px;
-	align: center bottom;
-	wash-color: #99afd6;
-	background-size: 22px 22px;
-	background-position: 4px 4px;
-	background-repeat: no-repeat;
-	margin-bottom: 73%;
-	margin-left: 1240px;
-	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
-	visibility: collapse;
-	transition: brightness 0.2s ease-in-out 0s;
-}
-
-.Show #CloseGamePerks {
-	visibility: visible;
-}
-
-#CloseGamePerks:hover {
-	brightness: 1.5;
-}
 #SetGamePerkButton {
 	width: 38px;
 	height: 38px;
@@ -203,6 +197,9 @@
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 }
+.AspectRatio4x3 .GamePerksTier {
+	width: 270px;
+}
 
 #GamePerksTierHeader {
 	background-color: rgb(46, 51, 64);
@@ -213,11 +210,15 @@
 }
 
 #GamePerksTierHeaderTextMain {
+	width: 100%;
+	max-height: 100%;
 	align: center center;
+	text-align: center;
 	margin-top: 1px;
 	font-size: 21px;
 	text-shadow: 1px -1px 2px 3 #000000ff;
 	text-transform: uppercase;
+	text-overflow: shrink;
 }
 
 .GamePerksTier0 {
@@ -230,6 +231,10 @@
 
 .GamePerksTier2 {
 	color: rgb(219, 185, 14);
+}
+
+.GamePerksTier3 {
+	color: rgb(10, 219, 159);
 }
 
 #PerksRoot {

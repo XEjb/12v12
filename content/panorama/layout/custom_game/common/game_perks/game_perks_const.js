@@ -1,4 +1,4 @@
-const perks_levels = 3;
+const perks_levels = 4;
 const game_perks = [
 	`family`,
 	`attack_speed`,

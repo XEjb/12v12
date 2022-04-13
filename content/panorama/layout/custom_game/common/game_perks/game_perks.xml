@@ -35,6 +35,7 @@
 		<Panel id="GamePerksMenu">
 			<Panel class="GamePerksMenuHeadGrid">
 				<Label class="GamePerksMenuHeadText" text="#patreons_perk_hide_choose"/>
+				<Button id="CloseGamePerks" onactivate="HideGamePerks()" onmouseover="DOTAShowTextTooltip(#close_patreons_game_perks_menu)" onmouseout="DOTAHideTextTooltip()"/>
 			</Panel>
 			<Panel id="PerksGrid">
 				<Panel id="GamePerksTierList"/>
@@ -42,7 +43,5 @@
 				<Panel id="GamePerks_OverlayBottom" hittest="false"/>
 			</Panel>
 		</Panel>
-
-		<Button id="CloseGamePerks" onactivate="HideGamePerks()" onmouseover="DOTAShowTextTooltip(#close_patreons_game_perks_menu)" onmouseout="DOTAHideTextTooltip()"/>
 	</Panel>
 </root>

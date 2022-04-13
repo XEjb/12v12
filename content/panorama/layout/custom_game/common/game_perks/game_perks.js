@@ -6,6 +6,9 @@ const ROOT = $.GetContextPanel();
 const PERK_MENU = $("#GamePerksMenu");
 const CLOSE_PERK_MENU = $("#CloseGamePerks");
 const TIERS_ROOT = $("#GamePerksTierList");
+const CUSTOM_ERROR_TOOLTIP = {
+	family_t3: "family_t3_UI_error",
+};
 
 function SetPlayerPatreonLevel(data) {
 	patreon_level = data.patreon_level;
@@ -62,12 +65,12 @@ function SetGamePerkButtonAction(panel, perk_name) {
 	});
 }
 
-function UpdateBlockGamePerk(panel, current_patreon_level) {
+function UpdateBlockGamePerk(panel, current_patreon_level, custom_error) {
 	panel.SetPanelEvent("onmouseover", function () {
 		$.DispatchEvent(
 			"DOTAShowTextTooltip",
 			panel,
-			$.Localize("#patreon_perks_list_error_tier_" + current_patreon_level),
+			$.Localize(custom_error || "#patreon_perks_list_error_tier_" + current_patreon_level),
 		);
 	});
 	panel.SetPanelEvent("onmouseout", function () {
@@ -88,13 +91,15 @@ function CreateGamePerks() {
 		const perks_root = tier_root.FindChildTraverse("PerksRoot");
 
 		game_perks.forEach((perk_name) => {
-			const perk_panel = $.CreatePanel("Panel", perks_root, "");
+			const perk_panel = $.CreatePanel("Panel", perks_root, `Perk_${perk_name}_tier_${tier}`);
 			perk_panel.BLoadLayoutSnippet("GamePerk");
 
 			const perk_icon = perk_panel.FindChildTraverse("GamePerkImage");
 
 			const full_name = `${perk_name}_t${tier}`;
-			perk_icon.SetImage(`file://{resources}/layout/custom_game/common/game_perks/icons/${full_name}.png`);
+			perk_icon.SetImage(
+				`file://{resources}/layout/custom_game/common/game_perks/icons/${full_name.replace("t3", "t2")}.png`,
+			);
 			perk_icon.icon = full_name;
 
 			const perk_label = perk_panel.FindChildTraverse("GamePerkText");
@@ -105,7 +110,7 @@ function CreateGamePerks() {
 				SetGamePerkButtonAction(perk_icon, full_name);
 			} else {
 				perk_panel.AddClass("GamePerkNotAvailable");
-				UpdateBlockGamePerk(perk_icon, tier);
+				UpdateBlockGamePerk(perk_icon, tier, CUSTOM_ERROR_TOOLTIP[full_name]);
 			}
 
 			if (current_perk != null) {
