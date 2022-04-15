@@ -28,8 +28,8 @@ end
 function str_for_kill:GetTexture() return "perkIcons/str_for_kill" end
 
 function str_for_kill:GetModifierBonusStats_Strength()
-	if self:GetParent():HasModifier("modifier_meepo_divided_we_stand") then return end
-	return self.v * self:GetStackCount()
+	if self:GetParent():IsClone() then return end
+	return math.floor(self.v * self:GetStackCount())
 end
 
 str_for_kill_t0 = class(str_for_kill)

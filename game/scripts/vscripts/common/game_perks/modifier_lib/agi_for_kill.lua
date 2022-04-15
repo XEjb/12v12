@@ -28,8 +28,8 @@ end
 function agi_for_kill:GetTexture() return "perkIcons/agi_for_kill" end
 
 function agi_for_kill:GetModifierBonusStats_Agility()
-	if self:GetParent():HasModifier("modifier_meepo_divided_we_stand") then return end
-	return self.v * self:GetStackCount()
+	if self:GetParent():IsClone() then return end
+	return math.floor(self.v * self:GetStackCount())
 end
 
 agi_for_kill_t0 = class(agi_for_kill)
