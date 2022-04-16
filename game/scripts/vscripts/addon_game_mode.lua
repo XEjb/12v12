@@ -1087,7 +1087,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 		end)
         local toAdd = {
             luna_moon_glaive_fountain = 4,
-            ursa_fury_swipes_fountain = 1,
+            ursa_fury_swipes_fountain = 5,
         }
 		Timers:RemoveTimer("game_options_unpause")
 		Convars:SetFloat("host_timescale", 1)
