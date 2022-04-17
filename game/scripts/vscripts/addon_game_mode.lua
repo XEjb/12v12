@@ -971,34 +971,9 @@ function CMegaDotaGameMode:OnMatchDone(keys)
 		
 	for i = 0, 23 do
 		if PlayerResource:IsValidPlayerID( i ) then
-			local networth = 0
-			local hero = PlayerResource:GetSelectedHeroEntity( i )
-
-			for _, cour in pairs( couriers ) do
-				if cour:GetTeam() == cour:GetTeam() then
-					for s = 0, 8 do
-						local item = cour:GetItemInSlot( s )
-
-						if item and item:GetOwner() == hero then
-							networth = networth + item:GetCost()
-						end
-					end
-				end
-			end
-
-			for s = 0, 8 do
-				local item = hero:GetItemInSlot( s )
-
-				if item then
-					networth = networth + item:GetCost()
-				end
-			end
-
-			networth = networth + PlayerResource:GetGold( i )
-
 			local stats = CUSTOM_GAME_STATS[i]
 			stats.perk = GamePerks.choosed_perks[i]
-			stats.networth = networth
+			stats.networth = PlayerResource:GetNetWorth(i)
 			stats.total_healing = PlayerResource:GetHealing(i)
 			stats.xpm = stats.experiance / GameRules:GetGameTime() * 60
 
