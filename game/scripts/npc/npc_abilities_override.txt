@@ -155,4 +155,34 @@
 			}
 		}
 	}
+
+	"item_bracer"
+	{
+		"ItemLevelByGameTime"			"17.5"
+
+		"AbilityValues"
+		{
+			"clock_time"			"17.5"
+		}
+	}
+
+	"item_wraith_band"
+	{
+		"ItemLevelByGameTime"			"17.5"
+
+		"AbilityValues"
+		{
+			"clock_time"			"17.5"
+		}
+	}
+
+	"item_null_talisman"
+	{
+		"ItemLevelByGameTime"			"17.5"
+
+		"AbilityValues"
+		{
+			"clock_time"			"17.5"
+		}
+	}
 }
