@@ -67,6 +67,8 @@ amplified_modifier = {
 	["modifier_marci_guardian_buff"] = true,
 	["modifier_marci_guardian_magic_immunity"] = true,
 	["modifier_marci_unleash"] = true,
+	["modifier_primal_beast_roared_self"] = true,
+	["modifier_primal_beast_trample"] = true,
 	--[[ HEROES AGI ]]--
 	["modifier_antimage_counterspell"] = true,
 	["modifier_bloodseeker_bloodrage"] = true,
