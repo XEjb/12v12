@@ -28,7 +28,7 @@ end
 function str_for_kill:GetTexture() return "perkIcons/str_for_kill" end
 
 function str_for_kill:GetModifierBonusStats_Strength()
-	if self:GetParent():IsClone() then return end
+	if IsServer() and self:GetParent():IsClone() then return end
 	return math.floor(self.v * self:GetStackCount())
 end
 

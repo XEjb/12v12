@@ -28,7 +28,7 @@ end
 function int_for_kill:GetTexture() return "perkIcons/int_for_kill" end
 
 function int_for_kill:GetModifierBonusStats_Intellect()
-	if self:GetParent():IsClone() then return end
+	if IsServer() and self:GetParent():IsClone() then return end
 	return math.floor(self.v * self:GetStackCount())
 end
 

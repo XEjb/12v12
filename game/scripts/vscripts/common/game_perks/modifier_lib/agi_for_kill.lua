@@ -7,7 +7,7 @@ function agi_for_kill:OnCreated(kv)
 
 	local parent = self:GetParent()
 
-	if not parent:IsRealHero() then
+	if not parent:IsRealHero() and not parent:IsClone() then
 		local hero = PlayerResource:GetSelectedHeroEntity(parent:GetPlayerOwnerID())
 
 		self:SetStackCount(hero:GetModifierStackCount(self:GetName(), hero))
@@ -28,7 +28,7 @@ end
 function agi_for_kill:GetTexture() return "perkIcons/agi_for_kill" end
 
 function agi_for_kill:GetModifierBonusStats_Agility()
-	if self:GetParent():IsClone() then return end
+	if IsServer() and self:GetParent():IsClone() then return end
 	return math.floor(self.v * self:GetStackCount())
 end
 
