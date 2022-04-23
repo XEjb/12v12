@@ -1026,7 +1026,7 @@
 		"LoadingTip_8"				"The Fountain is very strong in 12v12. It has Fury Swipes (increases 1 damage every attack), Moon Glaives that bounce twice and true-strike. Even if its not targeting you, you can be decimated by the bounces. Be careful."
 		"LoadingTip_9"				"Supporters will get their items instantly transfered to them after purchase. This does not include Consumeables."
 		"LoadingTip_10"				"Supporters can choose superior perks at the start of the game. High-supporters can get even better perks!"
-		"LoadingTip_11"				"Mirana's '-70s Moonlight Shadow Cooldown' talent has been reduced to -20s and Moonlight Shadow's duration has been reduced to 15s. Zeus's Static Field only does half the damage it does in regular Dota."
+		"LoadingTip_11"				"Mirana's Moonlight Shadow duration has been reduced to 15s. Zeus's Static Field only does half the damage it does in regular Dota."
 		"LoadingTip_12"				"12v12 is open source and is developed by a team of developers who are committed to working on this game for the years to come. If you enjoy this custom game and can afford it, please consider supporting us."
 		"LoadingTip_13"				"Save your favourite chat wheel lines by right-clicking them. This will put them into the 'Favourites' sub menu. These are saved/loaded between games."
 		"LoadingTip_14"				"If the enemy team has 150 more average rating, your team will get <font color='#ebce0d'>5%</font> bonus gold and <font color='#ebce0d'>2.5%</font> experience from all sources plus <font color='#ebce0d'>2%</font> bonus gold and <font color='#ebce0d'>1%</font> experience for each additional 100 rating difference"
