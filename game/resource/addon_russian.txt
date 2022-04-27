@@ -186,7 +186,7 @@
 		"patreon_perks_list_error_tier_0"					   				"Этот талант только для обычных игроков"
 		"patreon_perks_list_error_tier_1"					   				"Этот талант только для поддержащих первого уровня"
 		"patreon_perks_list_error_tier_2"					   				"Этот талант только для поддержавших второго уровня<br>(<font color='#28c41a'>25$</font>)"
-		"patreon_perks_list_error_tier_3"					   				"Этот Перк доступен только при выборе Перка <font color='#ebc634'>"The Strongest Family"</font>"
+		"patreon_perks_list_error_tier_3"					   				"Этот Перк доступен только при выборе Перка <font color='#ebc634'>"Сильнейшая Семья"</font>"
 		"family_t3_UI_error"					   							"Невозможно выбрать. Слишком мощный для этой реальности."
 
 		"game_perk_tolltip_tier_0"					   				"Базовый Уровень"
