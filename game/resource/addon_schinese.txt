@@ -315,6 +315,8 @@
 		"patreon_perks_list_error_tier_0"					   				"该Perk仅适用于非支持者"
 		"patreon_perks_list_error_tier_1"					   				"该Perk仅适用于Patreon支持者"
 		"patreon_perks_list_error_tier_2"					   				"该Perk仅适用于高级Patreon支持者<br>（<font color='#28c41a'>$25</font>）"
+		"patreon_perks_list_error_tier_3"					   				"此Perk仅可通过挑选<font color='#ebc634'>“最强之家”</font>Perk获得"
+		"family_t3_UI_error"					   							"无法选择。对于该现实世界而言过于强大"
 
 		"game_perk_tolltip_tier_0"					   				"基本级"
 		"game_perk_tolltip_tier_1"					   				"第一级"
