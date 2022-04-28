@@ -32,10 +32,10 @@ bonus_hp_pct.OnCreated = function(self)
 end
 
 bonus_hp_pct_t0 = class(bonus_hp_pct)
-bonus_hp_pct_t0.v = 0.09
+bonus_hp_pct_t0.v = 0.075
 bonus_hp_pct_t1 = class(bonus_hp_pct)
-bonus_hp_pct_t1.v = 0.18
+bonus_hp_pct_t1.v = 0.15
 bonus_hp_pct_t2 = class(bonus_hp_pct)
-bonus_hp_pct_t2.v = 0.36
+bonus_hp_pct_t2.v = 0.30
 bonus_hp_pct_t3 = class(bonus_hp_pct)
-bonus_hp_pct_t3.v = 0.72
+bonus_hp_pct_t3.v = 0.60

@@ -35,13 +35,13 @@ delayed_damage.OnCreated = function(self)
 end
 
 delayed_damage_t0 = class(delayed_damage) 
-delayed_damage_t0.v = {15, 7}
+delayed_damage_t0.v = {14, 6}
 delayed_damage_t1 = class(delayed_damage) 
-delayed_damage_t1.v = {25, 7}
+delayed_damage_t1.v = {25, 6}
 delayed_damage_t2 = class(delayed_damage) 
-delayed_damage_t2.v = {40, 7}
+delayed_damage_t2.v = {40, 6}
 delayed_damage_t3 = class(delayed_damage)
-delayed_damage_t3.v = {57, 7}
+delayed_damage_t3.v = {57, 6}
 
 modifier_delayed_damage = class(base_game_perk)
 function modifier_delayed_damage:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end

@@ -11,7 +11,7 @@ status_resistance_t1 = class(status_resistance)
 status_resistance_t2 = class(status_resistance)
 status_resistance_t3 = class(status_resistance)
 
-function status_resistance_t0:OnCreated() self.v = 11 end
-function status_resistance_t1:OnCreated() self.v = 20 end
-function status_resistance_t2:OnCreated() self.v = 33 end
-function status_resistance_t3:OnCreated() self.v = 50 end
+function status_resistance_t0:OnCreated() self.v = 14 end
+function status_resistance_t1:OnCreated() self.v = 25 end
+function status_resistance_t2:OnCreated() self.v = 40 end
+function status_resistance_t3:OnCreated() self.v = 57 end

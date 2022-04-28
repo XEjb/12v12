@@ -13,7 +13,7 @@ hp_regen_t1 = class(hp_regen)
 hp_regen_t2 = class(hp_regen)
 hp_regen_t3 = class(hp_regen)
 
-function hp_regen_t0:OnCreated() self.v = {2, 1, 0.2} end
-function hp_regen_t1:OnCreated() self.v = {4, 1, 0.4} end
-function hp_regen_t2:OnCreated() self.v = {8, 1, 0.8} end
-function hp_regen_t3:OnCreated() self.v = {16, 1, 1.6} end
+function hp_regen_t0:OnCreated() self.v = {2.5, 1, 0.25} end
+function hp_regen_t1:OnCreated() self.v = {5, 1, 0.5} end
+function hp_regen_t2:OnCreated() self.v = {10, 1, 1} end
+function hp_regen_t3:OnCreated() self.v = {20, 1, 2} end

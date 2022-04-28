@@ -37,7 +37,7 @@ int_for_kill_t1 = class(int_for_kill)
 int_for_kill_t2 = class(int_for_kill)
 int_for_kill_t3 = class(int_for_kill)
 
-int_for_kill_t0.v = 1.5
-int_for_kill_t1.v = 3
-int_for_kill_t2.v = 6
-int_for_kill_t3.v = 12
+int_for_kill_t0.v = 1.25
+int_for_kill_t1.v = 2.5
+int_for_kill_t2.v = 5
+int_for_kill_t3.v = 10
