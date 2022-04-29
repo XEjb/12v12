@@ -2,6 +2,12 @@ Kicks = Kicks or {}
 
 _G.tUserIds = {}
 
+Kicks.supporters_kick_threshold = {
+	[0] = 0.6,
+	[1] = 0.7,
+	[2] = 0.8,
+}
+
 function Kicks:Init()
 	self.time_to_voting = 40
 	self.votes_for_kick = 6 -- Now redefined on each voting start
@@ -166,7 +172,9 @@ function Kicks:UpdateVotingForKick()
 			end
 		end
 	end
-	self.votes_for_kick = math.floor(max_voices_in_team * 0.60)
+	
+	local kick_threshold = self.supporters_kick_threshold[Supporters:GetLevel(self.voting.target)]
+	self.votes_for_kick = math.floor(max_voices_in_team * kick_threshold)
 end
 
 function Kicks:SendDegugResult(data, text)
@@ -271,7 +279,6 @@ function Kicks:InitKickFromPlayerUI(data)
 	local target_id = data.target_id
 	if not player_id or not target_id then return end
 
-	if Supporters:GetLevel(player_id) < 1 then return end
 	if PlayerResource:GetTeam(player_id) ~= PlayerResource:GetTeam(target_id) then return end
 
 	local player = PlayerResource:GetPlayer(player_id)
