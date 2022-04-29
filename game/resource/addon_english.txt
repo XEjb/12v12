@@ -120,7 +120,7 @@
 		"DOTA_Tooltip_ability_luna_moon_glaive_fountain_Description"			"Can attack multiple players."
 
 		"DOTA_Tooltip_ability_item_banhammer"						"Kick Troll"
-		"DOTA_Tooltip_ability_item_banhammer_Description"			"<h1>Use: Start Kick Vote</h1>Vote to kick a trolling allied player from the game. Should only be used against genuine trolls. Supporters are immune to Kick Troll item."
+		"DOTA_Tooltip_ability_item_banhammer_Description"			"<h1>Use: Start Kick Vote</h1>Vote to kick a trolling allied player from the game. Should only be used against genuine trolls. Supporters require more votes to be kicked."
 		"DOTA_Tooltip_ability_item_banhammer_Lore"					"With Great Power Comes Great Responsibility."
 
 		"DOTA_Tooltip_modifier_troll_feed_token_couter"					"Troll Feed Token"
