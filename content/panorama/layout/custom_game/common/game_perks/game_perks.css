@@ -96,12 +96,8 @@
 #CloseGamePerks:hover {
 	brightness: 1.5;
 }
-/*#PerksGrid {*/
-/*	width: 100%;*/
-/*}*/
 #GamePerksTierList {
-	/*width: 100%;*/
-	padding-top: 7px;
+	padding: 7px 17px 0 0;
 	flow-children: right;
 	overflow: squish scroll;
 	horizontal-align: center;
