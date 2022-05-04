@@ -25,7 +25,6 @@ local TROLL_FEED_FORBIDDEN_TO_BUY_ITEMS = {
 	item_smoke_of_deceit = true,
 	item_ward_observer = true,
 	item_ward_sentry = true,
-	item_tome_of_knowledge = true,
 }
 
 --Requirements to Buy Divine Rapier
@@ -151,7 +150,7 @@ function CMegaDotaGameMode:InitGameMode()
 	GameRules:SetCustomGameBansPerTeam(12)
 
 	GameRules:GetGameModeEntity():SetUseDefaultDOTARuneSpawnLogic(true)
-	
+
 	GameRules:GetGameModeEntity():SetTowerBackdoorProtectionEnabled( true )
 	GameRules:GetGameModeEntity():SetPauseEnabled(IsInToolsMode())
 	GameRules:SetGoldTickTime( 0.3 ) -- default is 0.6
@@ -179,7 +178,7 @@ function CMegaDotaGameMode:InitGameMode()
 	ListenToGameEvent('player_disconnect', Dynamic_Wrap(CMegaDotaGameMode, 'OnPlayerDisconnect'), self)
 	ListenToGameEvent( "player_chat", Dynamic_Wrap( CMegaDotaGameMode, "OnPlayerChat" ), self )
 	ListenToGameEvent("dota_player_learned_ability", 	Dynamic_Wrap(CMegaDotaGameMode, "OnPlayerLearnedAbility" ),  self)
-	
+
 	self.m_CurrentGoldScaleFactor = GOLD_SCALE_FACTOR_INITIAL
 	self.m_CurrentXpScaleFactor = XP_SCALE_FACTOR_INITIAL
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 5 )
@@ -968,7 +967,7 @@ end
 
 function CMegaDotaGameMode:OnMatchDone(keys)
 	local couriers = FindUnitsInRadius(DOTA_TEAM_GOODGUYS, Vector( 0, 0, 0 ), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_COURIER, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false )
-		
+
 	for i = 0, 23 do
 		if PlayerResource:IsValidPlayerID( i ) then
 			local stats = CUSTOM_GAME_STATS[i]
@@ -1102,9 +1101,49 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 		global_dummy:AddNewModifier(global_dummy, nil, "modifier_global_dummy_custom", { duration = -1 })
 	end
 
+	-- Runs at game time 0:00
 	if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-		
+
 		ShuffleTeam:GiveBonusToWeakTeam()
+
+		-- Add tome of knowledge to 5 lowest XP players on each team
+		local player_ids = {[2] = {}, [3] = {}}
+
+		for player_id = 0, 23 do
+			local team_id = PlayerResource:GetTeam(player_id)
+
+			if team_id ~= 0 then
+				table.insert(player_ids[team_id], player_id)
+			end
+		end
+
+		Timers:CreateTimer(600, function()
+			for team_id = 2, 3 do
+				-- Sort table from lowest xp to highest, excluding abandoned players
+				table.sort(player_ids[team_id], function(a, b)
+					return PlayerResource:GetTotalEarnedXP(a) < PlayerResource:GetTotalEarnedXP(b)
+				end)
+
+				local count = 5
+
+				for _, player_id in pairs(player_ids[team_id]) do
+					-- Don't give tomes to abandoned players
+					if not abandoned_players[player_id] then
+						local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+
+						if hero then
+							hero:AddItemByName("item_tome_of_knowledge")
+						end
+					end
+
+					count = count - 1
+
+					if count <= 0 then break end
+				end
+			end
+
+			return 600
+		end)
 
 		Convars:SetFloat("host_timescale", 1)
 		if game_start then
@@ -1151,7 +1190,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 						Timers:CreateTimer(first_dc_players[player_id] and 60 or 0, function()
 							if abandoned_players[player_id] then
 								CallbackHeroAndCourier(player_id, block_unit)
-								
+
 								local gold_for_team = PlayerResource:GetGold(player_id)
 								local connected_players_counter = 0
 								for _player_id = 0, 24 do
@@ -1415,7 +1454,7 @@ function CMegaDotaGameMode:OnConnectFull(data)
 		Kicks:DropItemsForDisconnetedPlayer(player_id)
 		SendToServerConsole('kickid '.. data.userid);
 	end
-	
+
 	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 
 	if abandoned_players[player_id] then

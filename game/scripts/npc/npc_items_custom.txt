@@ -434,12 +434,8 @@
 
 	"item_tome_of_knowledge"
 	{
-		"AbilityCooldown"				"300.0"
-		"ItemStockMax"					"5"
-		"ItemStockTime"					"600.0"
-		"ItemInitialStockTime"			"690.0"
-		"BonusDelayedStockCount"		"4"
-		"ItemPurchasable"               "1"
+		"ItemStockMax"					"0"
+		"ItemPurchasable"               "0"
 	}
 
     "item_ward_sentry"
@@ -806,9 +802,9 @@
             "ItemCost"                      "0"
             "ItemPurchasable"               "0"
     }
-    
-    
-    
+
+
+
 	"item_reset_mmr"
 	{
 		"BaseClass"						"item_lua"
@@ -831,7 +827,7 @@
 	{
 		"ItemInitialStockTime"			"690"
 	}
-	
+
 	"item_teleport_perk_0"
 	{
 		"BaseClass"						"item_lua"
@@ -839,12 +835,12 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityTextureName"	        "item_teleport_perk"
 		"ScriptFile"					"items/item_teleport_perk.lua"
- 
+
 		"AbilityManaCost"               "0"
 		"AbilityChannelTime"			"3"
 		"ItemCost"						"100"
 		"AbilityCooldown"				"90"
-		
+
 		"ItemStackable"					"0"
 		"ItemKillable"                  "1"
 		"ItemSellable"                  "1"
@@ -866,12 +862,12 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityTextureName"	        "item_teleport_perk"
 		"ScriptFile"					"items/item_teleport_perk.lua"
-		
+
 		"AbilityManaCost"               "0"
 		"AbilityChannelTime"			"3"
 		"ItemCost"						"200"
 		"AbilityCooldown"				"60"
-		
+
 		"ItemStackable"					"0"
 		"ItemKillable"                  "1"
 		"ItemSellable"                  "1"
@@ -893,12 +889,12 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityTextureName"	        "item_teleport_perk"
 		"ScriptFile"					"items/item_teleport_perk.lua"
-		
+
 		"AbilityManaCost"               "0"
 		"AbilityChannelTime"			"3"
 		"ItemCost"						"300"
 		"AbilityCooldown"				"30"
-		
+
 		"ItemStackable"					"0"
 		"ItemKillable"                  "1"
 		"ItemSellable"                  "1"
@@ -920,12 +916,12 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityTextureName"	        "item_teleport_perk"
 		"ScriptFile"					"items/item_teleport_perk.lua"
-		
+
 		"AbilityManaCost"               "0"
 		"AbilityChannelTime"			"3"
 		"ItemCost"						"400"
 		"AbilityCooldown"				"15"
-		
+
 		"ItemStackable"					"0"
 		"ItemKillable"                  "1"
 		"ItemSellable"                  "1"
@@ -949,18 +945,18 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"AbilityTextureName"	        "item_linken_perk"
 		"ScriptFile"					"items/item_linken_perk.lua"
-		
+
 		"AbilityManaCost"               "0"
 		"ItemCost"						"100"
 		"AbilityCooldown"				"60"
 		"AbilityCastRange"				"700"
-		
+
 		"ItemStackable"					"0"
 		"ItemKillable"                  "1"
 		"ItemSellable"                  "1"
 		"ItemDroppable"                 "1"
 		"ItemPurchasable"				"0"
-		
+
 		"AbilitySpecial"
 		{
 			"01"
@@ -984,18 +980,18 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"AbilityTextureName"	        "item_linken_perk"
 		"ScriptFile"					"items/item_linken_perk.lua"
-		
+
 		"AbilityManaCost"               "0"
 		"ItemCost"						"200"
 		"AbilityCooldown"				"45"
 		"AbilityCastRange"				"700"
-		
+
 		"ItemStackable"					"0"
 		"ItemKillable"                  "1"
 		"ItemSellable"                  "1"
 		"ItemDroppable"                 "1"
 		"ItemPurchasable"				"0"
-		
+
 		"AbilitySpecial"
 		{
 			"01"
@@ -1019,18 +1015,18 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"AbilityTextureName"	        "item_linken_perk"
 		"ScriptFile"					"items/item_linken_perk.lua"
-		
+
 		"AbilityManaCost"               "0"
 		"ItemCost"						"300"
 		"AbilityCooldown"				"30"
 		"AbilityCastRange"				"700"
-		
+
 		"ItemStackable"					"0"
 		"ItemKillable"                  "1"
 		"ItemSellable"                  "1"
 		"ItemDroppable"                 "1"
 		"ItemPurchasable"				"0"
-		
+
 		"AbilitySpecial"
 		{
 			"01"
@@ -1054,18 +1050,18 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"AbilityTextureName"	        "item_linken_perk"
 		"ScriptFile"					"items/item_linken_perk.lua"
-		
+
 		"AbilityManaCost"               "0"
 		"ItemCost"						"300"
 		"AbilityCooldown"				"15"
 		"AbilityCastRange"				"700"
-		
+
 		"ItemStackable"					"0"
 		"ItemKillable"                  "1"
 		"ItemSellable"                  "1"
 		"ItemDroppable"                 "1"
 		"ItemPurchasable"				"0"
-		
+
 		"AbilitySpecial"
 		{
 			"01"
@@ -1080,6 +1076,6 @@
 			}
 		}
 	}
-	
+
 	//NEXT IT 20024
 }
