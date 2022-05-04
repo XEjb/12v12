@@ -31,8 +31,10 @@ end
 function modifier_global_dummy_custom:OnTakeDamage(event)
 	if not IsServer() then return end
 	if event.damage <= 0 then return end
+	local target = event.unit
+	if not target or target:IsNull() or not target:IsRealHero() or target:IsIllusion() then return end
 
-	local target_id = event.unit.GetPlayerOwnerID and event.unit:GetPlayerOwnerID()
+	local target_id = target.GetPlayerOwnerID and target:GetPlayerOwnerID()
 	if not target_id or not CUSTOM_GAME_STATS[target_id] then return end
 	
 	CUSTOM_GAME_STATS[target_id].damage_taken = CUSTOM_GAME_STATS[target_id].damage_taken + event.original_damage

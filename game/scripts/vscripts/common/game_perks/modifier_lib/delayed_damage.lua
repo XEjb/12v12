@@ -1,11 +1,20 @@
 TICK_RATE = 0.25
 require("common/game_perks/base_game_perk")
 
+MODIFIERS_BLACK_LIST_FOR_APPLY_DELAYED_DAMAGE = {
+	["modifier_skeleton_king_reincarnation_scepter_active"] = true,
+}
+
 delayed_damage = class(base_game_perk)
 function delayed_damage:GetTexture() return "perkIcons/delayed_damage" end
 function delayed_damage:OnIntervalThink()
 	if not IsServer() then return end
 	local parent = self:GetParent()
+	
+	for _modifier_name, _ in pairs(MODIFIERS_BLACK_LIST_FOR_APPLY_DELAYED_DAMAGE) do
+		if parent:HasModifier(_modifier_name) then return end
+	end
+	
 	local damage_stacks = self:GetParent():FindAllModifiersByName("modifier_delayed_damage")
 	
 	for _, mod in pairs(damage_stacks) do
@@ -50,6 +59,15 @@ function modifier_delayed_damage:RemoveOnDeath() return true end
 function modifier_delayed_damage:IsHidden() return true end
 function modifier_delayed_damage:OnCreated(params)
 	if not IsServer() then return end
+
+
+	local parent = self:GetParent()
+	for _modifier_name, _ in pairs(MODIFIERS_BLACK_LIST_FOR_APPLY_DELAYED_DAMAGE) do
+		if parent:HasModifier(_modifier_name) then
+			self:Destroy()
+			return
+		end
+	end
 
 	self.attacker = EntIndexToHScript(params.attacker_ent)
 	self.damage_type = params.damage_type
