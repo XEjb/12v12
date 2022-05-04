@@ -27,7 +27,7 @@ local rearm_black_list = {
 
 function tinker_rearm_custom:IsStealable() return false end
 
-function tinker_rearm_custom:OnSpellStart()	
+function tinker_rearm_custom:OnSpellStart()
 	local caster = self:GetCaster()
 	if not caster or caster:IsNull() then return end
 

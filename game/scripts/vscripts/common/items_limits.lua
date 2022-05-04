@@ -27,7 +27,6 @@ local maxItemsForPlayer = {
 _G.itemsCooldownForPlayer = {
 	["item_disable_help_custom"] = 10,
 	["item_mute_custom"] = 10,
-	["item_tome_of_knowledge"] = 300,
 	["item_banhammer"] = 600,
 	["item_reset_mmr"] = 20,
 }
@@ -66,7 +65,7 @@ function CDOTA_BaseNPC:FakeBuyItem(item_name)
 	new_item:SetPurchaser(self)
 	new_item.transfer = true
 	self:AddItem(new_item)
-	
+
 	return new_item
 end
 
@@ -98,7 +97,7 @@ end
 function CDOTA_Item:TransferToBuyer(unit)
 	local buyer = self:GetPurchaser()
 	local itemName = self:GetName()
-	
+
 	if notFastItems[itemName] then
 		self:SetCooldownStackedItem(itemName, buyer)
 		return
@@ -159,13 +158,13 @@ function CDOTA_BaseNPC:CheckPersonalCooldown(item, _itemName , b_no_item, messag
 	end
 	if not item or (item.IsNull and item:IsNull()) then return end
 	if not self:DoesHeroHasFreeSlot() then return end
-	
+
 	local buyerEntIndex = self:GetEntityIndex()
-	local itemName = _itemName or item:GetAbilityName() 
+	local itemName = _itemName or item:GetAbilityName()
 	local unique_key = itemName .. "_" .. buyerEntIndex
-	
+
 	if not item.transfer then return true end
-	
+
 	local playerID = self:GetPlayerID()
 	local supporter_level = Supporters:GetLevel(playerID)
 
