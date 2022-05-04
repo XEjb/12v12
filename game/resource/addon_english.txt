@@ -1946,7 +1946,7 @@
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 has been disconnected for too long and has been removed from the game."
 		"sc_mute_date"	"You are muted for the next %%days%% days %%hours%% hours %%mins%% minutes"
 		
-		"cannot_use_it_for_now"	"You cannot use it for now"
+		"cannot_use_it_for_now"	"You cannot start another Vote Kick until 10 minutes after the previous one"
 
 		"DOTA_Tooltip_ability_item_arcane_blink_Note2"							"\nPercentage-based cooldown reductions do not stack, the highest value takes priority."
 		"DOTA_Tooltip_ability_item_octarine_core_Note0"							"Percentage-based cooldown reductions do not stack, the highest value takes priority."
