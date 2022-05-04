@@ -279,6 +279,7 @@ function Kicks:InitKickFromPlayerUI(data)
 	local target_id = data.target_id
 	if not player_id or not target_id then return end
 
+	if Supporters:GetLevel(player_id) < 1 then return end
 	if PlayerResource:GetTeam(player_id) ~= PlayerResource:GetTeam(target_id) then return end
 
 	local player = PlayerResource:GetPlayer(player_id)
@@ -289,18 +290,12 @@ function Kicks:InitKickFromPlayerUI(data)
 	end
 
 	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
-	local target_supp_level = Supporters:GetLevel(target_id)
 	
-	if (target_supp_level > 0) then
-		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#cannotkickotherpatreons" })
-		return
-	else
-		if hero:CheckPersonalCooldown(nil, "item_banhammer", true, "#cannot_use_it_for_now", true) then
-			Kicks:InitKickFromPlayerToPlayer({
-				target_id = target_id,
-				caster_id = player_id
-			})
-		end
+	if hero:CheckPersonalCooldown(nil, "item_banhammer", true, "#cannot_use_it_for_now", true) then
+		Kicks:InitKickFromPlayerToPlayer({
+			target_id = target_id,
+			caster_id = player_id
+		})
 	end
 end
 
@@ -332,37 +327,30 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 	end
 
 	if caster:IsRealHero() then
-		local supporter_level = Supporters:GetLevel(target_id)
-
 		if target:IsRealHero() and target:IsControllableByAnyPlayer() and not target:IsTempestDouble() then
-			if (supporter_level > 0) then
-				CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#cannotkickotherpatreons" })
-				return INIT_KICK_FAIL
-			else
-				if not Kicks.voting then
-					
-					if caster_id and self:IsPlayerWarning(caster_id) then
-						CustomGameEventManager:Send_ServerToPlayer(caster_player, "custom_hud_message:send", { message = "#voting_to_kick_warning" })
-					end
-					
-					Kicks:PreVoting(caster_id, target_id)
-
-					CustomGameEventManager:Send_ServerToPlayer(caster_player, "voting_to_kick_show_reason", { target_id = target_id })
-
-					GameRules:SendCustomMessage("#alert_for_ban_message_1", caster_id, 0)
-					GameRules:SendCustomMessage("#alert_for_ban_message_2", target_id, 0)
-
-					local all_heroes = HeroList:GetAllHeroes()
-					for _, hero in pairs(all_heroes) do
-						if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
-							EmitSoundOn("Hero_Chen.HandOfGodHealHero", hero)
-						end
-					end
-					return INIT_KICK_SUCCESSFUL
-				else
-					CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_voiting_for_now" })
-					return INIT_KICK_FAIL
+			if not Kicks.voting then
+				
+				if caster_id and self:IsPlayerWarning(caster_id) then
+					CustomGameEventManager:Send_ServerToPlayer(caster_player, "custom_hud_message:send", { message = "#voting_to_kick_warning" })
 				end
+				
+				Kicks:PreVoting(caster_id, target_id)
+
+				CustomGameEventManager:Send_ServerToPlayer(caster_player, "voting_to_kick_show_reason", { target_id = target_id })
+
+				GameRules:SendCustomMessage("#alert_for_ban_message_1", caster_id, 0)
+				GameRules:SendCustomMessage("#alert_for_ban_message_2", target_id, 0)
+
+				local all_heroes = HeroList:GetAllHeroes()
+				for _, hero in pairs(all_heroes) do
+					if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
+						EmitSoundOn("Hero_Chen.HandOfGodHealHero", hero)
+					end
+				end
+				return INIT_KICK_SUCCESSFUL
+			else
+				CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_voiting_for_now" })
+				return INIT_KICK_FAIL
 			end
 		end
 	end
