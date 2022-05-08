@@ -1133,10 +1133,10 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 						if hero then
 							hero:AddItemByName("item_tome_of_knowledge")
+								
+							count = count - 1
 						end
 					end
-
-					count = count - 1
 
 					if count <= 0 then break end
 				end
