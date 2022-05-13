@@ -1108,7 +1108,7 @@
         "AbilityValues" 
         {
             "xp_bonus"              "700"
-            "xp_per_minute"         "33"
+            "xp_per_ten_minutes"         "300"
         }
     }
 
