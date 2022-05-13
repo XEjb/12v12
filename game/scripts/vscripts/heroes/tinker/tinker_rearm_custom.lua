@@ -14,7 +14,7 @@ local rearm_black_list = {
 	["item_necronomicon_2"] = true,
 	["item_necronomicon_3"] = true,
 	["item_pipe"] = true,
-	["item_tome_of_knowledge"] = true,
+	["item_tome_of_knowledge_lua"] = true,
 	["item_refresher"] = true,
 	--[[ Still default black list, but not published in description ]]--
 	["item_helm_of_the_overlord"] = true,

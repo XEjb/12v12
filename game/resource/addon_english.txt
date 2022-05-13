@@ -1994,5 +1994,10 @@
 
 		"DOTA_Tooltip_modifier_gold_bonus"													"Bonus Gold"
 		"DOTA_Tooltip_modifier_gold_bonus_Description"										"Gaining additional gold for picking hero with low winrate."
+
+		"DOTA_Tooltip_Ability_item_tome_of_knowledge_lua"							"Tome of Knowledge"
+
+		"DOTA_Tooltip_Ability_item_tome_of_knowledge_lua_Description"				"<h1>Use: Enlighten</h1>Grants you %xp_bonus% experience plus %xp_per_minute% per every minute of game."
+		"DOTA_Tooltip_Ability_item_tome_of_knowledge_lua_Lore"						"That which raises beast to man and man to god."
 	}
 }

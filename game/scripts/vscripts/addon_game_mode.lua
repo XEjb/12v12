@@ -1131,8 +1131,8 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 					if not abandoned_players[player_id] then
 						local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 
-						if hero then
-							hero:AddItemByName("item_tome_of_knowledge")
+						if hero and hero:GetLevel() < 30 then
+							hero:AddItemByName("item_tome_of_knowledge_lua")
 								
 							count = count - 1
 						end

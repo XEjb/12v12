@@ -1077,5 +1077,40 @@
 		}
 	}
 
-	//NEXT IT 20024
+    "item_tome_of_knowledge_lua"
+    {
+        "ID"                            "20024"
+        "BaseClass"                     "item_lua"
+        "ScriptFile"                    "items/item_tome_of_knowledge.lua"
+
+        "AbilityTextureName"            "item_tome_of_knowledge"
+
+        "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+        "FightRecapLevel"               "1"
+
+        "ItemCost"                      "75"
+        "ItemShopTags"                  "consumable"
+        "ItemQuality"                   "consumable"
+        "ItemAliases"                   "tome of knowledge"
+        "ItemStackable"                 "0"
+        "ItemShareability"              "ITEM_FULLY_SHAREABLE"
+        "AbilitySharedCooldown"         "tome"
+        "ItemPermanent"                 "0"
+        "ItemInitialCharges"            "1"
+        "ItemDisplayCharges"            "1"
+        "ItemDeclarations"              "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+        "ItemSupport"                   "1" 
+        "IsTempestDoubleClonable"       "0"
+
+        "ItemStockMax"                  "0"
+        "ItemPurchasable"               "0"
+
+        "AbilityValues" 
+        {
+            "xp_bonus"              "700"
+            "xp_per_minute"         "33"
+        }
+    }
+
+	//NEXT IT 20025
 }
