@@ -1994,5 +1994,10 @@
 
 		"DOTA_Tooltip_modifier_gold_bonus"													"额外金钱"
 		"DOTA_Tooltip_modifier_gold_bonus_Description"										"选择低胜率英雄可获得额外金币。"
+
+		"DOTA_Tooltip_Ability_item_tome_of_knowledge_lua"							"知识典籍"
+
+		"DOTA_Tooltip_Ability_item_tome_of_knowledge_lua_Description"				"<h1>使用：启蒙</h1>每分钟游戏时间提供%xp_bonus%经验加%xp_per_minute%。"
+		"DOTA_Tooltip_Ability_item_tome_of_knowledge_lua_Lore"						"让野兽成为人，让人成为神。"
 	}
 }
