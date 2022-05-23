@@ -14,7 +14,7 @@ function Kicks:Init()
 	self.voting = nil
 	self.kicks_id = {}
 	self.pre_voting = {}
-	
+
 	self.reasons_for_kick = {
 		["feeding"] = true,
 		["ability_abuse"] = true,
@@ -60,7 +60,7 @@ end
 
 function Kicks:GetSupplevel(player_id)
 	if not player_id then return end
-	
+
 	local supp_level = Supporters:GetLevel(player_id)
 	if not supp_level then return end
 	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "voting_for_kick:set_supp_level", {
@@ -81,31 +81,31 @@ function Kicks:Report(player_id)
 
 	self.voting.players_reports[player_id] = true
 	self.voting.reports_count = self.voting.reports_count + 1
-	
+
 	local init_pid = self.voting.init
-	
+
 	if self.voting.reports_count >= 6 then
 		self:StopVoting(false)
 		self.stats[init_pid].voting_reported = self.stats[init_pid].voting_reported + 1
 	end
-	
+
 	self.stats[init_pid].reports = self.stats[init_pid].reports + 1
 end
 
 function Kicks:StartVoting(data)
 	local player_init_id = data.PlayerID
 	if not player_init_id then return end
-	
+
 	if self.voting then
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "display_custom_error", { message = "#voting_to_kick_voiting_for_now" })
 		return
 	end
-	
+
 	local player_init = PlayerResource:GetPlayer(player_init_id)
 	local team = player_init:GetTeam()
 
 	if not self.reasons_for_kick[data.reason] then return end
-	
+
 	local player_target_id = self.pre_voting[player_init_id]
 
 	self.voting = {
@@ -120,14 +120,14 @@ function Kicks:StartVoting(data)
 	}
 
 	self.stats[data.PlayerID].voting_start = self.stats[data.PlayerID].voting_start + 1
-	
+
 	self.voting.playersVoted[data.PlayerID] = true
 	self:UpdateVotingForKick()
-	
+
 	local all_heroes = HeroList:GetAllHeroes()
 	for _, hero in pairs(all_heroes) do
 		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() and (hero:GetTeam() == team)then
-			EmitSoundOn("Hero_Chen.TeleportOut", hero)
+			EmitSoundOn("CustomSounds.Bonk", hero)
 		end
 	end
 
@@ -157,8 +157,8 @@ function Kicks:UpdateVotingForKick()
 	local voted_parties = {}
 	for playerId = 0, 24 do
 		local connectionState = PlayerResource:GetConnectionState(playerId)
-		
-		if PlayerResource:IsValidPlayerID(playerId) 
+
+		if PlayerResource:IsValidPlayerID(playerId)
 		and PlayerResource:GetTeam(self.voting.target) == PlayerResource:GetTeam(playerId)
 		and connectionState ~= DOTA_CONNECTION_STATE_ABANDONED then
 			local party = tostring(PlayerResource:GetPartyID(playerId));
@@ -172,7 +172,7 @@ function Kicks:UpdateVotingForKick()
 			end
 		end
 	end
-	
+
 	local kick_threshold = self.supporters_kick_threshold[Supporters:GetLevel(self.voting.target)]
 	self.votes_for_kick = math.floor(max_voices_in_team * kick_threshold)
 end
@@ -181,7 +181,7 @@ function Kicks:SendDegugResult(data, text)
 	for player_id = 0, 24 do
 		if self.debug_steam_ids[PlayerResource:GetSteamAccountID(player_id)] then
 			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "voting_to_kick_debug_print", {
-				playerVotedId = data.PlayerID, 
+				playerVotedId = data.PlayerID,
 				vote = text,
 				total = self.votes_for_kick
 			})
@@ -203,14 +203,14 @@ function Kicks:GetVoteWeight(player_id)
 			return 0.5
 		end
 	end
-	
+
 	return 1
 end
 
 function Kicks:VoteYes(data)
 	if not self.voting then return end
 	if self.voting.playersVoted[data.PlayerID] then return end -- Player can't vote twise
-	
+
 	self.voting.votes = self.voting.votes + self:GetVoteWeight(data.PlayerID)
 	self.voting.playersVoted[data.PlayerID] = true
 	self:SendDegugResult(data, "YES TOTAL VOICES: "..self.voting.votes)
@@ -220,7 +220,7 @@ function Kicks:VoteYes(data)
 		SendToServerConsole('kickid '.. _G.tUserIds[self.voting.target]);
 		self:StopVoting(true)
 	end
-	
+
 	self:UpdateVotingForKick()
 end
 
@@ -249,12 +249,12 @@ function Kicks:DropItemsForDisconnetedPlayer(player_id)
 		print("Add neutral to stash (disconnected player)")
 		AddNeutralItemToStashWithEffects(player_id, hero:GetTeam(), neutral_item)
 	end
-	
+
 	local home_shop_pos = {
 		[DOTA_TEAM_BADGUYS] = Vector(6980, 6334, 390),
 		[DOTA_TEAM_GOODGUYS] = Vector(-7045, -6480, 384)
 	}
-	
+
 	local team = hero:GetTeamNumber()
 	if not team or not home_shop_pos[team] then return end
 
@@ -283,14 +283,14 @@ function Kicks:InitKickFromPlayerUI(data)
 	if PlayerResource:GetTeam(player_id) ~= PlayerResource:GetTeam(target_id) then return end
 
 	local player = PlayerResource:GetPlayer(player_id)
-	
+
 	if GameRules:GetDOTATime(false,false) < 300 then
 		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#notyettime" })
 		return
 	end
 
 	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
-	
+
 	if hero:CheckPersonalCooldown(nil, "item_banhammer", true, "#cannot_use_it_for_now", true) then
 		Kicks:InitKickFromPlayerToPlayer({
 			target_id = target_id,
@@ -306,7 +306,7 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 	local caster_id = data.caster_id
 
 	if not target_id or not caster_id then return end
-	
+
 	local target = PlayerResource:GetSelectedHeroEntity(target_id)
 	local caster = PlayerResource:GetSelectedHeroEntity(caster_id)
 	if not target or not caster then return end
@@ -329,11 +329,11 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 	if caster:IsRealHero() then
 		if target:IsRealHero() and target:IsControllableByAnyPlayer() and not target:IsTempestDouble() then
 			if not Kicks.voting then
-				
+
 				if caster_id and self:IsPlayerWarning(caster_id) then
 					CustomGameEventManager:Send_ServerToPlayer(caster_player, "custom_hud_message:send", { message = "#voting_to_kick_warning" })
 				end
-				
+
 				Kicks:PreVoting(caster_id, target_id)
 
 				CustomGameEventManager:Send_ServerToPlayer(caster_player, "voting_to_kick_show_reason", { target_id = target_id })
@@ -344,7 +344,7 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 				local all_heroes = HeroList:GetAllHeroes()
 				for _, hero in pairs(all_heroes) do
 					if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
-						EmitSoundOn("Hero_Chen.HandOfGodHealHero", hero)
+						EmitSoundOn("CustomSounds.Bonk", hero)
 					end
 				end
 				return INIT_KICK_SUCCESSFUL
@@ -360,7 +360,7 @@ function Kicks:CheckPartyBan(player_id)
 	local source_party_id = tonumber(tostring(PlayerResource:GetPartyID(player_id)))
 	if not source_party_id then return true end
 	if source_party_id == 0 then return false end
-	
+
 	for i = 0, 24 do
 		local focus_party_id = tonumber(tostring(PlayerResource:GetPartyID(i)))
 		if focus_party_id and (focus_party_id == source_party_id) then
