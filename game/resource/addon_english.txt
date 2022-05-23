@@ -102,6 +102,7 @@
 		"nopatreonerror2"											"Only Hi-Level Supporters (25$) can use this item"
 		"notyettime"												"Cannot kick trolls in the first 5 minutes"
 		"block_spawn_error"											"Cannot block your team's neutral camps"
+		"cannot_cast_on_tree_dance"									"Cannot cut down an ally's tree dance tree"
 
 		"DOTA_Tooltip_ability_special_bonus_unique_mirana_4"		"-20s Moonlight Shadow Cooldown"
 
@@ -924,7 +925,7 @@
 		"DOTA_Tooltip_family_t0" 						"Family"
 		"DOTA_Tooltip_family_t0_Description"			"Grants a random perk from 1 tier higher"
 		"family_t3"										"Impossible"
-		
+
 		"tinkerer_t0"								"Basic Tinkerer"
 		"tinkerer_t0_tooltip"						"Your equipped neutral item has +25% stats<br><br>The equipped neutral item's stats <font color='#B694FF'>are not visually updated</font> to reflect this bonus.<br><br>You may need to re-equip your neutral item to update its stats.<br><br>Does not affect cooldown reduction."
 		"DOTA_Tooltip_tinkerer_t0"					"Personal Perk: Tinkerer"
@@ -937,7 +938,7 @@
 		"tinkerer_t3"								"Family Tinkerer"
 		"tinkerer_t3_tooltip"						"Your equipped neutral item has +200% stats<br><br>The equipped neutral item's stats <font color='#B694FF'>are not visually updated</font> to reflect this bonus.<br><br>You may need to re-equip your neutral item to update its stats.<br><br>Does not affect cooldown reduction."
 		"DOTA_Tooltip_tinkerer_t3"					"Personal Perk: Tinkerer"
-		
+
 		"attack_speed_t0"							"Basic Attack Speed"
 		"attack_speed_t0_tooltip"					"+7.5 Attack Speed and +0.75 Per Level"
 		"DOTA_Tooltip_attack_speed_t0"				"Personal Perk: Attack Speed"
@@ -950,7 +951,7 @@
 		"attack_speed_t3"							"Family Attack Speed"
 		"attack_speed_t3_tooltip"					"+60 Attack Speed and +6 Per Level"
 		"DOTA_Tooltip_attack_speed_t3"				"Personal Perk: Attack Speed"
-		
+
 		"armor_t0"									"Basic Armor"
 		"armor_t0_tooltip"							"+6 Bonus Armor"
 		"DOTA_Tooltip_armor_t0"						"Personal Perk: Armor"
@@ -963,7 +964,7 @@
 		"armor_t3"									"Family Armor"
 		"armor_t3_tooltip"							"+48 Bonus Armor"
 		"DOTA_Tooltip_armor_t3"						"Personal Perk: Armor"
-		
+
 		"cast_time_t0"								"Arcanist Student"
 		"cast_time_t0_tooltip"						"Shortens cast points by 25%"
 		"DOTA_Tooltip_cast_time_t0"					"Personal Perk: Arcanist"
@@ -980,8 +981,8 @@
 		"cast_time_t3_tooltip"						"Shortens cast points by 100%"
 		"DOTA_Tooltip_cast_time_t3"					"Personal Perk: Arcanist"
 		"DOTA_Tooltip_cast_time_t3_Description"		"Shortens cast points"
-		
-		
+
+
 		"HighSupportersOnly"						"High Supporters Only"
 		"SupportersOnly"							"Supporters Only"
 
@@ -1945,7 +1946,7 @@
 		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 has been disconnected for too long and has been removed from the game."
 		"sc_mute_date"	"You are muted for the next %%days%% days %%hours%% hours %%mins%% minutes"
-		
+
 		"cannot_use_it_for_now"	"You cannot start another Vote Kick until 10 minutes after the previous one"
 
 		"DOTA_Tooltip_ability_item_arcane_blink_Note2"							"\nPercentage-based cooldown reductions do not stack, the highest value takes priority."
@@ -1954,7 +1955,7 @@
 		"DOTA_Tooltip_ability_item_quickening_charm_Note0"						"Percentage-based cooldown reductions do not stack, the highest value takes priority."
 		"DOTA_Tooltip_ability_dazzle_bad_juju_Note0"							"Percentage-based cooldown reductions do not stack, the highest value takes priority."
 		"DOTA_Tooltip_modifier_stronger_builds"		"Stronger Build"
-		
+
 		"EG_Moonshard_Title"				"Moonshard availability"
 		"EG_Moonshard_Description"			"Not owned"
 		"EG_Perk_Title"						"Personal Perk"
@@ -1971,18 +1972,18 @@
 		"custom_end_heal"				"Total Healing"
 		"custom_end_wards"				"Observers/Sentries"
 		"custom_end_kills"				"Killed Enemies"
-		
+
 		"voting_to_kick_warning"				"You have a considerable amount of reports due to misuse of the vote kick function. Try to start vote kicks only with good reason, or you might be banned from using this function."
 		"voting_to_kick_cannot_kick_ban"		"You cannot start a vote to kick other players due to excessive reports."
 		"voting_to_kick_cannot_kick_ban_party"	"A member of your party is currently banned from vote kicking due to excessive reports."
 		"dotau_hud_message_close"				"Click to close"
-		
+
 		"git_new_issue"		"Create Issue"
 		"git_show_issues"	"Show Issues"
 		"cannot_relocate_enemy_fountain"	"You cannot use Relocate in enemy fountain area"
 		"wards_holding_warning"				"Warning: Wards in your inventory will expire if not planted in the next 2 minutes."
-		
-		
+
+
 		"DOTA_Tooltip_ability_tinker_rearm_custom"											"Rearm"
 		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitydraft_note"						"For abilities with charges, a single charge of the ability will be added everytime Rearm is cast."
 		"DOTA_Tooltip_ability_tinker_rearm_custom_Description"								"CHANNELED - Resets the cooldown on most of Tinker's items and abilities."

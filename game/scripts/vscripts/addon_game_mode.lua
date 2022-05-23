@@ -1555,6 +1555,112 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		end
 	end
 
+	-- Check an aoe around orderVector
+	local mk_trolling_abilities_target = {
+		["item_quelling_blade"] = 100,
+		["item_bfury"] = 100,
+		["item_tango"] = 100,
+		["item_tango_single"] = 100,
+		["tiny_tree_grab"] = 100,
+		["dark_seer_vacuum"] = 125,
+		["dawnbreaker_solar_guardian"] = 300,
+		["enigma_midnight_pulse"] = 750,
+		["item_fallen_sky"] = 315,
+		["wisp_relocate"] = 150,
+		["keeper_of_the_light_will_o_wisp"] = 725,
+		["leshrac_split_earth"] = 265 + 75 * 3,
+		["lina_light_strike_array"] = 250,
+		["mars_arena_of_blood"] = 825,
+		["furion_force_of_nature"] = 375,
+		["techies_suicide"] = 150,
+		["undying_tombstone"] = 300,
+		["vengefulspirit_nether_swap"] = 300,
+		["warlock_rain_of_chaos"] = 600,
+	}
+
+	-- Check a radius around caster
+	local mk_trolling_abilities_aoe = {
+		["shredder_whirling_death"] = 325,
+		["visage_gravekeepers_cloak"] = 350,
+		["vengefulspirit_nether_swap"] = 300,
+		["skeleton_king_vampiric_aura"] = 250,
+	}
+
+	-- Check a line between caster and orderVector
+	-- {distance, width}
+	local mk_trolling_abilities_line = {
+		["shredder_timber_chain"] = {1340, 100},
+		["shredder_chakram"] = {"past_target", 200},
+		["shredder_chakram_2"] = {"past_target", 200},
+		["dawnbreaker_fire_wreath"] = {150 + 120 + 215 * 1.1, 200},
+		["earth_spirit_boulder_smash"] = {2000, 100},
+		["earth_spirit_rolling_boulder"] = {1500, 100},
+		["windrunner_powershot"] = {2600, 75},
+		["dawnbreaker_celestial_hammer"] = {1300, 100},
+		["earth_spirit_geomagnetic_grip"] = {1100, 100},
+		["magnataur_skewer"] = {"past_target", 200},
+		["storm_spirit_ball_lightning"] = {"past_target", 100},
+	}
+
+	if orderType == DOTA_UNIT_ORDER_CAST_POSITION or orderType == DOTA_UNIT_ORDER_CAST_TARGET_TREE and abilityName then
+		if orderType == DOTA_UNIT_ORDER_CAST_TARGET_TREE then
+
+			local treeID = filterTable.entindex_target
+			local tree_index = GetEntityIndexForTreeId(treeID)
+			local tree_handle = EntIndexToHScript(tree_index)
+			orderVector = tree_handle:GetAbsOrigin()
+		end
+
+		if orderVector ~= Vector(0, 0, 0) then
+			if mk_trolling_abilities_target[abilityName] then
+				local aoe = mk_trolling_abilities_target[abilityName] + 32
+				local allies = FindUnitsInRadius(unit:GetTeamNumber(), orderVector, nil, aoe, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
+
+				for _, ally in pairs(allies) do
+					if ally ~= unit and ally:HasModifier("modifier_monkey_king_bounce_perch") then
+						CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#cannot_cast_on_tree_dance" })
+						return false
+					end
+				end
+			end
+
+			if mk_trolling_abilities_line[abilityName] then
+				local distance = mk_trolling_abilities_line[abilityName][1]
+				local width = mk_trolling_abilities_line[abilityName][2] + 32
+
+				-- For abilities which have to be targeted past the trees broken location, check up to the location it was targeted
+				if distance == "past_target" then
+					distance = (orderVector - unit:GetAbsOrigin()):Length2D() + mk_trolling_abilities_line[abilityName][2]
+				end
+
+				local end_pos = unit:GetAbsOrigin() + (orderVector - unit:GetAbsOrigin()):Normalized() * distance
+
+				local allies = FindUnitsInLine(unit:GetTeamNumber(), unit:GetAbsOrigin(), end_pos, nil, width, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE)
+
+				for _, ally in pairs(allies) do
+					if ally ~= unit and ally:HasModifier("modifier_monkey_king_bounce_perch") then
+						CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#cannot_cast_on_tree_dance" })
+						return false
+					end
+				end
+			end
+		end
+	end
+
+	if orderType == DOTA_UNIT_ORDER_CAST_NO_TARGET and abilityName then
+		if mk_trolling_abilities_aoe[abilityName] then
+			local aoe = mk_trolling_abilities_aoe[abilityName] + 32
+			local allies = FindUnitsInRadius(unit:GetTeamNumber(), unit:GetAbsOrigin(), nil, aoe, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
+
+			for _, ally in pairs(allies) do
+				if ally ~= unit and ally:HasModifier("modifier_monkey_king_bounce_perch") then
+					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#cannot_cast_on_tree_dance" })
+					return false
+				end
+			end
+		end
+	end
+
 	local itemsToBeDestroy = {
 		["item_disable_help_custom"] = true,
 		["item_mute_custom"] = true,
