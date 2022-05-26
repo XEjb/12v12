@@ -1133,7 +1133,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 						if hero and hero:GetLevel() < 30 then
 							hero:AddItemByName("item_tome_of_knowledge_lua")
-								
+
 							count = count - 1
 						end
 					end
@@ -3638,33 +3638,6 @@ RegisterCustomEventListener("patreon_update_chat_wheel_favorites", function(data
 		WebApi.player_settings[data.PlayerID].chatWheelFavourites = favourites
 		WebApi:ScheduleUpdateSettings(data.PlayerID)
 	end
-end)
-
-RegisterCustomEventListener("ResetMmrRequest", function(data)
-	if not IsServer() then return end
-
-	local playerId = data.PlayerID
-	if not playerId then return end
-
-	local steamId = Battlepass:GetSteamId(playerId)
-	if not steamId then return end
-
-	local mapName = GetMapName()
-	if not mapName then return end
-
-	WebApi:Send(
-		"match/reset_mmr",
-		{
-			mapName = mapName,
-			steamId = steamId,
-		},
-		function()
-			print("Successfully reset mmr")
-		end,
-		function(e)
-			print("error while reset mmr: ", e)
-		end
-	)
 end)
 
 RegisterCustomEventListener("shortcut_shop_request_item_costs", function(event)
