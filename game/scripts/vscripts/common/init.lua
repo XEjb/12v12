@@ -1,3 +1,5 @@
+local PRINT_EXTENDED_DEBUG = false
+if IsInToolsMode() and PRINT_EXTENDED_DEBUG == true then require("common/adv_log") end
 require("common/timers")
 require("common/utils")
 require("common/webapi/init")
