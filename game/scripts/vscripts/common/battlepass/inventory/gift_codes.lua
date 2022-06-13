@@ -33,7 +33,7 @@ function GiftCodes:SendCodeFromPlayerToPlayer(data)
 
 	local sender_steam_id = Battlepass:GetSteamId(sender_id)
 	if not sender_steam_id then return end
-	
+
 	GiftCodes:RedeemGiftCodeLocal(sender_id, code, sender_steam_id)
 	GiftCodes:UpdateCodeDataClient(sender_id)
 
@@ -59,17 +59,17 @@ function GiftCodes:RedeemGiftCodeLocal(player_owner_id, code, steam_id_redeemer)
 end
 function GiftCodes:UpdateCodeDataClient(player_id)
 	if not self.player_gift_codes[player_id] then return end
-	
+
 	local player = PlayerResource:GetPlayer(player_id)
 	if not player then return end
-	
+
 	CustomGameEventManager:Send_ServerToPlayer(player, "gift_codes:update_codes", self.player_gift_codes[player_id])
 end
 
 function GiftCodes:GetCodesFromServer(player_id)
 	local steam_id = Battlepass:GetSteamId(player_id)
 	if not steam_id then return end
-	
+
 	WebApi:Send(
 		"match/get_gift_codes",
 		{ steamId = steam_id },
@@ -87,45 +87,23 @@ end
 
 function GiftCodes:RedeemGiftClode(player_id, code, is_reclaim, is_gift)
 	is_reclaim = toboolean(is_reclaim)
-	
+
 	local steam_id = Battlepass:GetSteamId(player_id)
 	if not steam_id then return end
-	
+
 	local player = PlayerResource:GetPlayer(player_id)
 	if not player then return end
-	
+
 	WebApi:Send(
 		"match/redeem_gift_code",
-		{ steamId = steam_id, code = code, customGame = WebApi.customGame, mapName = GetMapName() },
+		{
+			steamId = steam_id,
+			code = code,
+			customGame = WebApi.customGame,
+			mapName = GetMapName()
+		},
 		function(response)
-			if response.supporterState then
-				Supporters:SetPlayerState(player_id, response.supporterState)
-				BP_Inventory:UpdateLocalItems(Battlepass:GetSteamId(player_id))
-				BP_Inventory:UpdateAvailableItems(player_id)
-			end
-
-			if response.level then
-				BP_PlayerProgress.players[steam_id].level = response.level
-			end
-
-			if response.exp then
-				BP_PlayerProgress.players[steam_id].current_exp = response.exp
-				BP_PlayerProgress.players[steam_id].required_exp = response.expRequired
-			end
-
-			if response.purchasedItem then
-				BP_Inventory:AddItemLocal(response.purchasedItem.itemName, response.purchasedItem.steamId, response.purchasedItem.count)
-			end
-
-			if response.glory then
-				BP_PlayerProgress:ChangeGlory(player_id, response.glory - BP_PlayerProgress:GetGlory(player_id))
-			end
-
-			if response.fortune then
-				BP_PlayerProgress:SetFortune(player_id, response.fortune)
-				BP_Masteries:UpdateFortune(player_id)
-			end
-			BP_PlayerProgress:UpdatePlayerInfo(player_id)
+			WebApi:ProcessMetadata(player_id, steam_id, response)
 
 			if is_reclaim or (self.player_gift_codes[player_id] and self.player_gift_codes[player_id][code]) then
 				GiftCodes:RedeemGiftCodeLocal(player_id, code, steam_id)
@@ -134,7 +112,7 @@ function GiftCodes:RedeemGiftClode(player_id, code, is_reclaim, is_gift)
 			if not is_gift then
 				CustomGameEventManager:Send_ServerToPlayer(player, "gift_codes:code_used_from_server", { reason = GIFT_CODE_ACTIVATED })
 			end
-			
+
 			print("Code was used successfully")
 		end,
 		function(e)

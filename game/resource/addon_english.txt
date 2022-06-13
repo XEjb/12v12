@@ -35,6 +35,7 @@
 		"purchase_confirmation_footer"								"Are you sure?"
 		"purchase_confirmation_yes"									"Yes, this is correct"
 		"purchase_confirmation_no"									"No, let me change this"
+		"close"														"Close"
 
 		"high_tier_supporter_perk"									"High tier supporter (25$) feature only"
 		"available_perk"											"Available"
@@ -1734,18 +1735,18 @@
 		"popular"				"Popular"
 		"glory_offer_bonus"		"##pct##% bonus"
 
-		"purchase_glory_bundle_100"					"GLORY BUNDLE (100)"
-		"purchase_glory_bundle_100_description"		"100 glory for Battlepass"
-		"purchase_glory_bundle_550"					"GLORY BUNDLE (550)"
-		"purchase_glory_bundle_550_description"		"550 glory for Battlepass"
-		"purchase_glory_bundle_1150"				"GLORY BUNDLE (1150)"
-		"purchase_glory_bundle_1150_description"	"1150 glory for Battlepass"
-		"purchase_glory_bundle_3000"				"GLORY BUNDLE (3000)"
-		"purchase_glory_bundle_3000_description"	"3000 glory for Battlepassh"
-		"purchase_glory_bundle_6500"				"GLORY BUNDLE (6500)"
-		"purchase_glory_bundle_6500_description"	"6500 glory for Battlepass"
-		"purchase_glory_bundle_15000"				"GLORY BUNDLE (15000)"
-		"purchase_glory_bundle_15000_description"	"15000 glory for Battlepass"
+		"glory_bundle_100_purchase_header"					"GLORY BUNDLE (100)"
+		"glory_bundle_100_purchase_description"		"100 glory for Battlepass"
+		"glory_bundle_550_purchase_header"					"GLORY BUNDLE (550)"
+		"glory_bundle_550_purchase_description"		"550 glory for Battlepass"
+		"glory_bundle_1150_purchase_header"				"GLORY BUNDLE (1150)"
+		"glory_bundle_1150_purchase_description"	"1150 glory for Battlepass"
+		"glory_bundle_3000_purchase_header"				"GLORY BUNDLE (3000)"
+		"glory_bundle_3000_purchase_description"	"3000 glory for Battlepassh"
+		"glory_bundle_6500_purchase_header"				"GLORY BUNDLE (6500)"
+		"glory_bundle_6500_purchase_description"	"6500 glory for Battlepass"
+		"glory_bundle_15000_purchase_header"				"GLORY BUNDLE (15000)"
+		"glory_bundle_15000_purchase_description"	"15000 glory for Battlepass"
 
 		"more_glory"	"+"
 
@@ -1856,7 +1857,7 @@
 		"workaround_description"	"Please note that the game will force you to disconnect to avoid Valve's penalty bug. Please reconnect to continue playing."
 		"workaround_chat_message"	"<font color='#ff0000'>Please note that the game will force you to disconnect to avoid Valve's penalty bug. Please reconnect to continue playing</font>"
 
-		"pay_item_like_gift_code"	"BUY THIS LIKE A GIFTCODE"
+		"buy_as_a_gift_code"		"Buy as a gift code"
 		"gift_codes_header"			"GIFT CODES"
 		"gift_codes_description"	"You can send gift codes directly to other players in the lobby by hovering the ‘Send’ button. If you want to send the gift code to players outside of your game, reveal and share the code with your friend. They wil be able to claim the code when they play the next time.\n\nTo purchase a gift code simply buy the item as usual but click on `Buy this item like a gift code` when you purchase it."
 		"gift_codes_redeem_use"		"REDEEM YOUR CODE:"
@@ -2000,5 +2001,26 @@
 
 		"DOTA_Tooltip_Ability_item_tome_of_knowledge_lua_Description"				"<h1>Use: Enlighten</h1>Grants you %xp_bonus% experience plus %xp_per_minute% per every minute of game."
 		"DOTA_Tooltip_Ability_item_tome_of_knowledge_lua_Lore"						"That which raises beast to man and man to god."
+
+		"toast_mail_incoming"						"New mail!"
+		"toast_mail_incoming_description"			"You have received a new mail from <span class='ToastHighlight'>{s:source}</span> about <span class='ToastHighlight'>{s:topic}</span>."
+
+		"toast_payment_success"						"Your purchase is complete!"
+		"toast_payment_success_description"			"<span class='ToastHighlight'>{s:product_name}</span> has been delivered to your account. Thanks!"
+
+		"toast_gift_code_prefix"					"Gift Code for"
+
+		"dev_team"									"Dev Team"
+		"feedback_reply"							"Feedback Reply"
+
+		"mail_header"			"Your mails"
+		"mail_source"			"From: <span class='MailHighlight'>{s:source}</span>"
+		"mail_claim"			"Claim"
+		"mail_delete"			"Delete"
+		"no_mails_hint"			"You don't have any mails."
+		"currency"				"Glory"
+		"attachment_claimed"	"Claimed"
+
+		"temporarily_disabled"	"Temporarily disabled"
 	}
 }

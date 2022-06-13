@@ -1,13 +1,24 @@
-for _, listenerId in ipairs(registeredCustomEventListeners or {}) do
-	CustomGameEventManager:UnregisterListener(listenerId)
+for _, listener_id in ipairs(registered_custom_listeners or {}) do
+	CustomGameEventManager:UnregisterListener(listener_id)
 end
-registeredCustomEventListeners = {}
-function RegisterCustomEventListener(eventName, callback)
-	local listenerId = CustomGameEventManager:RegisterListener(eventName, function(_, args)
-		callback(args)
+
+registered_custom_listeners = {}
+
+function RegisterCustomEventListener(event_name, callback, context)
+	if not callback then
+		error("Invalid / nil callback passed in RegisterCustomEventListener")
+		return
+	end
+
+	local listener_id = CustomGameEventManager:RegisterListener(event_name, function(_, args)
+		if context then
+			callback(context, args)
+		else
+			callback(args, context)
+		end
 	end)
 
-	table.insert(registeredCustomEventListeners, listenerId)
+	table.insert(registered_custom_listeners, listener_id)
 end
 
 for _, listenerId in ipairs(registeredGameEventListeners or {}) do

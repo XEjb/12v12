@@ -20,22 +20,6 @@ function setInterval(callback, interval) {
 	});
 }
 
-function createEventRequestCreator(eventName) {
-	var idCounter = 0;
-	return function (data, callback) {
-		var id = ++idCounter;
-		data.id = id;
-		GameEvents.SendCustomGameEventToServer(eventName, data);
-		var listener = GameEvents.SubscribeProtected(eventName, function (data) {
-			if (data.id !== id) return;
-			GameEvents.Unsubscribe(listener);
-			callback(data);
-		});
-
-		return listener;
-	};
-}
-
 function SubscribeToNetTableKey(tableName, key, callback) {
 	var immediateValue = CustomNetTables.GetTableValue(tableName, key) || {};
 	if (immediateValue != null) callback(immediateValue);
@@ -161,3 +145,21 @@ if (!$.LocalizeEngine) {
 		return localized_text == token ? text : localized_text;
 	};
 }
+JSON.print = (object) => {
+	let result_string;
+	try {
+		result_string = JSON.stringify(
+			object,
+			(key, value) => {
+				return value;
+			},
+			"	",
+		);
+	} catch (e) {
+		$.Msg(e);
+	}
+	let result_array = result_string.split("\n");
+	while (result_array.length) {
+		$.Msg(result_array.splice(0, 50).join("\n"));
+	}
+};

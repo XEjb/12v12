@@ -4,10 +4,13 @@ let local_gift_activated = false;
 let schedule_notification_for_all;
 let schedule_notification_for_target;
 
-function GetCodeItemNameFromPaymentKind(payment_kind) {
-	if (payment_kind == "base_booster" || payment_kind == "golden_booster") payment_kind = `player_${payment_kind}`;
-	return payment_kind;
+const subscriptions = ["base_booster", "golden_booster"];
+
+function LocalizeGiftCode(payment_kind) {
+	if (subscriptions.includes(payment_kind)) return $.Localize(`player_${payment_kind}`);
+	return $.Localize(`${payment_kind}_purchase_header`);
 }
+
 class GiftCode {
 	constructor(code, item_name_key) {
 		this.code = code
@@ -18,6 +21,7 @@ class GiftCode {
 
 		const new_code_panel = $.CreatePanel("Panel", PLAYER_CODES_ROOT, "");
 		new_code_panel.BLoadLayoutSnippet("GiftCode");
+		new_code_panel.sort_weight = Object.keys(GameUI.GetProducts()).indexOf(item_name_key);
 
 		this.code_value_label = new_code_panel.FindChildTraverse("GiftCode_Value");
 		this.state_description_label = new_code_panel.FindChildTraverse("GiftCode_Status");
@@ -26,9 +30,7 @@ class GiftCode {
 		this.panel = new_code_panel;
 		this.claimed_steam_id_panel = new_code_panel.FindChildTraverse("GiftCode_CodeUsed").GetChild(1);
 
-		new_code_panel.FindChildTraverse("GiftCode_Name").text = $.Localize(
-			GetCodeItemNameFromPaymentKind(item_name_key),
-		);
+		new_code_panel.FindChildTraverse("GiftCode_Name").text = LocalizeGiftCode(item_name_key);
 
 		this.SetState(CODE_LIST_AVAILABLE);
 
@@ -103,6 +105,15 @@ function CreateGiftCodes(codes) {
 		if (code_data.redeemerSteamId != null && code_data.redeemerSteamId != "None")
 			new_code.SetReclaimedState(code_data.redeemerSteamId);
 	});
+	SortCodes(PLAYER_CODES_ROOT);
+	SortCodes(PLAYER_CLAIMED_CODES_ROOT);
+}
+function SortCodes(root) {
+	for (const item of root.Children().sort((a, b) => {
+		return b.sort_weight - a.sort_weight;
+	})) {
+		root.MoveChildBefore(item, root.GetChild(0));
+	}
 }
 function CloseGiftCodes() {
 	ToggleLocalGiftCodes(false);
@@ -203,7 +214,6 @@ function StopSchedule(schelude) {
 function CodeWasGiftNotification(data) {
 	const target_id = data.target_id;
 	const sender_id = data.sender_id;
-	const payment_kind = GetCodeItemNameFromPaymentKind(data.payment_kind);
 
 	const start_notification = (panel, schedule, time_for_hide) => {
 		StopSchedule(schedule);
@@ -225,7 +235,7 @@ function CodeWasGiftNotification(data) {
 		if (target_id == LOCAL_PLAYER_ID) {
 			GIFT_NOTIFICATION_FOR_TARGET_SENDER_NAME.steamid = sender_info.player_steamid;
 			GIFT_NOTIFICATION_FOR_TARGET_SENDER_HERO.text = $.Localize(sender_info.player_selected_hero);
-			GIFT_NOTIFICATION_FOR_TARGET_ITEM.text = $.Localize(GetCodeItemNameFromPaymentKind(payment_kind));
+			GIFT_NOTIFICATION_FOR_TARGET_ITEM.text = LocalizeGiftCode(data.payment_kind);
 		}
 	}
 

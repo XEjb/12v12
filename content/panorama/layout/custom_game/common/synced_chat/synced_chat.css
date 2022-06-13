@@ -221,40 +221,6 @@
 	text-shadow: rgba(255, 255, 255, 0.8) 0px 0px 9px 1;
 	color: transparent;
 }
-
-#OpenSyncedChat {
-	opacity-mask: url("file://{resources}/layout/custom_game/common/synced_chat/chat_icon.png");
-	background-color: #cdf;
-	background-size: 28px;
-	vertical-align: top;
-	margin-left: 15px;
-	brightness: 1;
-	wash-color: none;
-}
-#OpenSyncedChat.Ping {
-	opacity: 0.8;
-	animation-name: gold_glow;
-	animation-duration: 1.2s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
-}
-@keyframes 'gold_glow' {
-	0% {
-		background-color: gradient(linear, 0% 100%, 0% 0%, from(#e28a2e), to(#fcd065));
-	}
-	25% {
-		background-color: gradient(linear, 0% 120%, 0% 0%, from(#ccddff), to(#e6e8ef));
-	}
-	50% {
-		background-color: gradient(linear, 0% 100%, 0% 0%, from(#e28a2e), to(#fcd065));
-	}
-	75% {
-		background-color: gradient(linear, 0% 120%, 0% 0%, from(#ccddff), to(#e6e8ef));
-	}
-	100% {
-		background-color: gradient(linear, 0% 100%, 0% 0%, from(#e28a2e), to(#fcd065));
-	}
-}
 .ChatButton {
 	margin-top: 10px;
 	background-color: rgba(0, 0, 0, 0.61);

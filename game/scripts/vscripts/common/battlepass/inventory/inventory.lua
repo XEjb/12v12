@@ -16,7 +16,7 @@ function BP_Inventory:Init()
 	BP_Inventory.specs = LoadKeyValues("scripts/vscripts/common/battlepass/inventory/inventory_specs.kv")
 	BP_Inventory.rarities = BP_Inventory.specs.Rarity
 	--table.print(self.rarities)
-	
+
 	BP_Inventory.categories = BP_Inventory.specs.Category
 	--table.print(self.categories)
 
@@ -30,7 +30,7 @@ function BP_Inventory:Init()
 	BP_Inventory.responseCollectionItems = {}
 	BP_Inventory.responseCollectionTreasures = {}
 	BP_Inventory.responseCollectionMasteries = {}
-	
+
 	for category, _ in pairs(BP_Inventory.categories) do
 		local itemsData = LoadKeyValues("scripts/vscripts/common/battlepass/inventory/battlepass_items/"..category..".kv")
 		for itemName, itemData in pairs(itemsData) do
@@ -124,7 +124,7 @@ function BP_Inventory:UpdateLocalItems(steam_id)
 		end)
 		return
 	end
-	
+
 	local playerId = Battlepass.playerid_map[steam_id]
 	local playerMMR = 1500
 	if WebApi.player_ratings and WebApi.player_ratings[playerId] and WebApi.player_ratings[playerId][GetMapName()] then
@@ -257,7 +257,7 @@ function BP_Inventory:GetItemsPoolForPlayer(playerId, treasureName)
 			end
 		end
 	end
-	
+
 	return { backPool = backPool, poolForWheel = poolForWheel }
 end
 
@@ -427,13 +427,17 @@ function BP_Inventory:ChangeLocalItemCount(itemName, playerSteamId, changedCount
 	self:UpdateAvailableItems(Battlepass.playerid_map[playerSteamId])
 end
 
-function BP_Inventory:AddItemLocal(itemName, playerSteamId, count)
+function BP_Inventory:AddItemLocal(itemName, playerSteamId, count, operation_type)
 	if not self.player_items[playerSteamId] then return end
 	local itemInInventory = self:IsItemOwned(itemName, playerSteamId)
 	if itemInInventory then
 		local itemId = itemInInventory[1]
 		if self.player_items[playerSteamId][itemId] and self.player_items[playerSteamId][itemId].count then
-			self.player_items[playerSteamId][itemId].count = self.player_items[playerSteamId][itemId].count + 1
+			if operation_type and operation_type == "set" then
+				self.player_items[playerSteamId][itemId].count = count or 1
+			else
+				self.player_items[playerSteamId][itemId].count = self.player_items[playerSteamId][itemId].count + (count or 1)
+			end
 		end
 	else
 		table.insert(self.player_items[playerSteamId], {
@@ -519,7 +523,7 @@ function BP_Inventory:EquipItem(data)
 			return source and source[sourceName] and self:IsItemOwned(data.item_name, steamId) == nil
 		end
 	end
-	
+
 	WearFunc:EquipItemInCategory(playerId, self.categories[category], data.item_name)
 
 	if not self.equipped_items[steamId]["equipped"..category] then
@@ -548,9 +552,9 @@ end
 function BP_Inventory:TakeOffItem(data)
 	local playerId, category = self:_CheckItemType(data)
 	if not category then return end
-	
+
 	if not self.categories[category] then return end
-	
+
 	if PlayerResource:GetSelectedHeroEntity(data.PlayerID) then
 		WearFunc:TakeOffItemInCategory(playerId, self.categories[category], data.item_name)
 		table.remove_item(self.equipped_items[Battlepass:GetSteamId(playerId)]["equipped"..category], data.item_name)
@@ -561,7 +565,7 @@ function BP_Inventory:TakeOffItem(data)
 			return nil
 		end)
 	end
-	
+
 	if not data.skipSave then self:SaveEquippedItems(playerId) end
 end
 
@@ -590,7 +594,7 @@ function BP_Inventory:InitBaseCollection(_data)
 		end)
 		return
 	end
-	
+
 	if not hero.dummy_caster then
 		if hero:IsControllableByAnyPlayer() then
 			Cosmetics:InitCosmeticForUnit(hero)

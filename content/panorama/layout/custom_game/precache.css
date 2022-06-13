@@ -378,8 +378,6 @@
 	background-image: url("file://{images}/custom_game/collection/mastery/icons/vampirism.png");
 	background-image: url("file://{resources}/images/custom_game/collection/OtherSources/tournament_2020_4.png");
 
-	background-image: url("file://{resources}/images/custom_game/inventory.png");
-
 	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_cup_ffa.png");
 	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_cup_duos.png");
 	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_cup_squads.png");
@@ -531,4 +529,13 @@
 	background-image: url("file://{resources}/images/custom_game/no_user.png");
 	background-image: url("file://{resources}/images/custom_game/supp_plus.png");
 	background-image: url("file://{resources}/layout/custom_game/common/synced_chat/chat_icon.png");
+
+	background-image: url("file://{images}/custom_game/mail/announce.png");
+	background-image: url("file://{images}/custom_game/mail/announce_gold.png");
+	background-image: url("file://{images}/custom_game/mail/event.png");
+	background-image: url("file://{images}/custom_game/mail/event_gold.png");
+	background-image: url("file://{images}/custom_game/mail/mail.png");
+	background-image: url("file://{images}/custom_game/mail/mail_gold.png");
+	background-image: url("file://{images}/custom_game/mail/mail_reward_bg.png");
+	background-image: url("file://{images}/custom_game/mail/mail_reward_bg_obtained.png");
 }

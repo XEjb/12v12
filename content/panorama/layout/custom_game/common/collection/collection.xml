@@ -149,7 +149,7 @@
 						<Label class="AccessText" text="#open_treasure"/>
 					</Button>
 					<Button id="Preview_Cancel" class="AccessButtons">
-						<Label class="AccessText" text="#Close"/>
+						<Label class="AccessText" text="#close"/>
 					</Button>
 				</Panel>
 			</Panel>
@@ -215,7 +215,7 @@
 				</Panel>
 				<Button class="CloseDotaU" onactivate="CloseCollectionDotaU()">
 					<Image src="s2r://panorama/images/control_icons/x_close_png.vtex" />
-					<Label text="#Close" />
+					<Label text="#close" />
 				</Button>
 				<Button id="OpenGiftCodes" onactivate="OpenGiftCodes()">
 					<Label text="#gift_codes_open" />
@@ -373,32 +373,42 @@
 				<Panel id="PurchasingInfoWrap">
 					<Image id="PurchasingIcon" src="file://{resources}/images/custom_game/payment/payment_boost.png"/>
 					<Panel id="PurchasingInfo">
-						<Label id="PurchasingHeader"/>
-						<Label id="PurchasingDescription" html="true"/>
+						<Label id="PurchasingHeader" text="{s:purchase_header}"/>
+						<Label id="PurchasingDescription" html="true" text="{s:purchase_description}"/>
 						<Panel id="PurchasingPriceWrap">
 							<Label id="TotalPrice" text="#total_price"/>
-							<Label id="Price" text="{s:paySymbol}{s:price}"/>
+							<Label id="Price"/>
 						</Panel>
 					</Panel>
 				</Panel>
+				<Panel id="PurchaseQuantityContainer">
+					<Button class="IncrementItemsCount" onactivate="ModifyQuantity(-1)">
+						<Label class="AccessText" text="-"/>
+					</Button>
+					<Label class="ItemsCountLabel AccessText" text="{d:quantity}"/>
+					<Button class="IncrementItemsCount" text="+" onactivate="ModifyQuantity(1)">
+						<Label class="AccessText" text="+"/>
+					</Button>
+				</Panel>
 				<Label id="PaymentMethodHeader" class="AdaptiveText_LightAndUpper BlueHeader" text="#choose_payment_mehtod"/>
 				<Panel id="PurchasingMethods">
-					<Button class="PaymentMethod" onactivate="updatePaymentWindow('wechat')">
+					<!-- RequestPaymentUrlWithMethod('wechat_pay') -->
+					<Button class="PaymentMethod" onactivate="" onmouseover="DOTAShowTextTooltip(#temporarily_disabled)" onmouseout="DOTAHideTextTooltip()" style="saturation: 0;">
 						<Image scaling="stretch-to-fit-preserve-aspect" src="file://{resources}/images/custom_game/payment/payment_wechat.png" class="HasNoBackground" />
 					</Button>
-					<Button class="PaymentMethod" onactivate="updatePaymentWindow('alipay')">
+					<Button class="PaymentMethod" onactivate="RequestPaymentUrlWithMethod('alipay')">
 						<Image scaling="stretch-to-fit-preserve-aspect" src="file://{resources}/images/custom_game/payment/payment_alipay.png" class="HasNoBackground" />
 					</Button>
 					<Button id="PatreonPaymentButton" class="PaymentMethod" onactivate="OpenPatreonURL()">
 						<Image scaling="stretch-to-fit-preserve-aspect" src="file://{resources}/images/custom_game/payment/payment_patreon.png" />
 						<Label class="PaymentInBrowser" text="#completed_in_browser"/>
 					</Button>
-					<Button class="PaymentMethod" onactivate="updatePaymentWindow('checkout')">
+					<Button class="PaymentMethod" onactivate="RequestPaymentUrlWithMethod('card')">
 						<Image scaling="stretch-to-fit-preserve-aspect" src="file://{resources}/images/custom_game/payment/payment_card.png" />
 						<Label class="PaymentInBrowser" text="#completed_in_browser"/>
 					</Button>
 				</Panel>
-				<ToggleButton id="GiftCodePaymentFlag" checked="false" text="#pay_item_like_gift_code" onactivate="UpdateGiftCodeState()"/>
+				<ToggleButton id="GiftCodePaymentFlag" checked="false" text="#buy_as_a_gift_code" onactivate="UpdateGiftCodeState()"/>
 				<Label id="PaymentDescription" html="true" text="#payment_description"/>
 			</Panel>
 		</Panel>

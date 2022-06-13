@@ -11,7 +11,6 @@ let NOT_SUPPORTER = true;
 let MESSAGES = {};
 let account_id;
 let more_mess_button;
-let sc_top_button;
 
 const DATE_MULTIPLIERS = {
 	DAY: 8.64e7,
@@ -131,8 +130,8 @@ function AddMessage(msg_data, is_old, check_ping) {
 			if (account_id && `@${account_id}` == token) {
 				result = `<font color='#fcb13b'>@${LOCAL_PLAYER_INFO.player_name}</font>`;
 				message_panel.AddClass("Ping");
-				if (check_ping && sc_top_button) {
-					sc_top_button.SetHasClass("Ping", !SYNCED_CHAT_ROOT.BHasClass("show"));
+				if (check_ping) {
+					dotaHud.SetHasClass("BSyncedChatPing", !SYNCED_CHAT_ROOT.BHasClass("show"));
 					if (!is_ping_cooldown) {
 						is_ping_cooldown = true;
 						Game.EmitSound("synced_chat.ping");
@@ -299,31 +298,26 @@ function MuteChat(data) {
 
 	GameEvents.SendCustomGameEventToServer("synced_chat:request_inital", {});
 
-	sc_top_button = _AddMenuButton("OpenSyncedChat");
-	CreateButtonInTopMenu(
-		sc_top_button,
-		() => {
-			SYNCED_CHAT_ROOT.ToggleClass("show");
-			if (SYNCED_CHAT_ROOT.BHasClass("show")) SYNCED_CHAT_ROOT.SetFocus();
-			Game.EmitSound("ui_chat_slide_in");
-			OPENED_STATE = !OPENED_STATE;
-			GameEvents.SendCustomGameEventToServer("synced_chat:window_state", {
-				state: OPENED_STATE,
-			});
+	GameUI.Custom_OpenSyncedChat = () => {
+		SYNCED_CHAT_ROOT.ToggleClass("show");
+		if (SYNCED_CHAT_ROOT.BHasClass("show")) SYNCED_CHAT_ROOT.SetFocus();
+		Game.EmitSound("ui_chat_slide_in");
+		OPENED_STATE = !OPENED_STATE;
+		GameEvents.SendCustomGameEventToServer("synced_chat:window_state", {
+			state: OPENED_STATE,
+		});
 
-			if (SYNCED_CHAT_ROOT.first_open == undefined) {
-				SYNCED_CHAT_ROOT.first_open = true;
-				$.Schedule(0.1, () => {
-					MESSAGES_CONTAINER.ScrollToBottom();
-				});
-			}
-		},
-		() => {
-			sc_top_button.RemoveClass("Ping");
-			$.DispatchEvent("DOTAShowTextTooltip", sc_top_button, "#synced_chat_header");
-		},
-		() => {
-			$.DispatchEvent("DOTAHideTextTooltip");
-		},
-	);
+		if (SYNCED_CHAT_ROOT.first_open == undefined) {
+			SYNCED_CHAT_ROOT.first_open = true;
+			$.Schedule(0.1, () => {
+				MESSAGES_CONTAINER.ScrollToBottom();
+			});
+		}
+	};
+	GameUI.Custom_ShowSyncedChatTooltip = () => {
+		dotaHud.RemoveClass("BSyncedChatPing");
+		sc_top_button = GameUI.GetTopMenuButton("SyncedChatButton");
+		if (!sc_top_button) return;
+		$.DispatchEvent("DOTAShowTextTooltip", sc_top_button, "#synced_chat_header");
+	};
 })();

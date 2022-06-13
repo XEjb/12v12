@@ -2,21 +2,12 @@
 
 //Dont use this file for utility functions, dont require it anywhere except custom_ui_manifest
 
-function RandomString(len) {
-	let random_string = "";
-	for (let i = 0; i < len; i++) {
-		random_string += String.fromCharCode(Math.floor(Math.random() * 95) + 32);
-	}
-	return random_string;
-}
-
-const token = RandomString(8);
+const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 GameEvents.SendCustomGameEventToServer("secret_token", { token: token });
-$.Msg("Server identity token: "+token)
 
-GameEvents.SubscribeProtected = function(event_name, callback) {
+GameEvents.SubscribeProtected = function (event_name, callback) {
 	return GameEvents.Subscribe(event_name, (event) => {
-		const player_id = Game.GetLocalPlayerID() 
+		const player_id = Game.GetLocalPlayerID();
 		// Spectators cant send token to server and have to ignore this check
 		// This give possibility to ruin spectators custom UI to cheaters, but I think it's not very important
 		// Maybe can be fixed if we will generate tokens on server side and send it to clients
@@ -30,10 +21,10 @@ GameEvents.SubscribeProtected = function(event_name, callback) {
 	});
 };
 
-GameEvents.SendEventClientSideProtected = function(event_name, event_data) {
+GameEvents.SendEventClientSideProtected = function (event_name, event_data) {
 	const event = {
 		event_data: event_data,
 		chc_secret_token: token,
-	}
-	GameEvents.SendEventClientSide(event_name, event)
-}
+	};
+	GameEvents.SendEventClientSide(event_name, event);
+};

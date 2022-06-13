@@ -232,10 +232,3 @@
 #VerticalScrollBar {
 	width: 6px;
 }
-#OpenLeaderboard {
-	background-image: url("file://{resources}/images/custom_game/leaderboard_icon.png");
-	background-size: 28px;
-	vertical-align: top;
-	margin-left: 5px;
-	margin-top: 40px;
-}

@@ -1851,6 +1851,7 @@ function CMegaDotaGameMode:OnPlayerChat(keys)
 	table.remove(args, 1)
 
 	local fixed_command = command.sub(command, 2)
+	print("fixed command: ", fixed_command)
 
 	if Commands[fixed_command] then
 		Commands[fixed_command](Commands, player, args)

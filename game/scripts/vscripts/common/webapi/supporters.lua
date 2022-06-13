@@ -11,7 +11,6 @@ end
 
 function Supporters:SetPlayerState(playerId, state)
 	Supporters.playerState[playerId] = state
-	CustomNetTables:SetTableValue("game", "player_supporter_" .. playerId, state)
 	CustomNetTables:SetTableValue("game_state", "patreon_bonuses", Supporters.playerState)  -- legacy code requires this table to be filled
 end
 

@@ -598,7 +598,7 @@
     	"DOTA_Tooltip_linken_cooldown"			"Восстановление Щита Отражения"
 		"DOTA_Tooltip_linken_ready"				"Щит Отражения"
 		"DOTA_Tooltip_linken_ready_Description"	"Пассивно блокирует одну направленную способность, сочетается с Linken's Sphere"
-		
+
 		"hunter_t0"								"Молодой Охотник"
 		"hunter_t0_tooltip"						"Урон по крипам увеличен на 10%"
 		"DOTA_Tooltip_hunter_t0"				"Талант: Охотник"
@@ -628,7 +628,7 @@
 
 		"DOTA_Tooltip_modifier_builder_tower_hp_boost"				"Бонус Строителя"
 		"DOTA_Tooltip_modifier_builder_tower_hp_boost_Description"	"Здоровье увеличено на %dMODIFIER_PROPERTY_EXTRA_HEALTH_BONUS%."
-		
+
 		"delayed_damage_t0"								"Базовая Задержка Урона"
 		"delayed_damage_t0_tooltip"						"Вы получете 14% входящего урона с задержкой 6 секунд"
 		"DOTA_Tooltip_delayed_damage_t0"				"Талант: Задержка Урона"
@@ -676,7 +676,7 @@
 		"family_t2"							"Сильнейшая Семья"
 		"family_t2_tooltip"					"Выбирает случайный талант, но на один уровень выше - 4. (Уровень 4 примерно в два раза мощнее 3-его)"
 		"DOTA_Tooltip_family_t0" 			"Семья"
-		
+
 		"tinkerer_t0"								"Малый Коллекционер"
 		"tinkerer_t0_tooltip"						"Экипированный нейтральный предмет имеет на 25% усиленные характеристики<br><br>Характеристики экипированного нейтрального предмета <font color='#B694FF'>визуально не обновляются</font> чтобы отобразить бонус.<br><br>Возможно, вам придется заного надеть нейтральный предмет, чтобы обновить его характеристики.<br><br>Не работает на предметы, снижающие перезарядку."
 		"DOTA_Tooltip_tinkerer_t0"					"Талант: Коллекционер"
@@ -689,7 +689,7 @@
 		"tinkerer_t3"								"Семейный Коллекционер"
 		"tinkerer_t3_tooltip"						"Экипированный нейтральный предмет имеет на 200% усиленные характеристики<br><br>Характеристики экипированного нейтрального предмета <font color='#B694FF'>визуально не обновляются</font> чтобы отобразить бонус.<br><br>Возможно, вам придется заного надеть нейтральный предмет, чтобы обновить его характеристики.<br><br>Не работает на предметы, снижающие перезарядку."
 		"DOTA_Tooltip_tinkerer_t3"					"Талант: Коллекционер"
-		
+
 		"attack_speed_t0"							"Базовая Скорость Атаки"
 		"attack_speed_t0_tooltip"					"+7.5 к Скорости атаки и +0.75 за каждый уровень персонажа"
 		"DOTA_Tooltip_attack_speed_t0"				"Талант: Скорость Атаки"
@@ -702,7 +702,7 @@
 		"attack_speed_t3"							"Семейная Скорость Атаки"
 		"attack_speed_t3_tooltip"					"+60 к Скорости атаки и +6 за каждый уровень персонажа"
 		"DOTA_Tooltip_attack_speed_t3"				"Талант: Скорость Атаки"
-		
+
 		"armor_t0"									"Базовая Броня"
 		"armor_t0_tooltip"							"+6 к броне"
 		"DOTA_Tooltip_armor_t0"						"Талант: Броня"
@@ -715,7 +715,7 @@
 		"armor_t3"									"Семейная Броня"
 		"armor_t3_tooltip"							"+48 к броне"
 		"DOTA_Tooltip_armor_t3"						"Талант: Броня"
-		
+
 		"cast_time_t0"								"Студент Мыслитель"
 		"cast_time_t0_tooltip"						"Уменьшает задержку чтения заклинаний на 25%"
 		"DOTA_Tooltip_cast_time_t0"					"Талант: Мыслитель"
@@ -732,7 +732,7 @@
 		"cast_time_t3_tooltip"						"Уменьшает задержку чтения заклинаний на 100%"
 		"DOTA_Tooltip_cast_time_t3"					"Талант: Мыслитель"
 		"DOTA_Tooltip_cast_time_t3_Description"		"Уменьшает задержку чтения заклинаний"
-		
+
 		"HighSupportersOnly"					"Для высокоуровневых поддержавших"
 		"SupportersOnly"						"Для поддержавших"
 
@@ -1272,6 +1272,7 @@
 		"DOTA_Tooltip_modifier_linken_perk"							"Отражение заклинания от Linken's Pendant"
 
 		"Close"		"Закрыть"
+		"close"		"Закрыть"
 		"DOTA_Tooltip_modifier_silencer_glaives_of_wisdom_Description"	"Герой навсегда крадёт 2 единицы интеллекта (3 с талантом) у любого вражеского героя, который умирает в радиусе 925."
 		"DOTA_Tooltip_modifier_silencer_int_steal_Description"			"Герой навсегда крадёт 2 единицы интеллекта (3 с талантом) у любого вражеского героя, который умирает в радиусе 925."
 
@@ -1296,7 +1297,7 @@
 		"anon_player"				"Анонимный игрок"
 		"locked_supporters_only"	"Только для Поддержавших"
 		"synced_chat_loading" 		"Загрузка..."
-		
+
 		"sc_yesterday"	"Вчера"
 		"sc_days_ago"	"%%v%% дней назад"
 		"sc_hours_ago"	"%%v%% часов назад"
@@ -1305,10 +1306,10 @@
 		"sc_dev"		"Разработчик"
 		"sc_time_to_refresh_messages"		"Время до получения новых сообщений"
 		"sc_mute_date"	"Чат для вас недоступен ещё %%days%% дней %%hours%% часов %%mins%% минут"
-		
+
 		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 удаляется из игры из-за долгого отсутствия."
-		
+
 		"cannot_use_it_for_now"	"Вы пока не можете использовать это"
 
 		"DOTA_Tooltip_ability_item_arcane_blink_Note2"							"\nИсточники процентных уменьшений перезарядки не складываются."
@@ -1316,9 +1317,9 @@
 		"DOTA_Tooltip_ability_item_spell_prism_Note0"							"Источники процентных уменьшений перезарядки не складываются."
 		"DOTA_Tooltip_ability_item_quickening_charm_Note0"						"Источники процентных уменьшений перезарядки не складываются."
 		"DOTA_Tooltip_ability_dazzle_bad_juju_Note0"							"Источники процентных уменьшений перезарядки не складываются."
-		
+
 		"DOTA_Tooltip_modifier_stronger_builds"		"Усиленное строение"
-		
+
 		"EG_Moonshard_Title"				"Наличие съеденего Moonshard"
 		"EG_Moonshard_Description"			"Отсутствует"
 		"EG_Perk_Title"						"Талант"
@@ -1335,17 +1336,17 @@
 		"custom_end_heal"				"Исходящее лечение"
 		"custom_end_wards"				"Observers/Sentries"
 		"custom_end_kills"				"Убито противников"
-		
+
 		"voting_to_kick_warning"				"На Вас поступило значительное количество жалоб из-за злоупотребления функции исключения игроков. Старайтесь начинать голосование только при наличии веских причин, иначе Вам может быть запрещено пользоваться этой функцией."
 		"voting_to_kick_cannot_kick_ban"		"Вы не можете начать голосование за исключение другого игрока, потому что на Вас поступило слишком много жалоб из-за злоупотребления этой функцией."
 		"voting_to_kick_cannot_kick_ban_party"	"Вы не можете начать голосование за исключение другого игрока, потому что у кого-то в Вашей группе эта функция заблокирована."
 		"dotau_hud_message_close"				"Нажмите чтобы закрыть"
-		
+
 		"git_new_issue"		"Создать<br>баг-репорт"
 		"git_show_issues"	"Показать<br>баг-репорты"
 		"cannot_relocate_enemy_fountain"	"Вы не можете использовать Relocate на территорию вражеского фонтана"
 		"wards_holding_warning"				"Внимание: если Вы не используете Ваши варды в течение 2 минут, они будут возвращены на базу."
-		
+
 		"DOTA_Tooltip_ability_tinker_rearm_custom"											"Rearm"
 		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitydraft_note"						"Если у способности есть заряды, их число будет увеличиваться на 1 с каждым применением Rearm."
 		"DOTA_Tooltip_ability_tinker_rearm_custom_Description"								"ПРЕРЫВАЕМАЯ — сбрасывает время перезарядки способностей и большинства предметов героя."
@@ -1360,5 +1361,25 @@
 
 		"DOTA_Tooltip_Ability_item_tome_of_knowledge_Description"				"<h1>Использование: Enlighten</h1> Даёт %xp_bonus% базового опыта + %xp_per_minute% опыта за каждую прошедшую минуту игры."
 		"DOTA_Tooltip_Ability_item_tome_of_knowledge_Lore"						"Источник силы, превращающей зверя в человека, а человека — в бога."
+
+		"toast_mail_incoming"						"Новое письмо!"
+		"toast_mail_incoming_description"			"Вы получили новое письмо от <span class='ToastHighlight'>{s:source}</span> про <span class='ToastHighlight'>{s:topic}</span>."
+
+		"toast_payment_success"						"Ваша покупка завершена!"
+		"toast_payment_success_description"			"<span class='ToastHighlight'>{s:product_name}</span> добавлен в ваш аккаунт. Спасибо!"
+
+		"toast_gift_code_prefix"					"Подарочный Код для"
+
+		"dev_team"									"Команда Разработчиков"
+
+		"mail_header"			"Почта"
+		"mail_source"			"От: <span class='MailHighlight'>\"{s:source}\"</span>"
+		"mail_claim"			"Получить"
+		"mail_delete"			"Удалить"
+		"no_mails_hint"			"У вас ещё нет писем."
+		"currency"				"Боевая слава"
+		"attachment_claimed"	"Получено"
+
+		"temporarily_disabled"	"Временно отключен"
 	}
 }

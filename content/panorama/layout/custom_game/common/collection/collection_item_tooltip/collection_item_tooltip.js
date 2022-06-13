@@ -27,7 +27,8 @@ const HOVER_FUNC = {
 	},
 	Money: (sourceValue) => {
 		CONTEXT.AddClass("GloryOverlay");
-		$("#SourceName").text = $.Localize("#paySymbol") + GetLocalPrice(Math.round(sourceValue * 100) / 100);
+		// TODO: fix price evaluation here
+		// $("#SourceName").text = $.Localize("#paySymbol") + GetLocalPrice(Math.round(sourceValue * 100) / 100);
 		$("#SourceImage").SetImage("file://{resources}/images/custom_game/payment/payment_boost.png");
 	},
 	Other: (sourceValue) => {

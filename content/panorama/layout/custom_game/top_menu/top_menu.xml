@@ -1,0 +1,46 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/layout/custom_game/top_menu/top_menu.css"/>
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/top_menu/top_menu.js"/>
+	</scripts>
+
+	<Panel class="CustomTopMenu_Root" hittest="false">
+		<Button id="CollectionButton" class="Custom_TopButton" onactivate="GameUI.Custom_ToggleCollection()"
+				onmouseover="DOTAShowTextTooltip(#TopMenuIcon_Collection_message)" onmouseout="DOTAHideTextTooltip()">
+			<Panel class="CTP_Icon"/>
+		</Button>
+		<Button id="CTP_Menu_Button" class="Custom_TopButton BOpacityMask" onactivate="GameUI.ToggleCustomTopMenu()">
+			<Panel class="CTP_Icon"/>
+			<Panel class="CTP_Shadow"/>
+		</Button>
+		<Panel id="CTP_Menu">
+			<Button id="FeedbackButton" class="Custom_TopButton" onactivate="GameUI.Custom_ToggleFeedback();"
+					onmouseover="DOTAShowTextTooltip(#feedback_top_menu_hint)" onmouseout="DOTAHideTextTooltip()">
+				<Panel class="CTP_Icon"/>
+			</Button>
+			<Button id="GitButton" class="Custom_TopButton"
+					onactivate="$.DispatchEvent('ExternalBrowserGoToURL', 'https://github.com/arcadia-redux/12v12')"
+					onmouseover="GameUI.Custom_ShowGitOptions()" onmouseout="GameUI.Custom_HideGitOptions()">
+				<Panel class="CTP_Icon"/>
+			</Button>
+			<Button id="MailButton" class="Custom_TopButton" onactivate="GameUI.Custom_ToggleMailPanel()"
+					onmouseover="DOTAShowTextTooltip(#mail_header)" onmouseout="DOTAHideTextTooltip()">
+				<Panel class="CTP_Icon"/>
+			</Button>
+			<Button id="LeaderboardButton" class="Custom_TopButton" onactivate="GameUI.Custom_ToggleLeaderboard()"
+					onmouseover="DOTAShowTextTooltip(#leaderboard)" onmouseout="DOTAHideTextTooltip()">
+				<Panel class="CTP_Icon"/>
+			</Button>
+			<Button id="SyncedChatButton" class="Custom_TopButton BOpacityMask" onactivate="GameUI.Custom_OpenSyncedChat()"
+					onmouseover="GameUI.Custom_ShowSyncedChatTooltip()" onmouseout="DOTAHideTextTooltip()">
+				<Panel class="CTP_Icon"/>
+				<Panel class="CTP_Shadow"/>
+			</Button>
+		</Panel>
+	</Panel>
+</root>

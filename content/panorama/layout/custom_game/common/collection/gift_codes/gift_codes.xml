@@ -13,7 +13,7 @@
 		<include src="file://{resources}/layout/custom_game/common/collection/payments_const.js" />
 		<include src="file://{resources}/layout/custom_game/common/collection/gift_codes/gift_codes.js" />
 	</scripts>
-	
+
 	<snippets>
 		<snippet name="GiftCode">
 			<Panel class="GiftCode">
@@ -51,7 +51,7 @@
 			</Button>
 		</snippet>
 	</snippets>
-	
+
 	<Panel class="GiftCodes_Root" hittest="false">
 		<Panel id="GiftCodes_PanelWrap" hittest="false">
 			<Panel id="GiftCodes_Panel" onactivate="">
@@ -59,7 +59,7 @@
 					<Label id="GiftCodes_HeaderText" text="#gift_codes_header"/>
 					<Button id="CloseGiftCodes" onactivate="CloseGiftCodes()">
 						<Image src="s2r://panorama/images/control_icons/x_close_png.vtex"/>
-						<Label text="#Close" />
+						<Label text="#close" />
 					</Button>
 					<Panel id="GiftCodes_Header_DescriptionRoot">
 						<Panel id="GiftCodes_Header_DescriptionRootTestWrap">
@@ -124,7 +124,7 @@
 			</Panel>
 			<Image src="file://{resources}/images/custom_game/collection/gift_codes/gift_codes_letter.png"/>
 		</Panel>
-		
+
 		<Panel id="GiftCodeNotificationForAll">
 			<Panel id="GiftCodeNotificationForAll_DataWrap">
 				<Panel id="GiftCodeNotificationForAll_Data">

@@ -6,19 +6,9 @@ function CloseLeaderboard() {
 }
 (function () {
 	CloseLeaderboard();
-	const leaderboardButton = _AddMenuButton("OpenLeaderboard");
-	CreateButtonInTopMenu(
-		leaderboardButton,
-		() => {
-			LEADERBOARD.ToggleClass("Show");
-		},
-		() => {
-			$.DispatchEvent("DOTAShowTextTooltip", leaderboardButton, "#leaderboard");
-		},
-		() => {
-			$.DispatchEvent("DOTAHideTextTooltip");
-		},
-	);
+	GameUI.Custom_ToggleLeaderboard = () => {
+		LEADERBOARD.ToggleClass("Show");
+	};
 
 	LEADERBOARD_DATA.RemoveAndDeleteChildren();
 	SubscribeToNetTableKey("game_state", "leaderboard", (leaderboard_data) => {

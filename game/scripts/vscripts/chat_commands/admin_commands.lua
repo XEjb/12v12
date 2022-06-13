@@ -13,12 +13,12 @@ end
 function Commands:sell(player, arg)
 	if not IsAdmin(player) then return end
 	print("debug sell")
-	
+
 	local player_id = 0
 	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 	local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
 
-	local sell_items  = function(unit) 
+	local sell_items  = function(unit)
 		for i = 0, 20 do
 			if unit:GetItemInSlot(i) ~= nil then
 				hero:ModifyGold(unit:GetItemInSlot(i):GetCost(), false, 0)
@@ -28,4 +28,13 @@ function Commands:sell(player, arg)
 	end
 	sell_items(hero)
 	sell_items(courier)
+end
+
+
+function Commands:toasts(player, arg)
+	print("toasts test", player:GetPlayerID())
+	-- if not IsAdmin(player) then return end
+	Toasts:NewForPlayer(player:GetPlayerID(), "payment_success", {
+		product_name = "golden_booster",
+	})
 end

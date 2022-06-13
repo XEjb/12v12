@@ -56,6 +56,7 @@
 		<CustomUIElement type="HeroSelection" 		layoutfile="file://{resources}/layout/custom_game/multiteam_hero_select_overlay.xml" />
 		<CustomUIElement type="HeroSelection" 		layoutfile="file://{resources}/layout/custom_game/common/hero_selection_overlay/hero_selection_overlay.xml" />
 		<CustomUIElement type="EndScreen" 		layoutfile="file://{resources}/layout/custom_game/end_screen/end_screen.xml" />
+		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/top_menu/top_menu.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/collection/collection.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_abilities.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/top_scoreboard.xml" />
@@ -72,8 +73,10 @@
 		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/collection/gift_codes/gift_codes.xml" />
 		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/custom_pings/custom_pings.xml" />
 		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/synced_chat/synced_chat.xml" />
+		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/mail/mail.xml" />
 	<!--<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/fix_custom_game/fix_custom_game.xml" />-->
 		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/shortcut_shop/shortcut_shop.xml" />
+		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/toasts/toasts.xml" />
 
 		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/auto_attack_settings/index.xml" />
 		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/custom_hud_message/custom_hud_message.xml" />

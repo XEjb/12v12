@@ -1728,6 +1728,7 @@
 }
 #GiftCodePaymentFlag Label {
 	color: #898b97;
+	text-transform: uppercase;
 }
 #GiftCodePaymentFlag:hover Label {
 	color: #8195bf;

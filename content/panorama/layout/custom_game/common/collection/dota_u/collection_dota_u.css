@@ -1,35 +1,3 @@
-#CollectionTopButton {
-	background-image: url("file://{resources}/images/custom_game/inventory.png");
-	background-size: 38px 38px;
-	tooltip-position: bottom;
-	visibility: collapse;
-	wash-color: #cdf;
-	margin-left: -80px;
-	margin-top: 40px;
-}
-
-#FeedbackButton {
-	background-size: 38px 38px;
-	background-image: url("file://{resources}/images/custom_game/tuant.png");
-	tooltip-position: left;
-	wash-color: #cdf;
-	z-index: -10;
-	margin-top: 80px;
-	margin-left: -37px;
-}
-#GitButton {
-	background-size: 38px 38px;
-	background-image: url("file://{resources}/images/custom_game/github_base.png");
-	tooltip-position: left;
-	wash-color: #cdf;
-	z-index: -10;
-	margin-top: 80px;
-	margin-left: -18px;
-}
-.IsLocalPlayerSpectating #GitButton {
-	margin-left: -3px;
-}
-
 #MasteryButtonTooltip,
 #MapPatreonButtonGrid,
 #ItemType_Masteries,
@@ -46,7 +14,7 @@
 	padding-top: -2px;
 	background-color: #1e1e26;
 	border: 1px solid #7f8aa1;
-	margin: 122px 0px 0px 161px;
+	margin: 87px 0px 0px 177px;
 	transition: opacity 0.1s ease-in-out 0s;
 	opacity: 0;
 }

@@ -1,0 +1,115 @@
+.CustomTopMenu_Root {
+	flow-children: right;
+}
+.Custom_TopButton {
+	width: 30px;
+	height: 30px;
+	margin: 0 5px;
+	horizontal-align: left;
+	wash-color: transparent;
+	opacity: 1;
+	vertical-align: top;
+}
+.Custom_TopButton:hover .CTP_Icon {
+	wash-color: white;
+	opacity: 1;
+}
+.CTP_Shadow {
+	width: 100%;
+	height: 100%;
+	background-size: 100%;
+}
+.Custom_TopButton .CTP_Icon {
+	width: 100%;
+	height: 100%;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	img-shadow: 0px 0px 3px 3 black;
+	opacity: 0.5;
+	transition-property: opacity, wash-color;
+	transition-duration: 0.15s;
+	wash-color: #cdf;
+}
+#CollectionButton {
+	margin-left: 15px;
+	tooltip-position: right;
+}
+#CollectionButton .CTP_Icon {
+	background-image: url("file://{resources}/images/custom_game/inventory.png");
+}
+#CTP_Menu_Button {
+	horizontal-align: right;
+	transition: transform 0.15s ease-in-out 0s;
+	margin-left: -35px;
+	margin-top: 35px;
+}
+#CTP_Menu_Button .CTP_Icon {
+	opacity-mask: url("file://{resources}/images/custom_game/dropdown_arrow.png");
+}
+#CTP_Menu_Button .CTP_Shadow {
+	background-image: url("file://{resources}/images/custom_game/dropdown_arrow_shadow.png");
+}
+.BShowCustomDropDownTopMenu #CTP_Menu_Button {
+	transform: rotateX(180deg);
+}
+#FeedbackButton .CTP_Icon {
+	background-image: url("file://{resources}/images/custom_game/tuant.png");
+}
+#GitButton .CTP_Icon {
+	background-image: url("file://{resources}/images/custom_game/github_base.png");
+}
+#MailButton .CTP_Icon {
+	background-image: url("file://{resources}/images/custom_game/mail_icon.png");
+}
+#LeaderboardButton .CTP_Icon {
+	background-image: url("file://{resources}/images/custom_game/leaderboard_icon.png");
+}
+.BOpacityMask .CTP_Icon {
+	wash-color: none;
+	background-color: #cdf;
+}
+#SyncedChatButton .CTP_Icon {
+	opacity-mask: url("file://{resources}/images/custom_game/chat_icon.png");
+}
+#SyncedChatButton .CTP_Shadow {
+	background-image: url("file://{resources}/images/custom_game/chat_shadow.png");
+}
+.BSyncedChatPing #SyncedChatButton .CTP_Icon,
+.BSyncedChatPing #CTP_Menu_Button .CTP_Icon {
+	opacity: 0.8;
+	animation-name: gold_glow;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+@keyframes 'gold_glow' {
+	0% {
+		background-color: gradient(linear, 0% 100%, 0% 0%, from(#e28a2e), to(#fcd065));
+	}
+	25% {
+		background-color: gradient(linear, 0% 120%, 0% 0%, from(#ccddff), to(#e6e8ef));
+	}
+	50% {
+		background-color: gradient(linear, 0% 100%, 0% 0%, from(#e28a2e), to(#fcd065));
+	}
+	75% {
+		background-color: gradient(linear, 0% 120%, 0% 0%, from(#ccddff), to(#e6e8ef));
+	}
+	100% {
+		background-color: gradient(linear, 0% 100%, 0% 0%, from(#e28a2e), to(#fcd065));
+	}
+}
+#CTP_Menu {
+	flow-children: down;
+	transition-property: opacity, transform;
+	transition-duration: 0.15s;
+	transform: translateY(-20px);
+	opacity: 0;
+}
+.BShowCustomDropDownTopMenu #CTP_Menu {
+	transform: translateY(0px);
+	opacity: 1;
+}
+#CTP_Menu .Custom_TopButton {
+	margin: 3px 0;
+}

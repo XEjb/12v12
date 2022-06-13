@@ -45,10 +45,13 @@ function BuyGlory() {}
 
 	Object.entries(GLORY_OFFERS).forEach(([value, data]) => {
 		const offerPanel = $.CreatePanel("Panel", gloryOffersRoot, "");
+		const product_name = `glory_bundle_${value}`;
 		offerPanel.BLoadLayoutSnippet("GloryOffer");
 		offerPanel.FindChildTraverse("GloryOfferHeaderText_Glory").text = value;
 		offerPanel.FindChildTraverse("GloryOfferHeaderText_Fortune").text = data.fortune;
-		offerPanel.FindChildTraverse("GloryOfferPrice").SetDialogVariable("price", GetLocalPrice(data.price));
+		offerPanel
+			.FindChildTraverse("GloryOfferPrice")
+			.SetDialogVariable("price", GameUI.GetProductPrice(product_name));
 		offerPanel.FindChildTraverse("GloryOfferPrice").SetDialogVariable("paySymbol", $.Localize("#paySymbol"));
 		offerPanel.FindChildTraverse("Popular").visible = data.popular != undefined;
 		offerPanel.FindChildTraverse("GloryDiscount").text = data.bonus
@@ -59,15 +62,8 @@ function BuyGlory() {}
 			value +
 			(isNoFortuneShop ? "_no_fortune.png" : ".png");
 		offerPanel.FindChildTraverse("GloryOfferData").style.backgroundImage = "url('" + image + "')";
-		const bundleName = "purchase_glory_bundle_" + value;
 		offerPanel.FindChildTraverse("GloryOfferButton").SetPanelEvent("onactivate", function () {
-			_CreatePurchaseAccess(
-				bundleName,
-				image,
-				bundleName,
-				bundleName + "_description",
-				Math.round(data.price * 100) / 100,
-			);
+			GameUI.InitiatePayment(product_name);
 		});
 	});
 })();

@@ -3,8 +3,6 @@ if IsInToolsMode() and PRINT_EXTENDED_DEBUG == true then require("common/adv_log
 require("common/timers")
 require("common/utils")
 require("common/webapi/init")
---require("common/match_events")
--- require("common/patreons")
 
 require("common/disable_help")
 require("common/smart_random")
@@ -16,3 +14,4 @@ require("common/voting_to_kick")
 require("common/auto_team")
 require("common/unique_portraits")
 require("common/custom_chat")
+require("common/toasts")

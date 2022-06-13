@@ -1,0 +1,62 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/layout/custom_game/common/mail/mail.css"/>
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/mail/mail.js"/>
+	</scripts>
+
+	<snippets>
+		<snippet name="mail_entry">
+			<Panel class="MailEntry">
+				<Panel class="MailIcon"></Panel>
+				<Label class="MailTopic" text="{s:topic}"/>
+				<Panel class="MailReadStatus"></Panel>
+			</Panel>
+		</snippet>
+		<snippet name="attachment">
+			<Panel class="MailAttachment">
+				<Panel class="AttachmentContent">
+					<Image class="AttachmentImage"/>
+					<Label class="AttachmentCount" text="{d:count}"/>
+				</Panel>
+				<Image class="AttachmentClaimed" src="file://{images}/custom_game/mail/tick.png"/>
+			</Panel>
+		</snippet>
+	</snippets>
+
+	<Panel class="Mail">
+		<Panel class="MailHeaderContainer">
+			<Label class="MailHeader" text="#mail_header"/>
+			<Button class="CloseButton" onactivate="SetMailPanelState(false)"/>
+		</Panel>
+		<Panel class="MailContainer">
+			<Panel class="OverlayShadow" hittest="false"></Panel>
+			<Panel id="MailList">
+				<!-- filled from code -->
+			</Panel>
+			<Panel id="ActiveMailTab">
+				<Panel class="MailTopicContainer">
+					<Label class="MailTopic MailTopicOnTab" text="{s:topic}"/>
+					<Panel class="MailDetails">
+						<Label class="MailSource" text="#mail_source" html="true"/>
+						<Label class="MailDate" text="{s:created_at}"/>
+					</Panel>
+				</Panel>
+				<Label class="MailText" text="{s:text_content}" html="true"/>
+				<Panel id="MailAttachments">
+
+				</Panel>
+				<Panel class="MailButtons">
+					<Button class="MailButton" id="MailButton" onactivate="MailButtonPressed()">
+						<Label class="MailButtonLabel" text="{s:label}"/>
+					</Button>
+				</Panel>
+			</Panel>
+			<Label class="NoMailsHint" text="#no_mails_hint"/>
+		</Panel>
+	</Panel>
+</root>

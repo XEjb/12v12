@@ -45,6 +45,10 @@ function CloseFeedback() {
 	Game.EmitSound("ui_chat_slide_in");
 }
 (function () {
+	GameUI.Custom_ToggleFeedback = () => {
+		$.GetContextPanel().ToggleClass("show");
+	};
+
 	MAX_SYMBOLS_FIELD.SetDialogVariable("max", MAX_SYMBOLS);
 	MAX_SYMBOLS_FIELD.SetDialogVariable("curr", 0);
 	GameEvents.SubscribeProtected("feedback:update_cooldown", UpdateCooldown);

@@ -1,0 +1,98 @@
+.ToastsContainer {
+	width: fit-children;
+
+	height: 600px;
+	align: right center;
+
+	flow-children: down;
+	overflow: noclip scroll;
+}
+
+.Toast {
+	horizontal-align: right;
+	min-height: 100px;
+	width: 400px;
+	padding: 10px;
+	margin-bottom: 10px;
+
+	background-image: url("file://{images}/custom_game/toasts/wide_transparent_bg.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+
+	box-shadow: fill rgba(0, 0, 0, 0.5) 0px 1px 5px 0px;
+	border: 1px solid black;
+
+	flow-children: right;
+
+	transform: translateX(200px);
+	opacity: 0;
+	transition-property: transform, opacity, position;
+	transition-duration: 0.25s, 0.2s, 0.15s;
+}
+
+.ToastWrap {
+	flow-children: right;
+	width: fit-children;
+	min-height: 100px;
+}
+
+.Active {
+	transform: translateX(0px);
+	opacity: 1;
+}
+
+#ToastImage {
+	margin-right: 10px;
+	width: 80px;
+	height: 80px;
+	box-shadow: rgb(0, 0, 0) 0px 1px 5px 0px;
+	align: center center;
+
+	background-image: url("file://{images}/custom_game/mail/mail_reward_bg.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+.ToastContent {
+	flow-children: down;
+}
+
+.ToastHeader {
+	margin-top: 5px;
+	margin-bottom: 2px;
+	font-family: titleFont;
+	font-size: 26px;
+	height: 30px;
+	text-overflow: shrink;
+	color: white;
+	text-shadow: 2px 2px 0px 2 #000000;
+}
+
+.ToastDescription {
+	width: 280px;
+	font-size: 18px;
+	text-shadow: 1px 1px 0px 1 #000000;
+}
+
+.ToastHighlight {
+	color: #b694ff;
+	text-decoration: underline;
+}
+
+.ToastHint {
+	color: gray;
+	font-size: 14px;
+}
+
+.payment_fail #ToastImage {
+	saturation: 0;
+	background-image: url("file://{images}/custom_game/mail/mail_reward_bg_obtained.png");
+}
+
+.CloseButton {
+	margin: 0;
+	height: 25px;
+	width: 25px;
+	ignore-parent-flow: true;
+	align: right top;
+}

@@ -7,5 +7,6 @@ require("common/webapi/payments")
 require("common/webapi/supporters")
 require("common/webapi/feedback")
 require("common/webapi/synced_chat")
+require("common/webapi/mail")
 
 
