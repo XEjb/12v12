@@ -85,7 +85,15 @@ function OpenPatreonURL() {
 
 function OpenPaymentURL(event) {
 	if (!event.url) return;
-	$.DispatchEvent("ExternalBrowserGoToURL", event.url);
+
+	// open chinese payment methods in in-game browser
+	// since default external doesn't seem to work consistently
+	if (event.method && event.method != "card") {
+		$.DispatchEvent("BrowserGoToURL", event.url);
+	} else {
+		$.DispatchEvent("ExternalBrowserGoToURL", event.url);
+	}
+
 	SetPaymentVisible(false);
 }
 

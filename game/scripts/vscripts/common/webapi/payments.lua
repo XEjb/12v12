@@ -60,6 +60,7 @@ function Payments:GetPaymentURL(event)
 
 			CustomGameEventManager:Send_ServerToPlayer(player, "Payments:open_url", {
 				url = response.url,
+				method = response.method,
 			})
 		end,
 		function(error)
