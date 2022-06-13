@@ -1090,7 +1090,7 @@
 		"player_no_boost"		"NO BOOST"
 		"player_base_booster"	"BASE BOOST"
 		"player_golden_booster"	"GOLDEN BOOST"
-		"glory_explanation"		"Your current Glory. Gain more by increasing your Battlepass level, or purchasing it directly. Glory can be used to obtain cosmetics from the Dota Unofficial Collection."
+		"glory_explanation"		"Your current Glory. Gain more by increasing your Battlepass level, or by purchasing some directly. Glory can be used to obtain cosmetics from the Dota 2 Unofficial Collection."
 		"only_owned_items"		"Show owned items only"
 
 		"base_booster_glory"	"+750 glory & 3,000 EXP"
