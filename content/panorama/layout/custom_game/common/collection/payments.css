@@ -57,7 +57,7 @@
 
 #PaymentWindow {
 	align: center center;
-	width: 860px;
+	width: 1060px;
 	height: 700px;
 	background-color: #444;
 	background-image: url("file://{resources}/images/custom_game/payment/payment_bg.png");
@@ -79,7 +79,7 @@
 }
 
 #PaymentWindowContent {
-	width: 700px;
+	width: 900px;
 	height: 700px;
 	align: center center;
 }

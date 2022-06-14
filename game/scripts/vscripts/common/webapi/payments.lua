@@ -4,6 +4,8 @@ Payments = Payments or {}
 function Payments:Init()
 	RegisterCustomEventListener("Payments:request_url", Payments.GetPaymentURL, Payments)
 
+	Payments.pending_payments = {}
+	Payments.timeout_timers = {}
 	Payments.valid_payment_methods = {
 		card = true,
 		alipay = true,
@@ -14,6 +16,28 @@ end
 
 function Payments:ValidatePaymentMethod(method)
 	return Payments.valid_payment_methods[method]
+end
+
+
+function Payments:SetPaymentStatus(player_id, status)
+	-- print("[Payments] payment status changed", player_id, status)
+	Payments.pending_payments[player_id] = status
+
+	if status then
+		if Payments.timeout_timers[player_id] then Timers:RemoveTimer(Payments.timeout_timers[player_id]) end
+		Payments.timeout_timers[player_id] = Timers:CreateTimer(60, function()
+			-- print("[Payments] payment status timeout for ", player_id)
+			Payments:SetPaymentStatus(player_id, false)
+		end)
+	else
+		if Payments.timeout_timers[player_id] then
+			Timers:RemoveTimer(Payments.timeout_timers[player_id])
+			Payments.timeout_timers[player_id] = nil
+		end
+		if next(Payments.pending_payments) == nil then
+			MatchEvents:SetActivePolling(false)
+		end
+	end
 end
 
 
@@ -49,14 +73,7 @@ function Payments:GetPaymentURL(event)
 			local player = PlayerResource:GetPlayer(player_id)
 			if not player or player:IsNull() then return end
 
-			MatchEvents:SetActivePolling(true)
-
-			-- TODO: this might benefit from some internal state handling, to ensure we aren't closing polling
-			-- when some other players are waiting for their payment to complete
-			Timers:CreateTimer(60, function()
-				-- fallback polling closing, to handle cases when player doesn't purchase anything after opening link
-				MatchEvents:SetActivePolling(false)
-			end)
+			Payments:SetPaymentStatus(player_id, true)
 
 			CustomGameEventManager:Send_ServerToPlayer(player, "Payments:open_url", {
 				url = response.url,
@@ -75,7 +92,7 @@ MatchEvents.event_handlers.payment_success = function(event_data)
 	local player_id = GetPlayerIdBySteamId(steam_id)
 
 	WebApi:ProcessMetadata(player_id, steam_id, event_data)
-	MatchEvents:SetActivePolling(false)
+	Payments:SetPaymentStatus(player_id, false)
 
 	Toasts:NewForPlayer(player_id, "payment_success", event_data)
 end

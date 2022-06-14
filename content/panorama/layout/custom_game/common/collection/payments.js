@@ -3,12 +3,26 @@ const PRICE_LABEL = $("#Price");
 const GIFT_CODE_CHECKER = $("#GiftCodePaymentFlag");
 const QUANTITY_CONTAINER = $("#PurchaseQuantityContainer");
 
+const HTML_CONTAINER = $("#PaymentWindow");
+const HTML_BROWSER = $("#PaymentWindowHTML");
+const HTML_LOADER = $("#PaymentWindowHTML_Loading");
+const HTML_WINDOW_LOADER = $("#PaymentWindowLoader");
+const HTML_ERROR = $("#PaymentWindowError");
+
 let CURRENT_PRODUCT_NAME;
 let CURRENT_QUANTITY = 1;
 let AS_GIFT_CODE = false;
 
+function SetPaymentWindowStatus(state) {
+	HTML_CONTAINER.SetHasClass("Hidden", state == "closed");
+	HTML_LOADER.visible = state == "html";
+	HTML_WINDOW_LOADER.visible = state === "loading";
+	HTML_BROWSER.visible = state === "html";
+	HTML_ERROR.visible = false;
+}
+
 function ClosePayment() {
-	$("#PaymentWindow").SetHasClass("Hidden", true);
+	HTML_CONTAINER.SetHasClass("Hidden", true);
 }
 
 function UpdateGiftCodeState() {
@@ -76,6 +90,10 @@ function RequestPaymentUrlWithMethod(method) {
 	});
 
 	SetPaymentVisible(false);
+
+	if (method != "card") {
+		SetPaymentWindowStatus("loading");
+	}
 }
 
 function OpenPatreonURL() {
@@ -87,9 +105,11 @@ function OpenPaymentURL(event) {
 	if (!event.url) return;
 
 	// open chinese payment methods in in-game browser
-	// since default external doesn't seem to work consistently
 	if (event.method && event.method != "card") {
-		$.DispatchEvent("BrowserGoToURL", event.url);
+		HTML_BROWSER.SetURL(event.url);
+		$.Schedule(1, () => {
+			SetPaymentWindowStatus("html");
+		});
 	} else {
 		$.DispatchEvent("ExternalBrowserGoToURL", event.url);
 	}
@@ -106,9 +126,5 @@ function OpenPaymentURL(event) {
 		InitiatePayment("reset_mmr");
 	});
 
-	$("#PaymentWindow").SetHasClass("Hidden", true);
-	$("#PaymentWindowHTML_Loading").visible = false;
-	$("#PaymentWindowLoader").visible = false;
-	$("#PaymentWindowHTML").visible = false;
-	$("#PaymentWindowError").visible = false;
+	SetPaymentWindowStatus("closed");
 })();

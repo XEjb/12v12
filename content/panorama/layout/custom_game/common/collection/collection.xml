@@ -427,7 +427,7 @@
 					<Label id="PaymentWindowErrorMessage" class="PaymentMessage"/>
 				</Panel>
 			</Panel>
-			<Button class="CloseButton" onactivate="setPaymentWindowStatus('closed')" />
+			<Button class="CloseButton" onactivate="SetPaymentWindowStatus('closed')" />
 		</Panel>
 
 		<Panel id="MapPatreonButtonGrid">
