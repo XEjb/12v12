@@ -15,8 +15,8 @@ let AS_GIFT_CODE = false;
 
 function SetPaymentWindowStatus(state) {
 	HTML_CONTAINER.SetHasClass("Hidden", state == "closed");
-	HTML_LOADER.visible = state == "html";
-	HTML_WINDOW_LOADER.visible = state === "loading";
+	HTML_LOADER.visible = state == "loading";
+	HTML_WINDOW_LOADER.visible = false;
 	HTML_BROWSER.visible = state === "html";
 	HTML_ERROR.visible = false;
 }
@@ -107,7 +107,7 @@ function OpenPaymentURL(event) {
 	// open chinese payment methods in in-game browser
 	if (event.method && event.method != "card") {
 		HTML_BROWSER.SetURL(event.url);
-		$.Schedule(1, () => {
+		$.Schedule(5, () => {
 			SetPaymentWindowStatus("html");
 		});
 	} else {
