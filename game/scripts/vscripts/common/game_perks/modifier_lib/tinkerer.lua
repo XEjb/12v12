@@ -18,6 +18,13 @@ local ignored_special_values = {
 	item_misericorde 	= {missing_hp = true },
 }
 
+local ignored_special_values_common = {
+	AbilityCooldown = true,
+	AbilityManaCost = true,
+	AbilityChannelTime = true,
+	AbilityCharges = true,
+}
+
 tinkerer = class(base_game_perk)
 function tinkerer:GetTexture() return "perkIcons/tinkerer" end
 function tinkerer:GetAttributes() return MODIFIER_ATTRIBUTE_PERMANENT + MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE end
@@ -38,23 +45,23 @@ for _, levelData in pairs(neutralItemKV) do
 	end
 end
 
-function tinkerer:GetModifierOverrideAbilitySpecial(keys)
+function tinkerer:_OverrideAbilitySpecialCallback(keys, base_value, inc_callback)
 	local ability_name = keys.ability:GetAbilityName()
-	if keys.ability and neutral_list and neutral_list[ability_name] and not (ignored_special_values[ability_name] and ignored_special_values[ability_name][keys.ability_special_value]) then
-		return 1
+	if keys.ability and neutral_list and neutral_list[ability_name] and
+		not ignored_special_values_common[keys.ability_special_value] and
+		not (ignored_special_values[ability_name] and ignored_special_values[ability_name][keys.ability_special_value]) then
+		return inc_callback(base_value)
 	end
+	return base_value
+end
 
-	return 0
+function tinkerer:GetModifierOverrideAbilitySpecial(keys)
+	return self:_OverrideAbilitySpecialCallback(keys, 0, function(_) return 1 end)
 end
 
 function tinkerer:GetModifierOverrideAbilitySpecialValue(keys)
 	local value = keys.ability:GetLevelSpecialValueNoOverride(keys.ability_special_value, keys.ability_special_level)
-
-	if keys.ability and neutral_list and neutral_list[keys.ability:GetAbilityName()] then
-		return value * (self.v or 1)
-	end
-
-	return value
+	return self:_OverrideAbilitySpecialCallback(keys, value, function(_) return _ * (self.v or 1) end)
 end
 
 function tinkerer:OnAttackLanded(keys)
