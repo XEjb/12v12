@@ -413,7 +413,7 @@
 			</Panel>
 		</Panel>
 
-		<Panel id="HTMLViewer">
+		<Panel id="HTMLViewer" onactivate="">
 			<Panel id="HTMLViewerContent">
 				<Panel id="HTML_Loading">
 					<Label class="PaymentMessage" text="#html_loading"/>
