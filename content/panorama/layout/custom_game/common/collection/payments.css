@@ -55,67 +55,8 @@
 	border: 2px black solid;
 }
 
-#PaymentWindow {
-	align: center center;
-	width: 1060px;
-	height: 700px;
-	background-color: #444;
-	background-image: url("file://{resources}/images/custom_game/payment/payment_bg.png");
-	background-size: 100%;
-	box-shadow: black 0px 0px 20px 0px;
-	pre-transform-scale2d: 1;
-}
-
-#PaymentWindow > .CloseButton {
-	horizontal-align: right;
-	wash-color: #a4beef;
-	brightness: 1;
-	margin-right: 10px;
-	margin-top: 10px;
-}
-
-#PaymentWindow > .CloseButton:hover {
-	brightness: 1.5;
-}
-
-#PaymentWindowContent {
-	width: 900px;
-	height: 700px;
-	align: center center;
-}
-
-#PaymentWindowContent > Panel {
-	width: 100%;
-	height: 100%;
-}
-
-#PaymentWindowLoader > .Spinner {
-	align: center center;
-}
-
-.PaymentMessage {
-	align: center center;
-	text-align: center;
-	color: white;
-	font-size: 24px;
-}
 .Hidden {
 	opacity: 0;
-}
-
-#PaymentWindowHTML {
-	width: 100%;
-	height: 100%;
-}
-#PaymentWindowHTML_Loading {
-	flow-children: down;
-}
-#PaymentWindowHTML_Loading > Label {
-	margin-top: 45%;
-}
-#PaymentWindowHTML_Loading .Spinner {
-	horizontal-align: center;
-	margin-top: 5px;
 }
 
 #PurchaseQuantityContainer {
@@ -138,4 +79,83 @@
 .PurchaseQuantityLabel {
 	margin-left: 15px;
 	margin-right: 15px;
+}
+
+#HTMLViewer {
+	width: 1200px;
+	height: 800px;
+	align: center center;
+
+	background-color: #444;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/patchnotes_background.png");
+	background-size: 100%;
+	box-shadow: black 0px 0px 20px 0px;
+
+	transition-property: opacity;
+	transition-duration: 0.5s;
+}
+
+#HTMLViewer > .CloseButton {
+	horizontal-align: right;
+	vertical-align: top;
+	margin-right: 5px;
+	margin-top: 5px;
+}
+
+#HTMLViewerContent {
+	width: 1100px;
+	height: 800px;
+	align: center center;
+}
+
+#HTML_Loading {
+	align: center center;
+	flow-children: down;
+
+	transition-property: opacity;
+	transition-duration: 0.5s;
+}
+
+.PaymentMessage {
+	align: center center;
+	text-align: center;
+	color: white;
+	font-size: 24px;
+}
+
+#HTML_Loading > .Spinner {
+	align: center center;
+	margin-top: 10px;
+}
+
+.PaymentMessage {
+	align: center center;
+	text-align: center;
+	color: white;
+	font-size: 24px;
+}
+
+#HTML_Content {
+	width: 100%;
+	height: 100%;
+
+	transition-property: opacity;
+	transition-duration: 0.5s;
+}
+
+.closed {
+	visibility: collapse;
+	opacity: 0;
+}
+
+.closed #HTML_Content {
+	opacity: 0;
+}
+
+.loading #HTML_Content {
+	opacity: 0;
+}
+
+.ready #HTML_Loading {
+	opacity: 0;
 }

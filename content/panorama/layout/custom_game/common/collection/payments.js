@@ -3,22 +3,20 @@ const PRICE_LABEL = $("#Price");
 const GIFT_CODE_CHECKER = $("#GiftCodePaymentFlag");
 const QUANTITY_CONTAINER = $("#PurchaseQuantityContainer");
 
-const HTML_CONTAINER = $("#PaymentWindow");
-const HTML_BROWSER = $("#PaymentWindowHTML");
-const HTML_LOADER = $("#PaymentWindowHTML_Loading");
-const HTML_WINDOW_LOADER = $("#PaymentWindowLoader");
-const HTML_ERROR = $("#PaymentWindowError");
+const HTML_VIEWER = $("#HTMLViewer");
+const HTML_CONTENT = $("#HTML_Content");
 
 let CURRENT_PRODUCT_NAME;
 let CURRENT_QUANTITY = 1;
 let AS_GIFT_CODE = false;
+let LOADING_SCHEDULE;
 
-function SetPaymentWindowStatus(state) {
-	HTML_CONTAINER.SetHasClass("Hidden", state == "closed");
-	HTML_LOADER.visible = state == "loading";
-	HTML_WINDOW_LOADER.visible = false;
-	HTML_BROWSER.visible = state === "html";
-	HTML_ERROR.visible = false;
+function SetHTMLViewerStatus(status) {
+	HTML_VIEWER.SwitchClass("status", status);
+
+	if (status == "closed" && LOADING_SCHEDULE !== undefined) {
+		LOADING_SCHEDULE = $.CancelScheduled(LOADING_SCHEDULE);
+	}
 }
 
 function ClosePayment() {
@@ -92,7 +90,7 @@ function RequestPaymentUrlWithMethod(method) {
 	SetPaymentVisible(false);
 
 	if (method != "card") {
-		SetPaymentWindowStatus("loading");
+		SetHTMLViewerStatus("loading");
 	}
 }
 
@@ -101,15 +99,26 @@ function OpenPatreonURL() {
 	SetPaymentVisible(false);
 }
 
+function LoadingSchedule() {
+	// toggle window display when payment URL finishes loading in background
+	if (HTML_CONTENT.BHasClass("HTMLContentLoaded")) {
+		$.Schedule(10, () => {
+			SetHTMLViewerStatus("ready");
+		});
+		LOADING_SCHEDULE = undefined;
+		return;
+	}
+	LOADING_SCHEDULE = $.Schedule(1, LoadingSchedule);
+}
+
 function OpenPaymentURL(event) {
 	if (!event.url) return;
 
 	// open chinese payment methods in in-game browser
 	if (event.method && event.method != "card") {
-		HTML_BROWSER.SetURL(event.url);
-		$.Schedule(5, () => {
-			SetPaymentWindowStatus("html");
-		});
+		HTML_CONTENT.SetURL(event.url);
+		// start schedule to detect page load and delay visibility change
+		LoadingSchedule();
 	} else {
 		$.DispatchEvent("ExternalBrowserGoToURL", event.url);
 	}
@@ -126,5 +135,5 @@ function OpenPaymentURL(event) {
 		InitiatePayment("reset_mmr");
 	});
 
-	SetPaymentWindowStatus("closed");
+	SetHTMLViewerStatus("closed");
 })();

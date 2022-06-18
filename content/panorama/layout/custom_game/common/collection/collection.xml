@@ -413,21 +413,15 @@
 			</Panel>
 		</Panel>
 
-		<Panel id="PaymentWindow" onactivate="">
-			<Panel id="PaymentWindowContent">
-				<Panel id="PaymentWindowHTML_Loading">
+		<Panel id="HTMLViewer">
+			<Panel id="HTMLViewerContent">
+				<Panel id="HTML_Loading">
 					<Label class="PaymentMessage" text="#html_loading"/>
 					<Panel class="Spinner" />
 				</Panel>
-				<HTML id="PaymentWindowHTML" acceptsinput="true" />
-				<Panel id="PaymentWindowLoader">
-					<Panel class="Spinner" />
-				</Panel>
-				<Panel id="PaymentWindowError">
-					<Label id="PaymentWindowErrorMessage" class="PaymentMessage"/>
-				</Panel>
+				<HTML id="HTML_Content" acceptsinput="true" hittest="true" />
 			</Panel>
-			<Button class="CloseButton" onactivate="SetPaymentWindowStatus('closed')" />
+			<Button class="CloseButton" onactivate="SetHTMLViewerStatus('closed')" />
 		</Panel>
 
 		<Panel id="MapPatreonButtonGrid">
