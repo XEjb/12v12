@@ -35,6 +35,7 @@
 		"purchase_confirmation_footer"								"确定吗？"
 		"purchase_confirmation_yes"									"是的，没错"
 		"purchase_confirmation_no"									"不，我要修改一下"
+		"close"														"关闭"
 
 		"high_tier_supporter_perk"									"仅限高级支持者（￥200）"
 		"available_perk"											"可用"
@@ -1089,7 +1090,7 @@
 		"player_no_boost"		"无提升"
 		"player_base_booster"	"基础提升"
 		"player_golden_booster"	"黄金提升"
-		"glory_explanation"		"你当前的荣耀值。可通过提升Battlepass等级获得更多，也可直接购买。荣耀值可用于从Dota Unofficial收藏中获取饰品。"
+		"glory_explanation"		"你当前的荣耀值。可通过提升Battlepass等级获得更多，也可直接购买。荣耀值可用于从Dota 2 Unofficial收藏中获取饰品。"
 		"only_owned_items"		"仅展示已有物品"
 
 		"base_booster_glory"	"+750荣耀与3,000经验"
@@ -1227,15 +1228,15 @@
 		"end_game_won"		"你胜利了！"
 
 		"end_game_place_1"		"，第1名！"
-		"end_game_place_2"		"第2名！"
-		"end_game_place_3"		"第3名！"
-		"end_game_place_4"		"第4名"
-		"end_game_place_5"		"第5名"
-		"end_game_place_6"		"第6名"
-		"end_game_place_7"		"第7名"
-		"end_game_place_8"		"第8名"
-		"end_game_place_9"		"第9名"
-		"end_game_place_10"		"第10名"
+		"end_game_place_2"		"，第2名！"
+		"end_game_place_3"		"，第3名！"
+		"end_game_place_4"		"，第4名"
+		"end_game_place_5"		"，第5名"
+		"end_game_place_6"		"，第6名"
+		"end_game_place_7"		"，第7名"
+		"end_game_place_8"		"，第8名"
+		"end_game_place_9"		"，第9名"
+		"end_game_place_10"		"，第10名"
 
 		// Collection
 
@@ -1734,18 +1735,18 @@
 		"popular"				"热门"
 		"glory_offer_bonus"		"##pct##%奖励"
 
-		"purchase_glory_bundle_100"					"荣耀捆绑包（100）"
-		"purchase_glory_bundle_100_description"		"100 Battlepass荣耀"
-		"purchase_glory_bundle_550"					"荣耀捆绑包（550）"
-		"purchase_glory_bundle_550_description"		"550 Battlepass荣耀"
-		"purchase_glory_bundle_1150"				"荣耀捆绑包（1150）"
-		"purchase_glory_bundle_1150_description"	"1150 Battlepass荣耀"
-		"purchase_glory_bundle_3000"				"荣耀捆绑包（3000）"
-		"purchase_glory_bundle_3000_description"	"3000 Battlepass荣耀"
-		"purchase_glory_bundle_6500"				"荣耀捆绑包（6500）"
-		"purchase_glory_bundle_6500_description"	"6500 Battlepass荣耀"
-		"purchase_glory_bundle_15000"				"荣耀捆绑包（15000）"
-		"purchase_glory_bundle_15000_description"	"15000 Battlepass荣耀"
+		"glory_bundle_100_purchase_header"					"荣耀捆绑包（100）"
+		"glory_bundle_100_purchase_description"		"100 Battlepass荣耀"
+		"glory_bundle_550_purchase_header"					"荣耀捆绑包（550）"
+		"glory_bundle_550_purchase_description"		"550 Battlepass荣耀"
+		"glory_bundle_1150_purchase_header"				"荣耀捆绑包（1150）"
+		"glory_bundle_1150_purchase_description"	"1150 Battlepass荣耀"
+		"glory_bundle_3000_purchase_header"				"荣耀捆绑包（3000）"
+		"glory_bundle_3000_purchase_description"	"3000 Battlepass荣耀"
+		"glory_bundle_6500_purchase_header"				"荣耀捆绑包（6500）"
+		"glory_bundle_6500_purchase_description"	"6500 Battlepass荣耀"
+		"glory_bundle_15000_purchase_header"				"荣耀捆绑包（15000）"
+		"glory_bundle_15000_purchase_description"	"15000 Battlepass荣耀"
 
 		"more_glory"	"+"
 
@@ -1856,7 +1857,7 @@
 		"workaround_description"	"请注意，游戏将强制你断开连接，以避免Valve的惩罚漏洞。请重新连接以继续游玩。"
 		"workaround_chat_message"	"<font color='#ff0000'>请注意，游戏将强制你断开连接，以避免Valve的惩罚Bug。请重新连接以继续游玩</font>"
 
-		"pay_item_like_gift_code"	"以礼品代码的形式购买"
+		"buy_as_a_gift_code"		"以礼品代码的形式购买"
 		"gift_codes_header"			"礼品代码"
 		"gift_codes_description"	"你可在大厅中将鼠标悬浮在‘发送’按钮上以直接将礼品代码发送给其他玩家。如果你想将礼品代码发送至游戏外的玩家，请将代码展示并分享给你的朋友。他们将能够在下次游玩时领取代码。\n\n如需购买礼品代码，只需像往常一样购买物品，但在购买时点击“以礼品代码的形式购买”即可。"
 		"gift_codes_redeem_use"		"兑换代码："
@@ -2001,7 +2002,25 @@
 		"DOTA_Tooltip_Ability_item_tome_of_knowledge_lua_Description"				"<h1>使用：启蒙</h1>每分钟游戏时间提供%xp_bonus%经验加%xp_per_minute%。"
 		"DOTA_Tooltip_Ability_item_tome_of_knowledge_lua_Lore"						"让野兽成为人，让人成为神。"
 
-		// DeepL
+		"toast_mail_incoming"						"新邮件！"
+		"toast_mail_incoming_description"			"你已收到来自<span class='ToastHighlight'>{s:source}</span>，有关<span class='ToastHighlight'>{s:topic}</span>的新邮件。"
+
+		"toast_payment_success"						"购买已完成！"
+		"toast_payment_success_description"			"<span class='ToastHighlight'>{s:product_name}</span>已发送至你的账户。感谢！"
+
+		"toast_gift_code_prefix"					"礼品代码："
+
+		"dev_team"									"开发团队"
+		"feedback_reply"							"反馈回复"
+
+		"mail_header"			"你的邮件"
+		"mail_source"			"来自：<span class='MailHighlight'>{s:source}</span>"
+		"mail_claim"			"领取"
+		"mail_delete"			"删除"
+		"no_mails_hint"			"你没有任何邮件。"
+		"currency"				"荣耀"
+		"attachment_claimed"	"已领取"
+
 		"temporarily_disabled"	"暂时禁用"
 	}
 }
