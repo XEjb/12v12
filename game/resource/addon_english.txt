@@ -1072,8 +1072,8 @@
 		"12v12_china_tournament"					"Dota 12v12 Tournament"
 		"12v12_china_tournament_open_in_browser"	"Open in browser (pass: e37w)"
 
-		"DOTA_Tooltip_modifier_bonus_for_weak_team_in_mmr"				"Weak Team"
-		"DOTA_Tooltip_modifier_bonus_for_weak_team_in_mmr_Description"	"Players in this team will get additional gold and experience"
+		"DOTA_Tooltip_modifier_weak_team_bonus"				"Weak Team"
+		"DOTA_Tooltip_modifier_weak_team_bonus_Description"	"Players in this team will get additional gold and experience"
 
 		"less_mmr_bonus_header"	"Your team has {s:mmr_diff} less MMR and will get bonuses for this game"
 		"less_mmr_bonus_exp"	"{s:exp_pct}% Experiance"
@@ -1948,7 +1948,7 @@
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 has been disconnected for too long and has been removed from the game."
 		"sc_mute_date"	"You are muted for the next %%days%% days %%hours%% hours %%mins%% minutes"
 
-		"cannot_use_it_for_now"	"You cannot start another Vote Kick until 10 minutes after the previous one"
+    "cannot_use_it_for_now"	"You cannot start another Vote Kick until 10 minutes after the previous one"
 
 		"DOTA_Tooltip_ability_item_arcane_blink_Note2"							"\nPercentage-based cooldown reductions do not stack, the highest value takes priority."
 		"DOTA_Tooltip_ability_item_octarine_core_Note0"							"Percentage-based cooldown reductions do not stack, the highest value takes priority."

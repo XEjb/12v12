@@ -1072,8 +1072,8 @@
 		"12v12_china_tournament"					"Dota 12v12锦标赛"
 		"12v12_china_tournament_open_in_browser"	"在浏览器中打开（密码：e37w）"
 
-		"DOTA_Tooltip_modifier_bonus_for_weak_team_in_mmr"				"弱队"
-		"DOTA_Tooltip_modifier_bonus_for_weak_team_in_mmr_Description"	"此队伍中的玩家将获得额外金币和经验"
+		"DOTA_Tooltip_modifier_weak_team_bonus"				"弱队"
+		"DOTA_Tooltip_modifier_weak_team_bonus_Description"	"此队伍中的玩家将获得额外金币和经验"
 
 		"less_mmr_bonus_header"	"你队伍的MMR少{s:mmr_diff}，故将在本回合游戏中得到奖金"
 		"less_mmr_bonus_exp"	"{s:exp_pct}%经验"
@@ -1948,7 +1948,7 @@
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1已断开连接太久，且已从游戏中移除。"
 		"sc_mute_date"	"你在接下来的%%days%%天%%hours%%小时%%mins%%分钟内被静音"
 
-		"cannot_use_it_for_now"	"你不能在前一次投票后的10分钟内发起另一次投票"
+    "cannot_use_it_for_now"	"你不能在前一次投票后的10分钟内发起另一次投票"
 
 		"DOTA_Tooltip_ability_item_arcane_blink_Note2"							"\n基于百分比的冷却时间减免不会叠加，值最高的优先。"
 		"DOTA_Tooltip_ability_item_octarine_core_Note0"							"基于百分比的冷却时间减免不会叠加，值最高的优先。"

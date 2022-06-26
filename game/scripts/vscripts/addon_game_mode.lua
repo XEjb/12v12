@@ -941,8 +941,8 @@ function CMegaDotaGameMode:FilterModifyGold( filterTable )
 --	print( "FilterModifyGold" )
 --	print( self.m_CurrentGoldScaleFactor )
 	filterTable["gold"] = self.m_CurrentGoldScaleFactor * filterTable["gold"]
-	if PlayerResource:GetTeam(filterTable.player_id_const) == ShuffleTeam.weakTeam then
-		filterTable["gold"] = ShuffleTeam.multGold * filterTable["gold"]
+	if PlayerResource:GetTeam(filterTable.player_id_const) == ShuffleTeam.weak_team_id then
+		filterTable["gold"] = ShuffleTeam.gold_multiplier * filterTable["gold"]
 	end
 	return true
 end
@@ -995,7 +995,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 	if newState ==  DOTA_GAMERULES_STATE_HERO_SELECTION then
 		GameOptions:RecordVotingResults()
-		ShuffleTeam:SortInMMR()
+		ShuffleTeam:ShuffleTeams()
 		AutoTeam:EnableFreePatreonForBalance()
 		Timers:CreateTimer(1, function()
 			GameRules:SendCustomMessage("#workaround_chat_message", -1, 0)

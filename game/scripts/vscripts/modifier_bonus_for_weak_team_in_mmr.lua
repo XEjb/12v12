@@ -1,40 +1,41 @@
-modifier_bonus_for_weak_team_in_mmr = class({})
+modifier_weak_team_bonus = class({})
 
 --------------------------------------------------------------------------------
-function modifier_bonus_for_weak_team_in_mmr:IsHidden()
+function modifier_weak_team_bonus:IsHidden()
 	return false
 end
 --------------------------------------------------------------------------------
-function modifier_bonus_for_weak_team_in_mmr:GetTexture()
+function modifier_weak_team_bonus:GetTexture()
 	return "mmr_balance"
 end
 --------------------------------------------------------------------------------
-function modifier_bonus_for_weak_team_in_mmr:IsPurgable()
+function modifier_weak_team_bonus:IsPurgable()
 	return false
 end
 --------------------------------------------------------------------------------
-function modifier_bonus_for_weak_team_in_mmr:DestroyOnExpire()
+function modifier_weak_team_bonus:DestroyOnExpire()
 	return false
 end
 --------------------------------------------------------------------------------
-function modifier_bonus_for_weak_team_in_mmr:RemoveOnDeath()
+function modifier_weak_team_bonus:RemoveOnDeath()
 	return false
 end
 --------------------------------------------------------------------------------
-function modifier_bonus_for_weak_team_in_mmr:OnCreated( params )
+function modifier_weak_team_bonus:OnCreated(params)
 	if not IsServer() then return end
-	self.bonusPct = params.bonusPct
+
+	self.weak_team_bonus_pct = params.weak_team_bonus_pct
 end
 --------------------------------------------------------------------------------
-function modifier_bonus_for_weak_team_in_mmr:DeclareFunctions()
-	local funcs = {
-		MODIFIER_PROPERTY_EXP_RATE_BOOST,
+function modifier_weak_team_bonus:DeclareFunctions()
+	if not IsServer() then return end
+
+	return {
+		MODIFIER_PROPERTY_EXP_RATE_BOOST, -- GetModifierPercentageExpRateBoost
 	}
-	return funcs
 end
 --------------------------------------------------------------------------------
-function modifier_bonus_for_weak_team_in_mmr:GetModifierPercentageExpRateBoost( params )
-	if not IsServer() then return end
-	return self.bonusPct
+function modifier_weak_team_bonus:GetModifierPercentageExpRateBoost(params)
+	return self.weak_team_bonus_pct
 end
 --------------------------------------------------------------------------------
