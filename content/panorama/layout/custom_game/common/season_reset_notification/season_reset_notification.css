@@ -1,0 +1,141 @@
+.SeasonResetContainer {
+	width: 600px;
+	align: center center;
+	flow-children: down;
+	margin-bottom: 200px;
+
+	opacity: 0;
+	visibility: collapse;
+
+	z-index: -100;
+}
+
+.SeasonResetImage {
+	width: 400px;
+	height: 200px;
+
+	align: center center;
+}
+
+.SeasonResetNotification {
+	width: 600px;
+	height: 200px;
+
+	background-image: url("file://{images}/custom_game/leaderboards/season_reset_bg.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+
+	box-shadow: fill rgba(0, 0, 0, 0.5) 0px 1px 5px 3px;
+	border: 1px solid black;
+
+	flow-children: down;
+}
+
+.visible {
+	opacity: 1;
+	visibility: visible;
+}
+
+.SeasonResetHeader {
+	align: center top;
+
+	font-family: titleFont;
+	text-transform: uppercase;
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+
+	color: white;
+	font-size: 20px;
+	text-shadow: 2px 2px 0px 2 #000000;
+}
+
+.SeasonResetDescription {
+	align: center center;
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+
+	text-align: center;
+
+	color: rgb(194, 194, 194);
+	font-size: 18px;
+	text-shadow: 2px 2px 0px 2 #000000;
+}
+
+.NewRatingContainer {
+	align: center center;
+	flow-children: right;
+
+	margin-top: 10px;
+}
+
+.NewRatingHeader {
+	font-size: 20px;
+	color: white;
+	text-shadow: 2px 2px 0px 2 #000000;
+
+	vertical-align: center;
+}
+
+.NewRatingWrap {
+	align: center center;
+	width: 94px;
+	height: 29px;
+	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_cup_ffa.png");
+	background-size: 100%;
+}
+
+#LocalPlayerRating {
+	width: 52px;
+	height: 22px;
+	text-align: center;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#e19e46), to(#ffcf3e));
+	font-size: 18px;
+	text-shadow: 0px 0px 2px 1 rgba(0, 0, 0, 1);
+	transition: height 0.2s ease-in-out 0s, width 0.2s ease-in-out 0s;
+	text-overflow: shrink;
+
+	align: right center;
+	margin-left: 0px;
+	margin-top: 4px;
+	margin-right: 7px;
+}
+
+.SR_Confirm {
+	align: center bottom;
+
+	width: 150px;
+	height: 34px;
+	box-shadow: fill rgba(0, 0, 0, 0.6) 0px 1px 2px 2px;
+	transition-property: brightness;
+	transition-duration: 0.1s;
+	background-image: url("file://{images}/custom_game/ability_selection/button_bg_reroll.png");
+	background-size: 100%;
+
+	margin-bottom: 5px;
+}
+
+.SR_Confirm:hover:not(.Cooldown) {
+	brightness: 1.5;
+}
+
+.SR_Confirm:active:not(.Cooldown) {
+	brightness: 1.1;
+}
+
+.SR_ConfirmLabel {
+	align: center center;
+	text-align: center;
+	color: #fbf6ff;
+	text-transform: uppercase;
+	font-size: 20px;
+	height: 24px;
+	text-overflow: shrink;
+	text-shadow: black 0px 2px 0px 0px;
+}
+
+.date_highlight {
+	color: white;
+	text-decoration: underline;
+}

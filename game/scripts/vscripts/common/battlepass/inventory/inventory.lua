@@ -271,8 +271,7 @@ function BP_Inventory:OpenTreasure(data)
 			return
 		else
 			WebApi.player_settings[data.PlayerID].got_free_treasure = true
-			WebApi:ForceSaveSettings(data.PlayerID)
-			CustomNetTables:SetTableValue("player_settings", tostring(data.PlayerID), WebApi.player_settings[data.PlayerID])
+			WebApi:ScheduleSettingsUpdate(data.PlayerID)
 		end
 	end
 
@@ -570,16 +569,14 @@ function BP_Inventory:TakeOffItem(data)
 end
 
 function BP_Inventory:SaveOnlyEquippedItems(data)
-	local playerId = data.PlayerID
+	local player_id = data.PlayerID
+	if not player_id or not PlayerResource:IsValidPlayerID(player_id) then return end
+
 	local state = toboolean(data.state)
-	if WebApi.player_settings[playerId] then
-		WebApi.player_settings[playerId].only_owned_items = state
-		WebApi:ScheduleUpdateSettings(playerId)
-	else
-		Timers:CreateTimer(1, function()
-			BP_Inventory:SaveOnlyEquippedItems(data)
-			return nil
-		end)
+
+	if WebApi.player_settings[player_id] then
+		WebApi.player_settings[player_id].only_owned_items = state
+		WebApi:ScheduleSettingsUpdate(player_id)
 	end
 end
 

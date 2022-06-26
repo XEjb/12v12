@@ -3631,13 +3631,8 @@ RegisterCustomEventListener("patreon_update_chat_wheel_favorites", function(data
 		local favourites = data.favourites
 		if not favourites then return end
 
-		local old_settings = CustomNetTables:GetTableValue("player_settings", tostring(playerId))
-		old_settings.chatWheelFavourites = favourites
-
-		CustomNetTables:SetTableValue("player_settings", tostring(playerId), old_settings)
-
 		WebApi.player_settings[data.PlayerID].chatWheelFavourites = favourites
-		WebApi:ScheduleUpdateSettings(data.PlayerID)
+		WebApi:ScheduleSettingsUpdate(data.PlayerID)
 	end
 end)
 

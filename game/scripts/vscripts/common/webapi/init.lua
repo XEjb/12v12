@@ -1,6 +1,7 @@
 require("common/battlepass/core")
 
 require("common/webapi/webapi")
+require("common/webapi/settings")
 require("common/webapi/error_tracking")
 require("common/webapi/match_events")
 require("common/webapi/payments")
@@ -8,5 +9,6 @@ require("common/webapi/supporters")
 require("common/webapi/feedback")
 require("common/webapi/synced_chat")
 require("common/webapi/mail")
+require("common/webapi/season_reset")
 
 

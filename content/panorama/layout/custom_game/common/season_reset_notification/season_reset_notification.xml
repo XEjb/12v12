@@ -1,0 +1,30 @@
+<root>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/season_reset_notification/season_reset_notification.js" />
+	</scripts>
+
+	<styles>
+		<include src="file://{resources}/layout/custom_game/common/season_reset_notification/season_reset_notification.css" />
+	</styles>
+
+	<Panel class="SeasonResetContainer">
+		<Image class="SeasonResetImage" src="file://{images}/custom_game/leaderboards/leaderboards_trophy.png"/>
+		<Panel class="SeasonResetNotification" hittest="false">
+			<Label class="SeasonResetHeader" text="#season_reset_header"/>
+			<Label class="SeasonResetDescription" html="true" text="#season_reset_description"/>
+
+			<Panel class="NewRatingContainer">
+				<Label class="NewRatingHeader" text="#season_reset_new_rating"/>
+				<Panel class="NewRatingWrap">
+					<Label id="LocalPlayerRating" text="{d:new_rating}"/>
+				</Panel>
+			</Panel>
+
+			<Button class="SR_Confirm" onactivate="SetStatus(false)">
+				<Label class="SR_ConfirmLabel" text="#confirm"/>
+			</Button>
+		</Panel>
+	</Panel>
+
+</root>

@@ -2021,6 +2021,11 @@
 		"currency"				"Glory"
 		"attachment_claimed"	"Claimed"
 
+		"confirm"				"Confirm"
+		"season_reset_header"	"Season {d:season} commenced!"
+		"season_reset_description"	"Ratings of all players have been reset based on their previous rating.<br> Next reset will happen in 6 months - <span class='date_highlight'>{t:next_reset_date}</span>"
+		"season_reset_new_rating"	"Your new rating:"
+
 		"temporarily_disabled"	"Temporarily disabled"
 	}
 }

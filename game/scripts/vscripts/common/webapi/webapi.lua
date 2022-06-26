@@ -1,24 +1,21 @@
 WebApi = WebApi or {}
-WebApi.player_settings = WebApi.player_settings or {}
 
-local isTesting = IsInToolsMode() and true or false
-for playerId = 0, 23 do
-	WebApi.player_settings[playerId] = WebApi.player_settings[playerId] or {}
-end
 WebApi.matchId = IsInToolsMode() and RandomInt(-10000000, -1) or tonumber(tostring(GameRules:Script_GetMatchID()))
 
-local serverHost = "https://api.12v12.dota2unofficial.com"
-local dedicatedServerKey = GetDedicatedServerKeyV2("1")
 
-function WebApi:Send(path, data, onSuccess, onError, retryWhile)
-	local request = CreateHTTPRequestScriptVM("POST", serverHost .. "/api/lua/" .. path)
-	if isTesting then
+local server_host = "https://api.12v12.dota2unofficial.com" -- "http://127.0.0.1:5000" --
+local dedicated_key = GetDedicatedServerKeyV2("1")
+
+
+function WebApi:Send(path, data, on_success, on_error, retry_while)
+	local request = CreateHTTPRequestScriptVM("POST", server_host .. "/api/lua/" .. path)
+	if IsInToolsMode() then
 		print("Request to " .. path)
 		DeepPrintTable(data)
 	end
 
-	request:SetHTTPRequestHeaderValue("Dedicated-Server-Key", dedicatedServerKey)
-	if data ~= nil then
+	request:SetHTTPRequestHeaderValue("Dedicated-Server-Key", dedicated_key)
+	if data then
 		data.customGame = WebApi.customGame
 		request:SetHTTPRequestRawPostBody("application/json", json.encode(data))
 	end
@@ -26,20 +23,22 @@ function WebApi:Send(path, data, onSuccess, onError, retryWhile)
 	request:Send(function(response)
 		if response.StatusCode >= 200 and response.StatusCode < 300 then
 			local data = json.decode(response.Body)
-			if isTesting then
-				print("Response from  " .. path .. ":")
+			if IsInToolsMode() then
+				print("Response from  " .. path .. " - status <" .. response.StatusCode ..">:")
 				DeepPrintTable(data)
 			end
-			if onSuccess then
-				onSuccess(data)
+			if on_success then
+				on_success(data)
 			end
 		else
 			local err = json.decode(response.Body)
 			if type(err) ~= "table" then err = {} end
 
-			if isTesting then
-				print("Error from " .. path .. ": " .. response.StatusCode)
-				if response.Body then
+			if IsInToolsMode() then
+				print("Error from " .. path .. " - status <" .. response.StatusCode ..">:")
+				if response.StatusCode == 0 then
+					print("[WebApi] couldn't reach backend server or connection refused.")
+				elseif response.Body then
 					local status, result = pcall(json.decode, response.Body)
 					if status then
 						DeepPrintTable(result)
@@ -49,40 +48,37 @@ function WebApi:Send(path, data, onSuccess, onError, retryWhile)
 				end
 			end
 
-			local message = (response.StatusCode == 0 and "Could not establish connection to the server. Please try again later.") or err.title or "Unknown error."
-			if err.traceId then
-				message = message .. " Report it to the developer with this id: " .. err.traceId
-			end
-
-			err.message = message
+			err.content = err
 			err.status_code = response.StatusCode
 
 			if response.Body and type(response.Body) == "string" then
 				err.body = response.Body
 			end
 
-			if retryWhile and retryWhile(err) then
-				WebApi:Send(path, data, onSuccess, onError, retryWhile)
-			elseif onError then
-				onError(err)
+			if retry_while and retry_while(err) then
+				WebApi:Send(path, data, on_success, on_error, retry_while)
+			elseif on_error then
+				on_error(err)
 			end
 		end
 	end)
 end
 
-local function retryTimes(times)
+
+local function retry_times(times)
 	return function()
 		times = times - 1
 		return times >= 0
 	end
 end
 
+
 function WebApi:BeforeMatch()
 	-- TODO: Smart random Init, patreon init, nettables init
 	local players = {}
-	for playerId = 0, 23 do
-		if PlayerResource:IsValidPlayerID(playerId) then
-			table.insert(players, tostring(PlayerResource:GetSteamID(playerId)))
+	for player_id = 0, 23 do
+		if PlayerResource:IsValidPlayerID(player_id) then
+			table.insert(players, tostring(PlayerResource:GetSteamID(player_id)))
 		end
 	end
 
@@ -95,108 +91,99 @@ function WebApi:BeforeMatch()
 			players = players
 		},
 		function(data)
-			print("BEFORE MATCH")
-			WebApi.player_ratings = {}
-			WebApi.patch_notes = data.patchnotes
-			publicStats = {}
-			WebApi.playerMatchesCount = {}
-			for _, player in ipairs(data.players) do
-				local playerId = GetPlayerIdBySteamId(player.steamId)
-				if player.rating then
-					WebApi.player_ratings[playerId] = {[GetMapName()] = player.rating}
-				end
-				if player.supporterState then
-					Supporters:SetPlayerState(playerId, player.supporterState)
-				end
-				if player.masteries then
-					BP_Masteries:SetMasteriesForPlayer(playerId, player.masteries)
-				end
-
-				if player.gift_codes then
-					GiftCodes:SetCodesForPlayer(playerId, player.gift_codes)
-				end
-
-				if player.mails then
-					WebMail:SetPlayerMails(playerId, player.mails)
-				end
-
-				if player.settings then
-					WebApi.player_settings[playerId] = player.settings
-					CustomNetTables:SetTableValue("player_settings", tostring(playerId), player.settings)
-				end
-				if player.stats then
-					WebApi.playerMatchesCount[playerId] = (player.stats.wins or 0) + (player.stats.loses or 0)
-				end
-				if player.MutedUntil then
-					SyncedChat:MutePlayer(playerId, player.MutedUntil, false)
-				end
-				if player.kickStats then
-					if player.kickStats.kickWarned then
-						Kicks:SetWarningForPlayer(playerId)
-					end
-					if player.kickStats.kickBanned then
-						Kicks:SetBanForPlayer(playerId)
-					end
-				end
-				publicStats[playerId] = {
-					streak = player.streak.current or 0,
-					bestStreak = player.streak.best or 0,
-					averageKills = player.stats.kills,
-					averageDeaths = player.stats.deaths,
-					averageAssists = player.stats.assists,
-					wins = player.stats.wins,
-					loses = player.stats.loses,
-					lastWinnerHeroes = player.stats.lastWinnerHeroes,
-					rating = player.rating,
-				}
-				SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes, "no_stats")
-			end
-			CustomNetTables:SetTableValue("game_state", "player_stats", publicStats)
-			CustomNetTables:SetTableValue("game_state", "player_ratings", data.mapPlayersRating)
-			CustomNetTables:SetTableValue("game_state", "leaderboard", data.leaderboard)
-
-			if data.poorWinrates then
-				CustomNetTables:SetTableValue("heroes_winrate", "heroes", data.poorWinrates)
-				CMegaDotaGameMode.winrates = data.poorWinrates
-			end
-
-			Battlepass:OnDataArrival(data)
+			WebApi:ProcessBeforeMatchResponse(data)
 		end,
 		function(err)
 			print(err.message)
 		end,
-		retryTimes(2)
+		retry_times(2)
 	)
 end
 
-WebApi.scheduledUpdateSettingsPlayers = WebApi.scheduledUpdateSettingsPlayers or {}
-function WebApi:ScheduleUpdateSettings(playerId)
-	WebApi.scheduledUpdateSettingsPlayers[playerId] = true
 
-	if WebApi.updateSettingsTimer then Timers:RemoveTimer(WebApi.updateSettingsTimer) end
-	WebApi.updateSettingsTimer = Timers:CreateTimer(10, function()
-		WebApi.updateSettingsTimer = nil
-		WebApi:ForceSaveSettings()
-		WebApi.scheduledUpdateSettingsPlayers = {}
-	end)
-end
+function WebApi:ProcessBeforeMatchResponse(data)
+	print("BEFORE MATCH")
+	WebApi.player_ratings = {}
+	WebApi.patch_notes = data.patchnotes
+	local public_stats = {}
+	WebApi.playerMatchesCount = {}
+	for _, player in ipairs(data.players) do
+		local player_id = GetPlayerIdBySteamId(player.steamId)
 
-function WebApi:ForceSaveSettings(_playerId)
-	local players = {}
-	for playerId = 0, 23 do
-		if PlayerResource:IsValidPlayerID(playerId) and (WebApi.scheduledUpdateSettingsPlayers[playerId] or _playerId == playerId) then
-			local settings = WebApi.player_settings[playerId]
-			if next(settings) ~= nil then
-				local steamId = tostring(PlayerResource:GetSteamID(playerId))
-				table.insert(players, { steamId = steamId, settings = settings })
+		if player.rating then
+			WebApi.player_ratings[player_id] = {[GetMapName()] = player.rating}
+		end
+
+		if player.reset_status then
+			print("[WebApi] reset status: ", player.reset_status)
+			SeasonReset:SetStatus(player_id, player.reset_status)
+		end
+
+		if player.supporterState then
+			Supporters:SetPlayerState(player_id, player.supporterState)
+		end
+
+		if player.gift_codes then
+			GiftCodes:SetCodesForPlayer(player_id, player.gift_codes)
+		end
+
+		if player.mails then
+			WebMail:SetPlayerMails(player_id, player.mails)
+		end
+
+		if player.settings then
+			WebApi.player_settings[player_id] = player.settings
+			CustomNetTables:SetTableValue("player_settings", tostring(player_id), player.settings)
+		end
+
+		if player.stats then
+			WebApi.playerMatchesCount[player_id] = (player.stats.wins or 0) + (player.stats.loses or 0)
+		end
+
+		if player.MutedUntil then
+			SyncedChat:MutePlayer(player_id, player.MutedUntil, false)
+		end
+
+		if player.kickStats then
+			if player.kickStats.kickWarned then
+				Kicks:SetWarningForPlayer(player_id)
+			end
+			if player.kickStats.kickBanned then
+				Kicks:SetBanForPlayer(player_id)
 			end
 		end
+
+		public_stats[player_id] = {
+			streak = player.streak.current or 0,
+			bestStreak = player.streak.best or 0,
+			averageKills = player.stats.kills,
+			averageDeaths = player.stats.deaths,
+			averageAssists = player.stats.assists,
+			wins = player.stats.wins,
+			loses = player.stats.loses,
+			lastWinnerHeroes = player.stats.lastWinnerHeroes,
+			rating = player.rating,
+		}
+
+		SmartRandom:SetPlayerInfo(player_id, player.smartRandomHeroes, "no_stats")
 	end
-	WebApi:Send("match/update-settings", { players = players })
+
+	SeasonReset:SetSeasonDetails(data.current_season or 1, data.next_season_timestamp)
+	CustomNetTables:SetTableValue("game_state", "player_stats", public_stats)
+	CustomNetTables:SetTableValue("game_state", "player_ratings", data.mapPlayersRating)
+	CustomNetTables:SetTableValue("game_state", "leaderboard", data.leaderboard)
+
+	if data.poorWinrates then
+		CustomNetTables:SetTableValue("heroes_winrate", "heroes", data.poorWinrates)
+		CMegaDotaGameMode.winrates = data.poorWinrates
+	end
+
+	Battlepass:OnDataArrival(data)
 end
 
+
 function WebApi:AfterMatch(winnerTeam)
-	if not isTesting then
+	if not IsInToolsMode() then
 		if GameRules:IsCheatMode() then return end
 		if GameRules:GetDOTATime(false, true) < 60 then return end
 	end
@@ -210,7 +197,7 @@ function WebApi:AfterMatch(winnerTeam)
 
 	local requestBody = {
 		customGame = WebApi.customGame,
-		matchId = isTesting and RandomInt(1, 10000000) or tonumber(tostring(GameRules:Script_GetMatchID())),
+		matchId = IsInToolsMode() and RandomInt(1, 10000000) or tonumber(tostring(GameRules:Script_GetMatchID())),
 		duration = math.floor(GameRules:GetDOTATime(false, true)),
 		mapName = GetMapName(),
 		winner = winnerTeam,
@@ -249,7 +236,7 @@ function WebApi:AfterMatch(winnerTeam)
 		table.insert(requestBody.teams, team_data)
 	end
 
-	if isTesting or #requestBody.teams[1].players + #requestBody.teams[2].players >= 5 then
+	if IsInToolsMode() or #requestBody.teams[1].players + #requestBody.teams[2].players >= 5 then
 		print("Sending aftermatch request: ", #requestBody.teams[1].players + #requestBody.teams[2].players)
 
 		WebApi:Send(
@@ -278,27 +265,6 @@ function WebApi:GetOtherTeamsAverageRating(target_team_number)
 	for id, ratingMap in pairs(WebApi.player_ratings) do
 		if PlayerResource:GetTeam(id) ~= target_team_number then
 			rating_total = rating_total + (ratingMap[GetMapName()] or 1500)
-			rating_count = rating_count + 1
-		end
-	end
-
-	if rating_count > 0 then
-		rating_average = rating_total / rating_count
-	end
-
-	return rating_average
-end
-
-function WebApi:GetOtherPlayersAverageRating(player_id)
-	local rating_average = 1500
-	local rating_total = 0
-	local rating_count = 0
-
-	if IsInToolsMode() then return rating_average end
-
-	for id, ratingMap in pairs(WebApi.player_ratings or {}) do
-		if id ~= player_id then
-			rating_total = rating_total + (ratingMap[mapName] or 1500)
 			rating_count = rating_count + 1
 		end
 	end
@@ -356,16 +322,16 @@ function WebApi:ProcessMetadata(player_id, steam_id, metadata)
 	end
 
 	if metadata.newRating and metadata.newRating[GetMapName()] then
-		local playersStats = CustomNetTables:GetTableValue("game_state", "player_stats");
-		if not playersStats then return end
+		local player_stats = CustomNetTables:GetTableValue("game_state", "player_stats");
+		if not player_stats then return end
 
 		local player_id_string = tostring(player_id)
-		if not playersStats[player_id_string] then return end
-		if not playersStats[player_id_string].rating then return end
+		if not player_stats[player_id_string] then return end
+		if not player_stats[player_id_string].rating then return end
 
-		playersStats[player_id_string].rating = metadata.newRating[GetMapName()]
+		player_stats[player_id_string].rating = metadata.newRating[GetMapName()]
 
-		CustomNetTables:SetTableValue("game_state", "player_stats", playersStats)
+		CustomNetTables:SetTableValue("game_state", "player_stats", player_stats)
 	end
 
 	BP_PlayerProgress:UpdatePlayerInfo(player_id)
@@ -373,7 +339,7 @@ end
 
 
 RegisterGameEventListener("player_connect_full", function()
-	print("LOADED WEBAPI")
+	print("[WebApi] first player loaded, requesting before-match")
 	if WebApi.firstPlayerLoaded then return end
 	WebApi.firstPlayerLoaded = true
 	WebApi:BeforeMatch()

@@ -1,6 +1,6 @@
 MatchEvents = MatchEvents or {}
 
-MATCH_EVENT_DEFAULT_POLL_DELAY = IsInToolsMode() and 10 or 120
+MATCH_EVENT_DEFAULT_POLL_DELAY = IsInToolsMode() and 10 or 240
 MATCH_EVENT_ACTIVE_POLL_DELAY = 5
 
 MatchEvents.current_request_delay = MATCH_EVENT_DEFAULT_POLL_DELAY

@@ -1380,6 +1380,11 @@
 		"currency"				"Боевая слава"
 		"attachment_claimed"	"Получено"
 
+		"confirm"				"Подтвердить"
+		"season_reset_header"	"Сезон {d:season} настал!"
+		"season_reset_description"	"Рейтинг всех игроков обновлен на основании прежнего рейтинга.<br> Следующий сезон начнется через 6 месяцев - <span class='date_highlight'>{t:next_reset_date}</span>"
+		"season_reset_new_rating"	"Ваш новый рейтинг:"
+
 		"temporarily_disabled"	"Временно отключен"
 	}
 }

@@ -77,6 +77,7 @@
 	<!--<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/fix_custom_game/fix_custom_game.xml" />-->
 		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/shortcut_shop/shortcut_shop.xml" />
 		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/toasts/toasts.xml" />
+		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/season_reset_notification/season_reset_notification.xml" />
 
 		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/auto_attack_settings/index.xml" />
 		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/custom_hud_message/custom_hud_message.xml" />
