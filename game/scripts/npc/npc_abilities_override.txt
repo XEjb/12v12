@@ -11,6 +11,16 @@
 		"ItemCost"						"0"
 		"ItemCastOnPickup"				"1"
 	}
+	
+	"spectre_haunt"
+	{
+		"AbilityCooldown"				"220 200 180"
+	}
+	
+	"spectre_haunt_single"
+	{
+		"AbilityCooldown"				"60"
+	}
 
 	"zuus_static_field"
 	{
@@ -34,6 +44,34 @@
 					"CalculateSpellDamageTooltip"	"0"
 				}
 		}
+	}
+	
+	"zuus_thundergods_wrath"
+	{
+		"AbilityCooldown"				"150 145 140"
+	}
+	
+	"mirana_invis"
+	{
+		"AbilityCooldown"				"160.0 140.0 120.0"
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"fade_delay"			"2.5 2.25 2.0"
+			}
+		}
+	}
+	
+	"furion_teleportation"
+	{
+		"AbilityCooldown"				"60 50 40 30"
+	}
+	
+	"chaos_knight_phantasm"
+	{
+		"AbilityCooldown"				"100"
 	}
 
 	"silencer_glaives_of_wisdom"
