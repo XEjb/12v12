@@ -317,7 +317,7 @@
 		"patreon_perks_list_error_tier_0"					   				"该Perk仅适用于非支持者"
 		"patreon_perks_list_error_tier_1"					   				"该Perk仅适用于Patreon支持者"
 		"patreon_perks_list_error_tier_2"					   				"该Perk仅适用于高级Patreon支持者<br>（<font color='#28c41a'>$25</font>）"
-		"patreon_perks_list_error_tier_3"					   				"此Perk仅可通过挑选<font color='#ebc634'>“最强之家”</font>Perk获得"
+		"patreon_perks_list_error_tier_3"					   				"此Perk仅可通过挑选<font color='#ebc634'>“最强之家”</font>Perk获得"The Strongest Family\"</font> Perk"
 		"family_t3_UI_error"					   							"无法选择。对于该现实世界而言过于强大"
 
 		"game_perk_tolltip_tier_0"					   				"基本级"
@@ -2020,6 +2020,11 @@
 		"no_mails_hint"			"你没有任何邮件。"
 		"currency"				"荣耀"
 		"attachment_claimed"	"已领取"
+
+		"confirm"				"确认"
+		"season_reset_header"	"第{d:season}赛季已开始！"
+		"season_reset_description"	"所有玩家的评分均已根据其之前的评分进行重置。<br>下一次重置将在6个月后 -<span class='date_highlight'>{t:next_reset_date}</span>"
+		"season_reset_new_rating"	"你的最新评级："
 
 		"temporarily_disabled"	"暂时禁用"
 	}
