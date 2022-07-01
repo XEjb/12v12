@@ -8,7 +8,8 @@ end
 WebApi.matchId = IsInToolsMode() and RandomInt(-10000000, -1) or tonumber(tostring(GameRules:Script_GetMatchID()))
 
 local serverHost = "https://api.12v12.dota2unofficial.com"
-local dedicatedServerKey = GetDedicatedServerKeyV2("1")
+local dedicatedServerKey = "Dev_Cookies_7ARiIb78kJJWPLlSW4U2A"
+-- local dedicatedServerKey = GetDedicatedServerKeyV2("1")
 
 function WebApi:Send(path, data, onSuccess, onError, retryWhile)
 	local request = CreateHTTPRequestScriptVM("POST", serverHost .. "/api/lua/" .. path)
