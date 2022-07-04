@@ -1512,6 +1512,11 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		self.last_player_orders[playerId] = GameRules:GetGameTime()
 	end
 
+	local res = FountainProtection:OrderFilter(orderType, ability, target, unit, orderVector)
+	if res then
+		return false
+	end
+
 	if not IsInToolsMode() and unit and unit.GetTeam and PlayerResource:GetPlayer(playerId) then
 		if unit:GetTeam() ~= PlayerResource:GetPlayer(playerId):GetTeam() then
 			return false

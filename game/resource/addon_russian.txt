@@ -1386,5 +1386,10 @@
 		"season_reset_new_rating"	"Ваш новый рейтинг:"
 
 		"temporarily_disabled"	"Временно отключен"
+
+		"hud_error_fountain_cast"	"Нельзя использовать способности возле вражеского фонтана"
+
+		"DOTA_Tooltip_modifier_fountain_invulnerability_custom"					"Неуязвимость у фонтана"
+		"DOTA_Tooltip_modifier_fountain_invulnerability_custom_Description"		"Существо неуязвимо до получения команды."
 	}
 }
