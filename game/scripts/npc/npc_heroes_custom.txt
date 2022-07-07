@@ -17,9 +17,4 @@
 	{
 		"Ability6"		"tinker_rearm_custom"
 	}
-	
-	"npc_dota_hero_dark_willow"
-	{
-		"Ability11"		"special_bonus_all_stats_5"
-	}
 }
