@@ -3,6 +3,7 @@ Kicks = Kicks or {}
 _G.tUserIds = {}
 
 Kicks.supporters_kick_threshold = {
+	[-1] = 0.8, -- new players (lower than 5 games)
 	[0] = 0.6,
 	[1] = 0.7,
 	[2] = 0.8,
@@ -173,8 +174,10 @@ function Kicks:UpdateVotingForKick()
 		end
 	end
 
-	local kick_threshold = self.supporters_kick_threshold[Supporters:GetLevel(self.voting.target)]
-	self.votes_for_kick = math.floor(max_voices_in_team * kick_threshold)
+	local target_id = self.voting.target
+	local is_new_player = WebApi.playerMatchesCount and WebApi.playerMatchesCount[target_id] and WebApi.playerMatchesCount[target_id] < 5
+	local level = is_new_player and -1 or Supporters:GetLevel(target_id)
+	self.votes_for_kick = math.floor(max_voices_in_team * self.supporters_kick_threshold[level])
 end
 
 function Kicks:SendDegugResult(data, text)
@@ -321,8 +324,8 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 		return INIT_KICK_FAIL
 	end
 
-	if target_id and ((WebApi.playerMatchesCount and WebApi.playerMatchesCount[target_id] and WebApi.playerMatchesCount[target_id] < 5) or PlayerResource:GetConnectionState(target_id) == DOTA_CONNECTION_STATE_ABANDONED) then
-		CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_no_kick_new_players" })
+	if target_id and PlayerResource:GetConnectionState(target_id) == DOTA_CONNECTION_STATE_ABANDONED then
+		CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_abandoned" })
 		return INIT_KICK_FAIL
 	end
 
