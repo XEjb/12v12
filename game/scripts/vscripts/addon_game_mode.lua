@@ -1670,6 +1670,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		["item_disable_help_custom"] = true,
 		["item_mute_custom"] = true,
 		["item_reset_mmr"] = true,
+		["item_banhammer"] = true,
 	}
 	if orderType == DOTA_UNIT_ORDER_PURCHASE_ITEM then
 		local item_name = filterTable.shop_item_name or ""

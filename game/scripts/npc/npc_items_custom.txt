@@ -336,7 +336,7 @@
         "AbilityCastPoint"				"0"
         "AbilityCooldown"				"600"
         "AbilityManaCost"				"0"
-        "ItemCost"	"0"
+        "ItemCost"						"0"
         "OnSpellStart"
         {
             "RunScript"
