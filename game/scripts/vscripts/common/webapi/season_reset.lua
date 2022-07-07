@@ -29,7 +29,7 @@ function SeasonReset:SendStatus(event)
 	if not player or player:IsNull() then print(2) return end
 
 	local stats = CustomNetTables:GetTableValue("game_state", "player_stats")
-	local player_stats = stats[tostring(player_id)] or {}
+	local player_stats = stats and stats[tostring(player_id)] or {}
 
 	CustomGameEventManager:Send_ServerToPlayer(player, "SeasonReset:set_status", {
 		status = SeasonReset.player_status[player_id] or false,
