@@ -46,7 +46,7 @@ function Battlepass:InitConversionTables()
 
 	print("playerid -> steamid")
 	table.print(self.steamid_map)
-	print("steamid -> playerod")
+	print("steamid -> playerid")
 	table.print(self.playerid_map)
 end
 
