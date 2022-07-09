@@ -1,107 +1,115 @@
-ShuffleTeam = class({})
+-- Script file for testing in a browser https://rextester.com/l/lua_online_compiler
 
-LinkLuaModifier("modifier_weak_team_bonus", "modifier_weak_team_bonus", LUA_MODIFIER_MOTION_NONE)
+-- A list of all parties in the match, and the mmr of each player in each party
+CUSTOM_PARTY_LIST = {
+	{2495, 2514, 763, 2881, 2225, 1450},
+	{1615, 2033, 1947, 3564, 1923, 2941},
+	{1696, 2704, 2576},
+	{2425},
+	{1940},
+	{2163},
+	{1788},
+	{1542},
+	{1557},
+	{1899},
+	{2318},
+	{1548},
+}
 
-DEFAULT_MMR = 1500
+USE_CUSTOM_LIST = true
+
+MAX_PLAYERS_IN_TEAM = 12
 PLAYER_COUNT = 24
-MAX_PLAYERS_IN_TEAM = math.ceil(PLAYER_COUNT / 2)
 
-WEAK_TEAM_BASE_BONUS = 5
-WEAK_TEAM_MAX_BONUS = 100
-WEAK_TEAM_MIN_DELTA = 150
-WEAK_TEAM_STEP_DELTA = 100
-WEAK_TEAM_STEP_BONUS = 2
-
-WEAK_TEAM_BONUS_GOLD_PCT = 1
-WEAK_TEAM_BONUS_EXP_PCT = 0.5
-
-function ShuffleTeam:ShuffleTeams()
-	if GameOptions:OptionsIsActive("no_mmr_sort") then
-		return
-	end
-
-	self.gold_multiplier = 1
-	self.weak_team_id = 0
-	self.mmr_delta = 0
-
-	local player_ratings = WebApi.player_ratings
-
-	local players = {}
-	local parties = {}
-	-- [party_id] = {int mmr, players = {int mmr, int player_id, int party_id}}
-
-	-- Load player info
-    for player_id = 0, PLAYER_COUNT - 1 do
-        players[player_id] = {}
-
-        players[player_id].player_id = player_id
-
-		if not (player_ratings and player_ratings[player_id] and player_ratings[player_id][GetMapName()]) then
-			players[player_id].mmr = DEFAULT_MMR
-		else
-        	players[player_id].mmr = player_ratings[player_id][GetMapName()]
-		end
-
-        local party_id = tonumber(tostring(PlayerResource:GetPartyID(player_id)))
-
-		if party_id == 0 then
-			party_id = player_id + 69420 -- Create a unique party id for all players in no party
-		end
-
-        if not parties[party_id] then
-            parties[party_id] = {}
-			parties[party_id].mmr = 0
-			parties[party_id].players = {}
-        end
-
-		parties[party_id].mmr = parties[party_id].mmr + players[player_id].mmr
-        table.insert(parties[party_id].players, players[player_id])
-    end
-
-	-- Convert parties from dict to list
-	local parties2 = {}
-	for _, party in pairs(parties) do
-		table.insert(parties2, party)
-	end
-	parties = parties2
-
-	-- Sort parties into teams
-	local shuffle_data = ShuffleTeam:SortPartiesIntoTeams(parties)
-
-	self.delta = math.floor(shuffle_data.delta / MAX_PLAYERS_IN_TEAM)
-	self.weak_team_id = self.delta > 0 and 2 or 3
-
-	-- Remove all players from teams to allow space
-    for player_id = 0, 23 do
-        ShuffleTeam:SetPlayerTeam(player_id, DOTA_TEAM_NOTEAM)
-    end
-
-	local invert = RandomInt(0, 1) == 0 -- This will stop the best player always being on radiant and some other stuff
-	-- Add all players to their new teams, also add up team mmr for debug
-	for team_id, team in pairs(shuffle_data.teams) do
-		if invert then
-			team_id = team_id == 2 and 3 or 2
-		end
-
-		for _, player_data in pairs(team) do
-			ShuffleTeam:SetPlayerTeam(player_data.id, team_id)
-		end
+function dump(o)
+	if type(o) == 'table' then
+	   local s = '{\n'
+	   for k,v in pairs(o) do
+		  if type(k) ~= 'number' then k = '"'..k..'"' end
+		  s = s .. '['..k..'] = ' .. dump(v) .. ',\n'
+	   end
+	   return s .. '}'
+	else
+	   return tostring(o)
 	end
 end
 
+function DoGame()
+    local parties = {}
+    -- [party_id] = {int mmr, players = {int mmr, int player_id, int party_id}}
+
+    -- Load player info
+	if USE_CUSTOM_LIST then
+		local player_id = 0
+
+		for party_id, party in pairs(CUSTOM_PARTY_LIST) do
+			for _, mmr in pairs(party) do
+				local player = {}
+				player.mmr = mmr
+				player.party_id = party_id
+				player.player_id = player_id
+
+				if not parties[player.party_id] then
+					parties[party_id] = {}
+					parties[party_id].mmr = 0
+					parties[party_id].players = {}
+				end
+
+				parties[party_id].mmr = parties[party_id].mmr + player.mmr
+				table.insert(parties[party_id].players, player)
+
+				player_id = player_id + 1
+			end
+		end
+	else
+		for player_id = 0, PLAYER_COUNT - 1 do
+			local player = {}
+			player.mmr = 1000 + math.floor(math.pow(math.random() * 4, 6))
+			local party_id = math.random(0, 23)
+
+			while parties[party_id] and #parties[party_id].players > 5 do
+				party_id = math.random(0, 23)
+			end
+
+			player.party_id = party_id
+			player.player_id = player_id
+
+			if not parties[player.party_id] then
+				parties[party_id] = {}
+				parties[party_id].mmr = 0
+				parties[party_id].players = {}
+			end
+
+			parties[party_id].mmr = parties[party_id].mmr + player.mmr
+			table.insert(parties[party_id].players, player)
+		end
+	end
+
+    -- Convert parties from dict to list
+    local parties2 = {}
+    for _, party in pairs(parties) do
+        table.insert(parties2, party)
+    end
+    parties = parties2
+
+    -- Sort parties from BIGGEST to SMALLEST
+    table.sort(parties, function(a,b)
+        return a.mmr > b.mmr
+    end)
+
+    return ShuffleTeam:SortPartiesIntoTeams(parties)
+end
+
+ShuffleTeam = {}
+
 function ShuffleTeam:SortPartiesIntoTeams(parties)
 	local sorts = {}
-
-	-- Sort parties from BIGGEST to SMALLEST for A, B, C
-	table.sort(parties, function(a,b)
-		return a.mmr > b.mmr
-	end)
 
     table.insert(sorts, ShuffleTeam:ShuffleTypeA(parties))
 	table.insert(sorts, ShuffleTeam:ShuffleTypeB(parties))
 	table.insert(sorts, ShuffleTeam:ShuffleTypeC(parties))
 
-    -- Sort parties from BIGGEST to SMALLEST AVERAGE for D, E, F
+    -- Sort parties from BIGGEST to SMALLEST *AVERAGE
     table.sort(parties, function(a,b)
         return (a.mmr / #a.players) > (b.mmr / #b.players)
     end)
@@ -114,63 +122,8 @@ function ShuffleTeam:SortPartiesIntoTeams(parties)
         return math.abs(a.delta) < math.abs(b.delta)
     end)
 
-    return sorts[1]
+    return sorts
 end
-
-function ShuffleTeam:SetPlayerTeam(player_id, team)
-	local player = PlayerResource:GetPlayer(player_id)
-
-	if player then
-		player:SetTeam(team)
-		PlayerResource:SetCustomTeamAssignment(player_id, team)
-	end
-end
-
-function ShuffleTeam:GiveBonusToWeakTeam()
-	if GameOptions:OptionsIsActive("no_bonus_for_weak_team") or GameOptions:OptionsIsActive("no_mmr_sort") then
-		return
-	end
-
-	if not self.delta or self.delta < WEAK_TEAM_MIN_DELTA then return end
-
-	self.weak_team_bonus_pct = math.min(WEAK_TEAM_BASE_BONUS + math.floor((self.delta - WEAK_TEAM_MIN_DELTA) / WEAK_TEAM_STEP_DELTA) * WEAK_TEAM_STEP_BONUS, WEAK_TEAM_MAX_BONUS)
-	self.gold_multiplier = 1 + self.weak_team_bonus_pct * WEAK_TEAM_BONUS_GOLD_PCT * 0.01
-	self.xp_multiplier = self.weak_team_bonus_pct * WEAK_TEAM_BONUS_EXP_PCT
-
-	for player_id = 0, 23 do
-		if PlayerResource:GetTeam(player_id) == self.weak_team_id then
-			self:GiveBonusToHero(player_id)
-		end
-	end
-end
-
-function ShuffleTeam:GiveBonusToHero(player_id)
-	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
-
-	-- Check if player has a hero yet
-	if hero and hero:IsAlive() then
-		-- Apply weak team modifier granting bonus xp and gold gain based on difference in MMR between teams
-		hero:AddNewModifier(hero, nil, "modifier_weak_team_bonus", {duration = -1, weak_team_bonus_pct = self.xp_multiplier})
-	else
-		-- Keep checking every second until player has a hero
-		Timers:CreateTimer(1, function()
-			self:GiveBonusToHero(player_id)
-		end)
-	end
-end
-
-function ShuffleTeam:SendNotificationForWeakTeam()
-	if GameOptions:OptionsIsActive("no_bonus_for_weak_team") or GameOptions:OptionsIsActive("no_mmr_sort") then
-		return
-	end
-
-	if not self.weak_team_bonus_pct then return end
-
-	CustomGameEventManager:Send_ServerToTeam(self.weak_team_id, "WeakTeamNotification", {gold_multiplier = self.gold_multiplier, xp_multiplier = self.xp_multiplier, mmrDiff = self.delta})
-end
-
--- Be careful journeying beyond this point, you will have an aneurysm
--- no seriously, its ridiculous
 
 function ShuffleTeam:ShuffleTypeA(parties)
 	local delta = 0
@@ -554,4 +507,44 @@ function ShuffleTeam:ShuffleTypeF(parties)
 	end
 
 	return {delta = mmr[2] - mmr[3], teams = teams, type = 'F'}
+end
+
+math.randomseed(os.time())
+
+if USE_CUSTOM_LIST then
+	local data = DoGame()
+
+	print(dump(data))
+else
+	local sorts = {['A'] = {}, ['B'] = {}, ['C'] = {}, ['D'] = {}, ['E'] = {}, ['F'] = {}}
+	local bests = {['A'] = {}, ['B'] = {}, ['C'] = {}, ['D'] = {}, ['E'] = {}, ['F'] = {}}
+
+	for i = 1, 6000 do
+		local data = DoGame()
+
+		for _, sort in pairs(data) do
+			table.insert(sorts[sort.type], sort.delta)
+		end
+
+		table.insert(bests[data[1].type], data[1].delta)
+	end
+
+	print('Sort type | Number of Bests | Average all | Average best')
+
+	for type, deltas in pairs(sorts) do
+		local sum = 0
+		for _, delta in pairs(deltas) do
+			sum = sum + math.abs(delta)
+		end
+		local average = math.floor(sum / #deltas)
+
+		local sum_best = 0
+		for _, delta in pairs(bests[type]) do
+			sum_best = sum_best + math.abs(delta)
+		end
+
+		local average_best = math.floor(sum_best / #bests[type])
+
+		print(type, #bests[type], average, average_best)
+	end
 end

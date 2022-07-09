@@ -5,9 +5,9 @@ local votesForInitOption = 12
 local gameOptions = {
 	[0] = {name = "super_towers"},
 	[1] = {name = "no_trolls_kick"},
-	[2] = {name = "no_mmr_sort"},
-	[3] = {name = "no_bonus_for_weak_team"},
-	[4] = {name = "no_winrate_gold_bonus"},
+	[2] = {name = "no_bonus_for_weak_team"},
+	[3] = {name = "no_winrate_gold_bonus"},
+	--[4] = {name = "no_mmr_sort"},
 }
 
 function GameOptions:Init()

@@ -41,7 +41,7 @@ require("util")
 require("neutral_items_drop_choice")
 require("gpm_lib")
 require("game_options/game_options")
-require("shuffle_team")
+require("shuffle/shuffle_team")
 require("custom_pings")
 require("chat_commands/admin_commands")
 
@@ -989,14 +989,18 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 	local newState = GameRules:State_Get()
 
 	if newState ==  DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
-		AutoTeam:Init()
+		-- AutoTeam:Init() what does this do? nobody knows... ¯\_(ツ)_/¯
+
 		GameRules:SendCustomMessage("#workaround_chat_message", -1, 0)
+
+		ShuffleTeam:ShuffleTeams()
 	end
 
 	if newState ==  DOTA_GAMERULES_STATE_HERO_SELECTION then
+		-- AutoTeam:EnableFreePatreonForBalance()
+
 		GameOptions:RecordVotingResults()
-		ShuffleTeam:ShuffleTeams()
-		AutoTeam:EnableFreePatreonForBalance()
+
 		Timers:CreateTimer(1, function()
 			GameRules:SendCustomMessage("#workaround_chat_message", -1, 0)
 		end)
@@ -1057,7 +1061,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 			if not IsDedicatedServer() then
 				CustomGameEventManager:Send_ServerToAllClients("is_local_server", {})
 			end
-			ShuffleTeam:SendNotificationForWeakTeam()
+			ShuffleTeam:GiveBonusToWeakTeam()
 		end)
         local toAdd = {
             luna_moon_glaive_fountain = 4,
@@ -1103,9 +1107,6 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 	-- Runs at game time 0:00
 	if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-
-		ShuffleTeam:GiveBonusToWeakTeam()
-
 		-- Add tome of knowledge to 5 lowest XP players on each team
 		local player_ids = {[2] = {}, [3] = {}}
 

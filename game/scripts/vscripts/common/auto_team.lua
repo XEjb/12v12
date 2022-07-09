@@ -1,3 +1,12 @@
+-- Note to anyone foolish enough to end up here:
+-- I have absolutely no clue what any of this does.
+-- The only people who could possibly know are either:
+-- A. Dead
+-- B. Fired for writing terrible code
+--
+-- Why not just delete it?
+-- Idfk man, but this way I get to write dumb comments
+
 if not _G.AutoTeam then
 	_G.AutoTeam = class({})
 	_G.AutoTeam.cache = {}
