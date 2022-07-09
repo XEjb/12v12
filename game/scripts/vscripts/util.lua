@@ -167,3 +167,28 @@ function FindUnitsInCone(teamNumber, vDirection, vPosition, startRadius, endRadi
 	end
 	return unitTable
 end
+
+-- Has Aghanim's Shard
+function CDOTA_BaseNPC:HasShard()
+	if not self or self:IsNull() then return end
+
+	return self:HasModifier("modifier_item_aghanims_shard")
+end
+
+-- Talent handling
+function CDOTA_BaseNPC:HasTalent(talent_name)
+	if not self or self:IsNull() then return end
+
+	local talent = self:FindAbilityByName(talent_name)
+	if talent and talent:GetLevel() > 0 then return true end
+end
+
+
+function CDOTA_BaseNPC:FindTalentValue(talent_name, key)
+	if self:HasTalent(talent_name) then
+		local value_name = key or "value"
+		return self:FindAbilityByName(talent_name):GetSpecialValueFor(value_name)
+	end
+	return 0
+end
+

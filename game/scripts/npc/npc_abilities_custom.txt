@@ -302,6 +302,23 @@
 		{
 		}
 	}
+
+	"venomancer_venomous_gale"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/venomancer/venomancer_venomous_gale"
+		"AbilityTextureName"			"venomancer_venomous_gale"
+
+		"AbilitySpecial"
+		{
+			"08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"shard_ward_count"		"1"  
+				"RequiresShard"			"1"
+			}
+		}
+	}
 	
 	//NEXT ID 30006
 }

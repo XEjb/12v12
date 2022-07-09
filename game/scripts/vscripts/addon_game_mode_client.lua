@@ -1,4 +1,6 @@
 if IsClient() then 
+	require("client_util")
+
 	local function AutoAttack(event)
 		print("Auto attack setting: Value", event.value, "summon: ", event.summon)
 		SendToConsole("dota_player_units_auto_attack_mode " .. event.value)
