@@ -17,6 +17,9 @@ FountainProtection.ORDERS = {
 function FountainProtection:OrderFilter(order_type, ability, target, unit, order_vector)
 	if self.DISABLE_FOUNTAIN_CASTS and self.ORDERS[order_type] then
 		if order_type == DOTA_UNIT_ORDER_CAST_TARGET then
+			-- Allow cast abilities on friendly units
+			if target:GetTeam() == unit:GetTeam() then return end
+
 			order_vector = target:GetAbsOrigin()
 		elseif order_type == DOTA_UNIT_ORDER_CAST_NO_TARGET then
 			order_vector = unit:GetAbsOrigin()
