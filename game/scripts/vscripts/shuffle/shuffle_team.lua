@@ -74,7 +74,7 @@ function ShuffleTeam:ShuffleTeams()
 	local shuffle_data = ShuffleTeam:SortPartiesIntoTeams(parties)
 
 	self.delta = math.floor(shuffle_data.delta / MAX_PLAYERS_IN_TEAM)
-	self.weak_team_id = self.delta > 0 and 2 or 3
+	self.weak_team_id = self.delta < 0 and 2 or 3
 
 	print("Removing players from teams")
 	-- Remove all players from teams to allow space
@@ -142,9 +142,9 @@ function ShuffleTeam:GiveBonusToWeakTeam()
 		return
 	end
 
-	if not self.delta or self.delta < WEAK_TEAM_MIN_DELTA then return end
+	if not self.delta or math.abs(self.delta) < WEAK_TEAM_MIN_DELTA then return end
 
-	self.weak_team_bonus_pct = math.min(WEAK_TEAM_BASE_BONUS + math.floor((self.delta - WEAK_TEAM_MIN_DELTA) / WEAK_TEAM_STEP_DELTA) * WEAK_TEAM_STEP_BONUS, WEAK_TEAM_MAX_BONUS)
+	self.weak_team_bonus_pct = math.min(WEAK_TEAM_BASE_BONUS + math.floor((math.abs(self.delta) - WEAK_TEAM_MIN_DELTA) / WEAK_TEAM_STEP_DELTA) * WEAK_TEAM_STEP_BONUS, WEAK_TEAM_MAX_BONUS)
 	self.gold_multiplier = 1 + self.weak_team_bonus_pct * WEAK_TEAM_BONUS_GOLD_PCT * 0.01
 	self.xp_multiplier = self.weak_team_bonus_pct * WEAK_TEAM_BONUS_EXP_PCT
 
