@@ -76,7 +76,7 @@ function venomancer_venomous_gale:OnProjectileHit_ExtraData(target, location, Ex
 		target:AddNewModifier(caster, self, "modifier_venomancer_venomous_gale", {duration = ExtraData.duration})
 		target:EmitSound("Hero_Venomancer.VenomousGaleImpact")
 
-		if caster:HasShard() then 
+		if target:IsRealHero() and not target:IsIllusion() and caster:HasShard() then 
 			local ward_count = self:GetSpecialValueFor("shard_ward_count")
 			for i = 1, ward_count do
 				self:SpawnPlagueWard(target)
