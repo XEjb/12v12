@@ -90,7 +90,8 @@ function ShuffleTeam:ShuffleTeams()
 		if invert then
 			team_id = team_id == 2 and 3 or 2
 
-			self.delta = self.delta * -1 -- this one did a little trolling
+			self.delta = self.delta * -1 -- this one did a little trolling -- actually nvm it doesn't do anything past this point except where its used as an absolute so this does nothing but ill leave it here as a sign of my mistakes
+                        self.weak_team_id = self.weak_team_id * -1 -- cannot believe i didn't see this the first time, im bad
 		end
 
 		for _, player_data in pairs(team) do
