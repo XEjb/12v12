@@ -89,6 +89,8 @@ function ShuffleTeam:ShuffleTeams()
 	for team_id, team in pairs(shuffle_data.teams) do
 		if invert then
 			team_id = team_id == 2 and 3 or 2
+
+			self.delta = self.delta * -1 -- this one did a little trolling
 		end
 
 		for _, player_data in pairs(team) do
@@ -147,6 +149,8 @@ function ShuffleTeam:GiveBonusToWeakTeam()
 	self.weak_team_bonus_pct = math.min(WEAK_TEAM_BASE_BONUS + math.floor((math.abs(self.delta) - WEAK_TEAM_MIN_DELTA) / WEAK_TEAM_STEP_DELTA) * WEAK_TEAM_STEP_BONUS, WEAK_TEAM_MAX_BONUS)
 	self.gold_multiplier = 1 + self.weak_team_bonus_pct * WEAK_TEAM_BONUS_GOLD_PCT * 0.01
 	self.xp_multiplier = self.weak_team_bonus_pct * WEAK_TEAM_BONUS_EXP_PCT
+
+	print(self.delta, self.weak_team_id)
 
 	for player_id = 0, 23 do
 		if PlayerResource:GetTeam(player_id) == self.weak_team_id then
