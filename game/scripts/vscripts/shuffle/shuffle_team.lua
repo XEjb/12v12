@@ -86,12 +86,15 @@ function ShuffleTeam:ShuffleTeams()
 	print("MMR Delta:", self.delta)
 	local invert = RandomInt(0, 1) == 0 -- This will stop the best player always being on radiant and some other stuff
 	-- Add all players to their new teams, also add up team mmr for debug
+
+	if invert then
+		self.delta = self.delta * -1
+		self.weak_team_id = self.weak_team_id == 2 and 3 or 2
+	end
+
 	for team_id, team in pairs(shuffle_data.teams) do
 		if invert then
 			team_id = team_id == 2 and 3 or 2
-
-			self.delta = self.delta * -1 -- this one did a little trolling -- actually nvm it doesn't do anything past this point except where its used as an absolute so this does nothing but ill leave it here as a sign of my mistakes
-                        self.weak_team_id = self.weak_team_id * -1 -- cannot believe i didn't see this the first time, im bad
 		end
 
 		for _, player_data in pairs(team) do
