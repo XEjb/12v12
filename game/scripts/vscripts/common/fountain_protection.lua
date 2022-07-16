@@ -2,8 +2,8 @@ FountainProtection = {}
 
 LinkLuaModifier("modifier_fountain_invulnerability_custom", LUA_MODIFIER_MOTION_NONE)
 
-FountainProtection.ENABLE_IDLE_INVULNERABILITY = false
-FountainProtection.DISABLE_FOUNTAIN_CASTS = true
+FountainProtection.ENABLE_IDLE_INVULNERABILITY = true
+FountainProtection.DISABLE_FOUNTAIN_CASTS = false
 
 FountainProtection.DISABLE_FOUNTAIN_CAST_RANGE = 1750
 FountainProtection.INVULNERABILITY_IDLE_TIME = 5
