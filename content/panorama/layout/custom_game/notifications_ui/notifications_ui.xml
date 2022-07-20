@@ -1,5 +1,6 @@
 <root>
 	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
 		<include src="file://{resources}/layout/custom_game/notifications_ui/notifications_ui.css" />
 	</styles>
 
@@ -10,18 +11,23 @@
 	<snippets>
 		<snippet name="WeakTeamBonus">
 			<Panel class="WeakTeamBonus">
-				<Label id="WeakHeader" text="less_mmr_bonus_header"/>
-				<Panel id="WeakBonusesWrap">
-					<Panel class="WeakBonus">
-						<Label id="WeakBonusExpText" class="WeakBonusText" text="#less_mmr_bonus_exp"/>
-					</Panel>
-					<Panel class="WeakBonus">
-						<Label id="WeakBonusGoldText" class="WeakBonusText" text="#less_mmr_bonus_gold"/>
+				<Label id="WeakHeader" text="#less_mmr_bonus_header"/>
+				<Panel id="WeakInfo_Main">
+					<Panel id="WeakInfo_Shadow"/>
+					<Panel id="WeakInfo_Root">
+						<Panel id="WeakBonusesRoot">
+							<Panel class="WeakBonus">
+								<Label id="WeakBonusExpText" class="WeakBonusText" text="#less_mmr_bonus_exp"/>
+							</Panel>
+							<Panel class="WeakBonus">
+								<Label id="WeakBonusGoldText" class="WeakBonusText" text="#less_mmr_bonus_gold"/>
+							</Panel>
+						</Panel>
+						<Button id="WeakClose">
+							<Label id="WeakCloseText" class="WeakBonusText" text="OK"/>
+						</Button>
 					</Panel>
 				</Panel>
-				<Button id="WeakClose">
-					<Label id="WeakCloseText" class="WeakBonusText" text="OK"/>
-				</Button>
 			</Panel>
 		</snippet>
 	</snippets>
