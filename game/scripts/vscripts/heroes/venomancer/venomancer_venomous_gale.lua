@@ -3,7 +3,7 @@ venomancer_venomous_gale = class({})
 function venomancer_venomous_gale:GetCastRange(location, target)
 	local cast_range = self.BaseClass.GetCastRange(self, location, target)
 	if self:GetCaster():HasShard() then
-		cast_range = cast_range + self:GetSpecialValueFor("shard_cast_range_increase")
+		cast_range = cast_range + self:GetSpecialValueFor("shard_bonus_range")
 	end
 	return cast_range
 end
