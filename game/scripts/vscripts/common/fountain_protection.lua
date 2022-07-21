@@ -6,7 +6,7 @@ FountainProtection.ENABLE_IDLE_INVULNERABILITY = true
 FountainProtection.DISABLE_FOUNTAIN_CASTS = false
 
 FountainProtection.DISABLE_FOUNTAIN_CAST_RANGE = 1750
-FountainProtection.INVULNERABILITY_IDLE_TIME = 5
+FountainProtection.INVULNERABILITY_IDLE_TIME = 15
 
 FountainProtection.ORDERS = {
 	[DOTA_UNIT_ORDER_CAST_POSITION] = true,
