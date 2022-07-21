@@ -8,6 +8,12 @@ const LANGUAGE_TO_CURRENCY = {
 	tchinese: "cny",
 };
 
+const LANGUAGE_TO_REGION = {
+	schinese: "china",
+	tchinese: "china",
+	russian: "russia",
+};
+
 // usd is default and defined in GetPriceTemplate
 const CURRENCY_TEMPLATES = {
 	schinese: "{s:price}元",
@@ -109,8 +115,13 @@ function GetProductIcon(product_name) {
 function GetPriceTemplate() {
 	return CURRENCY_TEMPLATES[$.Language()] || "${s:price}";
 }
+
 function GetProducts() {
 	return PRODUCTS;
+}
+
+function GetRegion() {
+	return LANGUAGE_TO_REGION[$.Language()] ? LANGUAGE_TO_REGION[$.Language()] : "default";
 }
 
 (() => {

@@ -407,6 +407,10 @@
 						<Image scaling="stretch-to-fit-preserve-aspect" src="file://{resources}/images/custom_game/payment/payment_card.png" />
 						<Label class="PaymentInBrowser" text="#completed_in_browser"/>
 					</Button>
+					<Button class="PaymentMethod" onactivate="RequestPaymentUrlWithMethod('card', 'xsolla')">
+						<Image scaling="stretch-to-fit-preserve-aspect" src="file://{resources}/images/custom_game/payment/payment_xsolla.png" />
+						<Label class="PaymentInBrowser" text="#completed_in_browser"/>
+					</Button>
 				</Panel>
 				<ToggleButton id="GiftCodePaymentFlag" checked="false" text="#buy_as_a_gift_code" onactivate="UpdateGiftCodeState()"/>
 				<Label id="PaymentDescription" html="true" text="#payment_description"/>

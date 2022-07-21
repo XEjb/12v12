@@ -77,12 +77,14 @@ function InitiatePayment(name) {
 	SetPaymentVisible(true);
 }
 
-function RequestPaymentUrlWithMethod(method) {
+function RequestPaymentUrlWithMethod(method, payment_system) {
 	if (!method) return;
 
 	GameEvents.SendCustomGameEventToServer("Payments:request_url", {
 		product_name: CURRENT_PRODUCT_NAME,
 		payment_method: method,
+		payment_system: payment_system || "stripe",
+		region: GetRegion(),
 		as_gift_code: AS_GIFT_CODE,
 		quantity: CURRENT_QUANTITY || 1,
 	});
@@ -102,6 +104,9 @@ function OpenPatreonURL() {
 function LoadingSchedule() {
 	// toggle window display when payment URL finishes loading in background
 	if (HTML_CONTENT.BHasClass("HTMLContentLoaded")) {
+		$.Schedule(6, () => {
+			SetHTMLViewerStatus("staged");
+		});
 		$.Schedule(10, () => {
 			SetHTMLViewerStatus("ready");
 		});
