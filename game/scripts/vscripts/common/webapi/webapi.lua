@@ -203,7 +203,7 @@ function WebApi:AfterMatch(winnerTeam)
 		winner = winnerTeam,
 
 		teams = {},
-		timers = Timers._badPerformanceTimers,
+		banned_heroes = GameRules:GetBannedHeroes() or {},
 	}
 
 	for _, team in pairs(indexed_teams) do
