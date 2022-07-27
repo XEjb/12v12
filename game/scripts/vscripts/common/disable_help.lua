@@ -148,11 +148,10 @@ function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit, orderV
 					false
 				)
 				for i,x in pairs(allies) do
-					if x==unit then allies[i] = nil end
-				end
- 				if #allies > 0 then
-					DisplayError(caster_id, "dota_hud_error_target_has_disable_help")
-					return false
+					if x~=unit then
+						DisplayError(caster_id, "dota_hud_error_target_has_disable_help")
+						return false
+					end
 				end
 			end
 		end
