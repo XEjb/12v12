@@ -4,7 +4,7 @@
 	{
 		"drop_rates"
 		{
-			"00:00"
+			"04:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -27,7 +27,7 @@
 	{
 		"drop_rates"
 		{
-			"5:00"
+			"04:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -50,7 +50,27 @@
 	{
 		"drop_rates"
 		{
-			"10:00"
+			"04:00"
+			{
+				"0" "10"
+				"1" "10"
+				"2" "10"
+				"3" "10"
+				"4" "10"
+			}
+		}
+
+		"items"
+		{
+			"item_ironwood_tree"				  "1"
+			"item_faded_broach"				  "1"
+		}
+	}
+	"4"
+	{
+		"drop_rates"
+		{
+			"11:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -69,11 +89,11 @@
 			"item_philosophers_stone"		  "1"
 		}
 	}
-	"4"
+	"5"
 	{
 		"drop_rates"
 		{
-			"15:00"
+			"11:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -92,11 +112,11 @@
 			"item_paintball"			      "1"
 		}
 	}
-	"5"
+	"6"
 	{
 		"drop_rates"
 		{
-			"20:00"
+			"11:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -110,16 +130,13 @@
 		{
 			"item_ring_of_aquila"			  "1"
 			"item_vambrace"			 		  "1"
-			"item_enchanted_quiver"			  "1"
-			"item_quickening_charm"			  "1"
-			"item_paladin_sword"			  "1"
 		}
 	}
-	"6"
+	"7"
 	{
 		"drop_rates"
 		{
-			"25:00"
+			"18:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -138,11 +155,11 @@
 			"item_cloak_of_flames"			  "1"
 		}
 	}
-	"7"
+	"8"
 	{
 		"drop_rates"
 		{
-			"30:00"
+			"18:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -157,15 +174,35 @@
 			"item_titan_sliver"				  "1"
 			"item_ceremonial_robe"			  "1"
 			"item_psychic_headband"			  "1"
-			"item_the_leveller"				  "1"
-			"item_heavy_blade"				  "1"
+			"item_enchanted_quiver"			  "1"
+			"item_quickening_charm"			  "1"
 		}
 	}
-	"8"
+	"9"
 	{
 		"drop_rates"
 		{
-			"35:00"
+			"18:00"
+			{
+				"0" "10"
+				"1" "10"
+				"2" "10"
+				"3" "10"
+				"4" "10"
+			}
+		}
+
+		"items"
+		{
+			"item_paladin_sword"			  "1"
+			"item_orb_of_destruction"		  "1"
+		}
+	}
+	"10"
+	{
+		"drop_rates"
+		{
+			"25:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -184,11 +221,11 @@
 			"item_spell_prism"				  "1"
 		}
 	}
-	"9"
+	"11"
 	{
 		"drop_rates"
 		{
-			"40:00"
+			"25:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -204,14 +241,34 @@
 			"item_spy_gadget"				  "1"
 			"item_trickster_cloak"			  "1"
 			"item_timeless_relic"			  "1"
-			"item_force_boots"				  "1"
+			"item_the_leveller"				  "1"
 		}
 	}
-	"10"
+	"12"
 	{
 		"drop_rates"
 		{
-			"45:00"
+			"25:00"
+			{
+				"0" "10"
+				"1" "10"
+				"2" "10"
+				"3" "10"
+				"4" "10"
+			}
+		}
+
+		"items"
+		{
+			"item_heavy_blade"				  "1"
+			"item_minotaur_horn"			  "1"
+		}
+	}
+	"13"
+	{
+		"drop_rates"
+		{
+			"40:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -230,11 +287,11 @@
 			"item_pirate_hat"				  "1"
 		}
 	}
-	"11"
+	"14"
 	{
 		"drop_rates"
 		{
-			"50:00"
+			"40:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -253,11 +310,11 @@
 			"item_ex_machina"				  "1"
 		}
 	}
-	"12"
+	"15"
 	{
 		"drop_rates"
 		{
-			"55:00"
+			"40:00"
 			{
 				"0" "10"
 				"1" "10"
@@ -270,6 +327,7 @@
 		"items"
 		{
 			"item_giants_ring"		 		  "1"
+			"item_force_boots"				  "1"
 		}
 	}
 }
