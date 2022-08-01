@@ -30,7 +30,7 @@
 	]
 	HideInTools = false
 	IsTemplate = false
-	DefaultMap = ""
+	DefaultMap = "dota"
 	DisableIK = false
 	EventGame = false
 	hero_picker = 
@@ -40,6 +40,6 @@
 	ForceDefaultGuide = false
 	MinimalPrecache = false
 	MinPlayers = 1
-	MaxPlayers = 10
-	TeamCount = -1
+	MaxPlayers = 24
+	TeamCount = 2
 }
