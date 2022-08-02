@@ -148,6 +148,7 @@ function CMegaDotaGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter(Dynamic_Wrap(CMegaDotaGameMode, 'ExecuteOrderFilter'), self)
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CMegaDotaGameMode, "DamageFilter" ), self )
 	GameRules:SetCustomGameBansPerTeam(12)
+	GameRules:SetIgnoreLobbyTeamsInCustomGame(false) -- DONT FUCKING REMOVE THIS HOLY SHIT
 
 	GameRules:GetGameModeEntity():SetUseDefaultDOTARuneSpawnLogic(true)
 
@@ -393,10 +394,13 @@ function CMegaDotaGameMode:OnHeroPicked(event)
 		table.insert(_G.tableDireHeroes, hero)
 	end
 
+	-- Hopefully we never need this ever again
+	--[[
 	local player_id = hero:GetPlayerOwnerID()
 	if not IsInToolsMode() and player_id and _G.tUserIds[player_id] and not self.disconnected_players[player_id] then
 		SendToServerConsole('kickid '.. _G.tUserIds[player_id]);
 	end
+	]]
 end
 ---------------------------------------------------------------------------
 -- Filter: DamageFilter
