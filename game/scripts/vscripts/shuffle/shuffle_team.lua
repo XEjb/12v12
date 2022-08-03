@@ -82,6 +82,9 @@ function ShuffleTeam:ShuffleTeams()
         ShuffleTeam:SetPlayerTeam(player_id, DOTA_TEAM_NOTEAM)
     end
 
+	-- Dont ask
+	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 24)
+
 	print("Adding players to sorted teams")
 	print("MMR Delta:", self.delta)
 	local invert = RandomInt(0, 1) == 0 -- This will stop the best player always being on radiant and some other stuff
