@@ -46,7 +46,7 @@ end
 
 function FountainProtection:OnSpawn(event)
 	local hero = EntIndexToHScript(event.entindex)
-	if not hero or not hero:IsRealHero() then return end
+	if not hero or not hero:IsRealHero() or hero:IsReincarnating() then return end
 
 	if event.is_respawn == 1 then
 		hero:RemoveModifierByName("modifier_fountain_invulnerability")
