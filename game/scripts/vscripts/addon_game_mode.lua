@@ -166,6 +166,7 @@ function CMegaDotaGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetKillableTombstones( true )
 	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
 	Convars:SetInt("dota_max_physical_items_purchase_limit", 100)
+	Convars:SetInt("dota_max_disconnected_time", 999999)
 	if IsInToolsMode() then
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
 	end
