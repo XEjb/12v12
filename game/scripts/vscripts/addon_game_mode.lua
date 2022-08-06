@@ -995,20 +995,12 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 	if newState ==  DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
 		-- AutoTeam:Init() what does this do? nobody knows... ¯\_(ツ)_/¯
-
-		GameRules:SendCustomMessage("#workaround_chat_message", -1, 0)
-
 		ShuffleTeam:ShuffleTeams()
 	end
 
 	if newState ==  DOTA_GAMERULES_STATE_HERO_SELECTION then
 		-- AutoTeam:EnableFreePatreonForBalance()
-
 		GameOptions:RecordVotingResults()
-
-		Timers:CreateTimer(1, function()
-			GameRules:SendCustomMessage("#workaround_chat_message", -1, 0)
-		end)
 	end
 
 	if newState == DOTA_GAMERULES_STATE_STRATEGY_TIME then
