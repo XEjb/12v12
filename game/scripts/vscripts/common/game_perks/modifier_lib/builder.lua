@@ -17,7 +17,7 @@ end
 function builder:OnIntervalThink()
 	if not IsServer() then return end
 
-	local builds = table.merge(
+	local builds = table.concat_array(
 		Entities:FindAllByClassname('npc_dota_tower'), 
 		Entities:FindAllByClassname('npc_dota_fort')
 	)

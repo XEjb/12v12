@@ -112,6 +112,15 @@ function table.merge(input1, input2)
 	return input1
 end
 
+-- Add values from array t2 to t1
+function table.concat_array(t1, t2)
+	for _, value in ipairs(t2) do
+		table.insert(t1, value)
+	end
+
+	return t1
+end
+
 function table.deepcopy(orig)
 	local orig_type = type(orig)
 	local copy
