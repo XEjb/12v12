@@ -7,7 +7,7 @@ builder = class(base_game_perk)
 function builder:AllowIllusionDuplicate() return false end
 function builder:GetTexture() return "perkIcons/builder" end
 function builder:OnCreated()
-	if self:GetParent():HasModifier("modifier_monkey_king_fur_army_soldier_hidden") then
+	if self:GetParent():IsFakeHero() then
 		self:Destroy()
 		return
 	end
