@@ -7,7 +7,7 @@ builder = class(base_game_perk)
 function builder:AllowIllusionDuplicate() return false end
 function builder:GetTexture() return "perkIcons/builder" end
 function builder:OnCreated()
-	if self:GetParent():HasModifier("modifier_monkey_king_fur_army_soldier_hidden") then
+	if self:GetParent():IsFakeHero() then
 		self:Destroy()
 		return
 	end
@@ -17,7 +17,7 @@ end
 function builder:OnIntervalThink()
 	if not IsServer() then return end
 
-	local builds = table.merge(
+	local builds = table.concat_array(
 		Entities:FindAllByClassname('npc_dota_tower'), 
 		Entities:FindAllByClassname('npc_dota_fort')
 	)

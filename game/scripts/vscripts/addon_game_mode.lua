@@ -167,6 +167,7 @@ function CMegaDotaGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
 	Convars:SetInt("dota_max_physical_items_purchase_limit", 100)
 	Convars:SetInt("dota_max_disconnected_time", 300)
+	Convars:SetInt("dota_hero_undying_max_zombies", 32)
 	if IsInToolsMode() then
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
 	end
@@ -995,20 +996,12 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 	if newState ==  DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
 		-- AutoTeam:Init() what does this do? nobody knows... ¯\_(ツ)_/¯
-
-		GameRules:SendCustomMessage("#workaround_chat_message", -1, 0)
-
 		ShuffleTeam:ShuffleTeams()
 	end
 
 	if newState ==  DOTA_GAMERULES_STATE_HERO_SELECTION then
 		-- AutoTeam:EnableFreePatreonForBalance()
-
 		GameOptions:RecordVotingResults()
-
-		Timers:CreateTimer(1, function()
-			GameRules:SendCustomMessage("#workaround_chat_message", -1, 0)
-		end)
 	end
 
 	if newState == DOTA_GAMERULES_STATE_STRATEGY_TIME then

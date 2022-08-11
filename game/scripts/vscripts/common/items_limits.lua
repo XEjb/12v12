@@ -106,13 +106,14 @@ function CDOTA_Item:TransferToBuyer(unit)
 	if unit:IsIllusion() then
 		return
 	end
+
 	if not buyer:DoesHeroHasFreeSlot() and not itemsWithCharges[itemName] then
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(buyer:GetPlayerID()), "display_custom_error", { message = "#dota_hud_error_cant_purchase_inventory_full" })
 		return false
 	end
 
 	if not self.transfer then
-		if not itemsWithCharges[itemName] then
+		if not itemsWithCharges[itemName] or itemName == "item_aghanims_shard" then
 			return true
 		else
 			self:SetCooldownStackedItem(itemName, buyer)
