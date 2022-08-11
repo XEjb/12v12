@@ -17,17 +17,6 @@
 			Name = "CustomCommand"
 		},
 	]
-	map_options =
-	[
-		{
-			MaxPlayers = 24
-			map = "dota"
-		},
-		{
-			MaxPlayers = 24
-			map = "dota_tournament"
-		},
-	]
 	HideInTools = false
 	IsTemplate = false
 	DefaultMap = "dota"
@@ -40,6 +29,6 @@
 	ForceDefaultGuide = false
 	MinimalPrecache = false
 	MinPlayers = 1
-	MaxPlayers = 24
+	MaxPlayers = 13
 	TeamCount = 2
 }

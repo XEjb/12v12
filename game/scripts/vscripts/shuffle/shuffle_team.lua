@@ -135,6 +135,13 @@ function ShuffleTeam:SortPartiesIntoTeams(parties)
 end
 
 function ShuffleTeam:SetPlayerTeam(player_id, team)
+	if not PlayerResource:GetPlayerLoadedCompletely(player_id) then
+		Timers:CreateTimer(1, function()
+			ShuffleTeam:SetPlayerTeam(player_id, team)
+		end)
+
+		return
+	end
 	local player = PlayerResource:GetPlayer(player_id)
 
 	if player then
