@@ -29,6 +29,6 @@
 	ForceDefaultGuide = false
 	MinimalPrecache = false
 	MinPlayers = 1
-	MaxPlayers = 13
+	MaxPlayers = 24
 	TeamCount = 2
 }
