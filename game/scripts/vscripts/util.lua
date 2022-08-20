@@ -192,3 +192,49 @@ function CDOTA_BaseNPC:FindTalentValue(talent_name, key)
 	return 0
 end
 
+function CountNeutralItems(unit)
+	local count = 0
+
+	for i = DOTA_ITEM_SLOT_7, DOTA_ITEM_NEUTRAL_SLOT do
+		local item = unit:GetItemInSlot(i)
+
+		if item and item:IsNeutralDrop() then
+			count = count + 1
+		end
+	end
+
+	return count
+end
+
+function CountNeutralItemsForPlayer(player_id)
+	local count = 0
+	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+
+	if hero then
+		count = CountNeutralItems(hero)
+
+		for _, unit in pairs(hero:GetAdditionalOwnedUnits()) do
+			if unit:GetClassname() == "npc_dota_lone_druid_bear" then
+				count = count + CountNeutralItems(unit)
+			end
+		end
+
+		local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
+		if courier then
+			count = count + CountNeutralItems(courier)
+		end
+	end
+
+	return count
+end
+
+function GetFreeSlotForNeutralItem(unit)
+	for i = DOTA_ITEM_SLOT_7, DOTA_ITEM_NEUTRAL_SLOT do
+		if i == DOTA_ITEM_TP_SCROLL then i = i + 1 end
+
+		if unit:GetItemInSlot(i) == nil then
+			return i
+		end
+	end
+	return false
+end

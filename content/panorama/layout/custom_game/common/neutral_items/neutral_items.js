@@ -9,39 +9,27 @@ function NeutralItemPickedUp( data ) {
 		return
 	}
 
-	var choiceWasMade = false
 	let item = $.CreatePanel( "Panel", $( "#ItemsContainer" ), "" )
 	item.BLoadLayoutSnippet( "NewItem" )
 	item.AddClass( "Slide" )
 	item.FindChildTraverse( "ItemImage" ).itemname = Abilities.GetAbilityName( data.item )
 	item.FindChildTraverse( "ButtonKeep" ).SetPanelEvent( "onactivate", function() {
-		GameEvents.SendCustomGameEventToServer( "neutral_item_keep", {
+		GameEvents.SendCustomGameEventToServer( "neutral_items:take_item", {
 			item: data.item,
-			secret: data.secret
 		} )
-		item.visible = false
-		choiceWasMade = true
 	} )
 	item.FindChildTraverse( "ButtonDrop" ).SetPanelEvent( "onactivate", function() {
-		GameEvents.SendCustomGameEventToServer( "neutral_item_drop", {
+		GameEvents.SendCustomGameEventToServer( "neutral_items:drop_item", {
 			item: data.item,
-			secret: data.secret
 		} )
 		item.visible = false
-		choiceWasMade = true
 	} )
 
 	item.FindChildTraverse( "Countdown" ).AddClass( "Active" )
 
-	itemPanels[data.item] = true
+	itemPanels[data.item] = item
 
-	$.Schedule( 15, function() {
-		if (!choiceWasMade){
-			GameEvents.SendCustomGameEventToServer( "neutral_item_drop", {
-            	item: data.item,
-            	secret: data.secret
-			} )
-		}
+	$.Schedule(data.decision_time, function() {
 		item.RemoveClass( "Slide" )
 		item.DeleteAsync( 0.3 )
 		itemPanels[data.item] = false
@@ -55,9 +43,8 @@ function NeutralItemDropped( data ) {
 	item.AddClass( "Slide" )
 	item.FindChildTraverse( "ItemImage" ).itemname = Abilities.GetAbilityName( data.item )
 	item.FindChildTraverse( "ButtonTake" ).SetPanelEvent( "onactivate", function() {
-		GameEvents.SendCustomGameEventToServer( "neutral_item_take", {
+		GameEvents.SendCustomGameEventToServer( "neutral_items:take_item", {
 			item: data.item,
-			secret: data.secret
 		} )
 	} )
 	item.FindChildTraverse( "CloseButton" ).SetPanelEvent( "onactivate", function() {
@@ -68,7 +55,7 @@ function NeutralItemDropped( data ) {
 
 	droppedItems[data.item] = item
 
-	$.Schedule( 15, function() {
+	$.Schedule(data.decision_time, function() {
 		if (item.IsValid()) {
 			item.RemoveClass( "Slide" )
 			item.DeleteAsync( 0.3 )
@@ -78,6 +65,10 @@ function NeutralItemDropped( data ) {
 
 function NeutralItemTaked( data ) {
 	Game.EmitSound( "Loot_Drop_Stinger_Short" )
+
+	if ( itemPanels[data.item] ) {
+		itemPanels[data.item].visible = false
+	}
 
 	if ( droppedItems[data.item] ) {
 		droppedItems[data.item].DeleteAsync( 0 )
@@ -98,6 +89,6 @@ function NeutralItemTaked( data ) {
 	} )
 }
 
-GameEvents.SubscribeProtected( "neutral_item_taked", NeutralItemTaked )
-GameEvents.SubscribeProtected( "neutral_item_dropped", NeutralItemDropped )
-GameEvents.SubscribeProtected( "neutral_item_picked_up", NeutralItemPickedUp )
+GameEvents.SubscribeProtected( "neutral_items:item_taked", NeutralItemTaked )
+GameEvents.SubscribeProtected( "neutral_items:item_dropped", NeutralItemDropped )
+GameEvents.SubscribeProtected( "neutral_items:pickedup_item", NeutralItemPickedUp )

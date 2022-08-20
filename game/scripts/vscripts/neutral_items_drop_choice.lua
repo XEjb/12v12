@@ -1,171 +1,153 @@
 NeutralItemsDrop = NeutralItemsDrop or {}
 
 NEUTRAL_STASH_TELEPORT_DELAY = 6
+NEUTRAL_ITEM_DECISION_TIME = 15
 
-function DropItem(data)
-	if not data.PlayerID then return end
-	
-	local item = EntIndexToHScript( data.item )
-	local player = PlayerResource:GetPlayer(data.PlayerID)
-	local team = PlayerResource:GetTeam(data.PlayerID)
-	local fountain
-	local multiplier
+NEUTRAL_ITEM_STATE_GROUND = 0
+NEUTRAL_ITEM_STATE_PLAYER_DECISION = 1
+NEUTRAL_ITEM_STATE_TEAM_DECISION = 2
 
-	if team == DOTA_TEAM_GOODGUYS then
-		multiplier = -350
-		fountain = Entities:FindByName( nil, "ent_dota_fountain_good" )
-	elseif team == DOTA_TEAM_BADGUYS then
-		multiplier = -650
-		fountain = Entities:FindByName( nil, "ent_dota_fountain_bad" )
+function NeutralItemsDrop:Init()
+	ListenToGameEvent("dota_item_spawned", Dynamic_Wrap(NeutralItemsDrop, "OnItemSpawned"), self)
+	ListenToGameEvent("entity_killed", Dynamic_Wrap(NeutralItemsDrop, "OnEntityKilled"), self)
+	ListenToGameEvent("dota_hero_inventory_item_change", Dynamic_Wrap(NeutralItemsDrop, "OnItemStateChanged"), self)
+
+	CustomGameEventManager:RegisterListener("neutral_items:drop_item", function(_, event) NeutralItemsDrop:DropItem(event) end)
+	CustomGameEventManager:RegisterListener("neutral_items:take_item", function(_, event) NeutralItemsDrop:TakeItem(event) end)
+end
+
+function NeutralItemsDrop:ItemPickedUp(item, unit)
+	local correct_unit = unit:IsRealHero() or unit:GetClassname() == "npc_dota_lone_druid_bear" or unit:IsCourier()
+	if not correct_unit then return end
+
+	local player_id = unit:GetPlayerOwnerID()
+
+	if item.neutral_item_state == NEUTRAL_ITEM_STATE_TEAM_DECISION then -- item picked item from neutral stash during team decision
+		item.neutral_item_state = nil
+		item.neutral_item_team = nil
+		item.neutral_item_player_id = nil
+
+		NotificateAllPlayersInTeam(player_id, item)
+	elseif item.neutral_item_state == NEUTRAL_ITEM_STATE_GROUND then -- item picked up from ground for first time
+
+		local container = item:GetContainer()
+		if container then container:RemoveSelf() end
+		
+		item.neutral_item_state = NEUTRAL_ITEM_STATE_PLAYER_DECISION
+		item.neutral_item_player_id = player_id
+
+		local player = PlayerResource:GetPlayer(player_id)
+
+		if player then
+			CustomGameEventManager:Send_ServerToPlayer(player, "neutral_items:pickedup_item", {
+				item = item:entindex(),
+				decision_time = NEUTRAL_ITEM_DECISION_TIME,
+			})
+		end
+
+		-- Propose item for other players if initial player not make any decision
+		Timers:CreateTimer(NEUTRAL_ITEM_DECISION_TIME, function() 
+			if item.neutral_item_state == NEUTRAL_ITEM_STATE_PLAYER_DECISION then
+				NeutralItemsDrop:DropItem({
+					PlayerID = player_id,
+					item = item:entindex()
+				})
+			end
+		end)
+
+		return false
+	end
+end
+
+function NeutralItemsDrop:DropItem(event)
+	if not event.PlayerID then return end
+
+	local item = EntIndexToHScript(event.item)
+	local team = PlayerResource:GetTeam(event.PlayerID)
+
+	if not item or not item:IsNeutralDrop() then return end
+
+	if item.neutral_item_state == NEUTRAL_ITEM_STATE_GROUND or item.neutral_item_state == NEUTRAL_ITEM_STATE_PLAYER_DECISION then
+		if event.PlayerID ~= item.neutral_item_player_id then return end
+	else 
+		return
 	end
 
-	local fountain_pos = fountain:GetAbsOrigin()
-	local pos_item = fountain_pos:Normalized() * multiplier + RandomVector( RandomFloat( 0, 200 ) ) + fountain_pos
-	pos_item.z = fountain_pos.z
+	item.neutral_item_state = NEUTRAL_ITEM_STATE_TEAM_DECISION
+	item.neutral_item_team = team
+	item.neutral_item_player_id = nil
 
-	CreateItemOnPositionSync(pos_item, item)
-
-	item.neutralDropInBase = true
+	AddNeutralItemToStashWithEffects(event.PlayerID, team, item)
 
 	for i = 0, 24 do
-		if data.PlayerID ~= i and PlayerResource:GetTeam(i) == team then -- remove check "data.PlayerID ~= i" if you want test system
+		if event.PlayerID ~= i and PlayerResource:GetTeam(i) == team then -- remove check "data.PlayerID ~= i" if you want test system
 			local player = PlayerResource:GetPlayer(i)
 
-			CustomGameEventManager:Send_ServerToPlayer( player, "neutral_item_dropped", { 
-				item = data.item,
-				secret = item.secret_key
+			CustomGameEventManager:Send_ServerToPlayer( player, "neutral_items:item_dropped", { 
+				item = item:entindex(),
+				decision_time = NEUTRAL_ITEM_DECISION_TIME,
 			})
 		end
 	end
-	
-	Timers:CreateTimer(15,function() -- !!! You need put here time from function NeutralItemDropped from neutral_items.js - Schedule
-		if not item or item:IsNull() then return end
 
-		local container = item:GetContainer()
-		if not container or container:IsNull() then return end
-
-		AddNeutralItemToStashWithEffects(data.PlayerID, team, item)
+	Timers:CreateTimer(NEUTRAL_ITEM_DECISION_TIME, function() 
+		if item.neutral_item_state == NEUTRAL_ITEM_STATE_TEAM_DECISION then
+			item.neutral_item_state = nil
+			item.neutral_item_team = nil
+			item.neutral_item_player_id = nil
+		end
 	end)
 end
 
-function CheckNeutralItemForUnit(unit)
-	local count = 0
-	if unit and unit:HasInventory() then
-		for i = 0, 20 do
-			local item = unit:GetItemInSlot(i)
-			if item then
-				if _G.neutralItems[item:GetAbilityName()] then count = count + 1 end
-			end
-		end
-	end
-	return count
-end
+function NeutralItemsDrop:TakeItem(event)
+	local player_id = event.PlayerID
+	if not player_id then return end
 
-function CheckCountOfNeutralItemsForPlayer(playerId)
-	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	local neutralItemsForPlayer = CheckNeutralItemForUnit(hero)
-	if neutralItemsForPlayer >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then return neutralItemsForPlayer end
-	local playersCourier
-	local couriers = Entities:FindAllByName("npc_dota_courier")
-	for _, courier in pairs(couriers) do
-		if courier:GetPlayerOwnerID() == playerId then
-			playersCourier = courier
-		end
-	end
-	if playersCourier then
-		neutralItemsForPlayer = neutralItemsForPlayer + CheckNeutralItemForUnit(playersCourier)
-	end
-	return neutralItemsForPlayer
-end
+	local item = EntIndexToHScript(event.item)
+	if not item or not item:IsNeutralDrop() then return end
+	if item:GetItemSlot() ~= -1 or item:GetCaster() then return end
 
-function NotificationToAllPlayerOnTeam(data)
-	for id = 0, 24 do
-		if PlayerResource:GetTeam( data.PlayerID ) == PlayerResource:GetTeam( id ) then
-			CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "neutral_item_taked", { item = data.item, player = data.PlayerID } )
-		end
-	end
-end
-
-RegisterCustomEventListener( "neutral_item_keep", function( data )
-	local item = EntIndexToHScript( data.item )
-	local container = item:GetContainer()
-
-	if not item:IsNeutralDrop() or not item.secret_key or item.secret_key ~= data.secret then return end
-
-	if CheckCountOfNeutralItemsForPlayer(data.PlayerID) >= _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER then
-		DropItem(data)
-		DisplayError(data.PlayerID, "#player_still_have_a_lot_of_neutral_items")
+	if item.neutral_item_state == NEUTRAL_ITEM_STATE_PLAYER_DECISION then
+		if player_id ~= item.neutral_item_player_id then return end
+	elseif item.neutral_item_state == NEUTRAL_ITEM_STATE_TEAM_DECISION then
+		if PlayerResource:GetTeam(player_id) ~= item.neutral_item_team then return end
+	else
 		return
 	end
 
-	local hero = PlayerResource:GetSelectedHeroEntity( data.PlayerID )
-	local freeSlot = hero:DoesHeroHasFreeSlot()
+	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 
-	if freeSlot then
-		item.secret_key = nil
+	if CountNeutralItemsForPlayer(player_id) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+		DisplayError(player_id, "#player_still_have_a_lot_of_neutral_items")
+		return
+	end
+
+	if GetFreeSlotForNeutralItem(hero) then
+		item.neutral_item_state = nil
+		item.neutral_item_team = nil
+		item.neutral_item_player_id = nil
+
 		hero:AddItem(item)
-		NotificationToAllPlayerOnTeam(data)
+		NotificateAllPlayersInTeam(player_id, item)
 
-		if container then
-			container:RemoveSelf()
-		end
+		local container = item:GetContainer()
+		if container then container:RemoveSelf() end
 	else
-		DropItem(data)
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "display_custom_error", { message = "#inventory_full_custom_message" })
+		DisplayError(player_id, "#inventory_full_custom_message")
 	end
-end )
-
-RegisterCustomEventListener( "neutral_item_take", function( data )
-	local item = EntIndexToHScript( data.item )
-	local hero = PlayerResource:GetSelectedHeroEntity( data.PlayerID )
-	local freeSlot = hero:DoesHeroHasFreeSlot()
-
-	if not item:IsNeutralDrop() or not item.secret_key or item.secret_key ~= data.secret then return end
-
-	if CheckCountOfNeutralItemsForPlayer(data.PlayerID) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
-		DisplayError(data.PlayerID, "#player_still_have_a_lot_of_neutral_items")
-		return
-	end
-
-	if freeSlot then
-		if item.neutralDropInBase then
-			item.secret_key = nil
-			item.neutralDropInBase = false
-			local container = item:GetContainer()
-			UTIL_Remove( container )
-			hero:AddItem( item )
-			NotificationToAllPlayerOnTeam(data)
-		end
-	else
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "display_custom_error", { message = "#inventory_full_custom_message" })
-	end
-end )
-
-RegisterCustomEventListener( "neutral_item_drop", function( data )
-	DropItem(data)
-end )
-
-function SearchCorrectNeutralShopByTeam(team)
-	local neutralShops = Entities:FindAllByClassname('ent_dota_neutral_item_stash')
-	for _, focusShop in pairs(neutralShops) do
-		if focusShop:GetTeamNumber() == team then
-			return focusShop
-		end
-	end
-	return false
 end
 
 function NeutralItemsDrop:OnItemSpawned(event)
 	local item = EntIndexToHScript(event.item_ent_index) ---@type CDOTA_Item
 
 	if item and item:IsNeutralDrop() then
-		self.lastDroppedItem = item
-		self.dropFrame = GetFrameCount()
+		self.last_dropped_item = item
+		self.drop_frame = GetFrameCount()
 	end
 end
 
 function NeutralItemsDrop:OnEntityKilled(event)
-	if self.dropFrame ~= GetFrameCount() then return end
+	if self.drop_frame ~= GetFrameCount() then return end
 
 	local killed = EntIndexToHScript(event.entindex_killed or -1) ---@type CDOTA_BaseNPC
 	local attacker = EntIndexToHScript(event.entindex_attacker or -1) ---@type CDOTA_BaseNPC
@@ -175,34 +157,34 @@ function NeutralItemsDrop:OnEntityKilled(event)
 	local hero = PlayerResource:GetSelectedHeroEntity(attacker:GetPlayerOwnerID())
 
 	if hero and killed and killed:IsNeutralUnitType() and killed:GetTeam() == DOTA_TEAM_NEUTRALS then
-		self:OnNeutralItemDropped(self.lastDroppedItem, hero)
+		self:OnNeutralItemDropped(self.last_dropped_item, hero)
 
-		self.lastDroppedItem = nil
-		self.dropFrame = nil
+		self.last_dropped_item = nil
+		self.drop_frame = nil
 	end
 end
 
 -- Called when neutral item dropped from neutral creeps
 function NeutralItemsDrop:OnNeutralItemDropped(item, hero)
 	local container = item:GetContainer()
-
 	if not container then return end
 
-	Timers:CreateTimer(NEUTRAL_STASH_TELEPORT_DELAY, function()
-		-- if container destroyed item already picked up by somebody
-		if IsValidEntity(container) then
-			item.old = true 
-			item.secret_key = RandomInt(1,999999)
+	item.neutral_item_state = NEUTRAL_ITEM_STATE_GROUND
+	item.neutral_item_player_id = hero:GetPlayerOwnerID()
 
+	Timers:CreateTimer(NEUTRAL_STASH_TELEPORT_DELAY, function()
+		if item.neutral_item_state == NEUTRAL_ITEM_STATE_GROUND then
 			local pos = container:GetAbsOrigin()
 			local pFX = ParticleManager:CreateParticle("particles/items2_fx/neutralitem_teleport.vpcf", PATTACH_WORLDORIGIN, nil)
 			ParticleManager:SetParticleControl(pFX, 0, pos)
 			ParticleManager:ReleaseParticleIndex(pFX)
 			StartSoundEventFromPosition("NeutralItem.TeleportToStash", pos)
 
-			container:RemoveSelf()
+			if IsValidEntity(container) then
+				container:RemoveSelf()
+			end
 
-			DropItem({
+			NeutralItemsDrop:DropItem({
 				PlayerID = hero:GetPlayerOwnerID(),
 				item = item:entindex()
 			})
@@ -229,21 +211,25 @@ function AddNeutralItemToStashWithEffects(playerID, team, item)
 	PlayerResource:AddNeutralItemToStash(playerID, team, item)
 
 	local container = item:GetContainer()
-
 	if not container then return end
 
 	local pos = container:GetAbsOrigin()
+
+	container:RemoveSelf()
 
 	local pFX = ParticleManager:CreateParticle("particles/items2_fx/neutralitem_teleport.vpcf", PATTACH_WORLDORIGIN, nil)
 	ParticleManager:SetParticleControl(pFX, 0, pos)
 	ParticleManager:ReleaseParticleIndex(pFX)
 	StartSoundEventFromPosition("NeutralItem.TeleportToStash", pos)
-
-	container:RemoveSelf()
 end
 
-function NeutralItemsDrop:Init()
-	ListenToGameEvent("dota_item_spawned", Dynamic_Wrap(NeutralItemsDrop, "OnItemSpawned"), self)
-	ListenToGameEvent("entity_killed", Dynamic_Wrap(NeutralItemsDrop, "OnEntityKilled"), self)
-	ListenToGameEvent("dota_hero_inventory_item_change", Dynamic_Wrap(NeutralItemsDrop, "OnItemStateChanged"), self)
+function NotificateAllPlayersInTeam(player_id, item)
+	for id = 0, DOTA_MAX_TEAM_PLAYERS - 1 do
+		if PlayerResource:GetTeam(player_id) == PlayerResource:GetTeam(id) then
+			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(id), "neutral_items:item_taked", { 
+				item = item:entindex(), 
+				player = player_id 
+			})
+		end
+	end
 end

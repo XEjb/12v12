@@ -799,6 +799,8 @@ end
 
 function CMegaDotaGameMode:ModifierGainedFilter(filterTable)
 
+	if filterTable.name_const == "modifier_lootdrop_thinker" then return true end
+
 	local disableHelpResult = DisableHelp.ModifierGainedFilter(filterTable)
 	if disableHelpResult == false then
 		return false
@@ -1408,39 +1410,9 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 		end
 	end
 
-	if _G.neutralItems[hItem:GetAbilityName()] and hItem.old == nil then
-		hItem.old = true
-		local inventoryIsCorrect = hInventoryParent:IsRealHero() or (hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear") or hInventoryParent:IsCourier()
-		if inventoryIsCorrect then
-			local playerId = hInventoryParent:GetPlayerOwnerID() or hInventoryParent:GetPlayerID()
-			local player = PlayerResource:GetPlayer(playerId)
-
-			hItem.secret_key = RandomInt(1,999999)
-			CustomGameEventManager:Send_ServerToPlayer( player, "neutral_item_picked_up", {
-				item = filterTable.item_entindex_const,
-				secret = hItem.secret_key,
-			})
-
-			local container = hItem:GetContainer()
-			if container then
-				container:RemoveSelf()
-			end
-
-			return false
-		end
-	end
-
-	if hItem and hItem.neutralDropInBase then
-		hItem.secret_key = nil
-		hItem.neutralDropInBase = false
-		local inventoryIsCorrect = hInventoryParent:IsRealHero() or (hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear") or hInventoryParent:IsCourier()
-		local playerId = inventoryIsCorrect and hInventoryParent:GetPlayerOwnerID()
-		if playerId then
-			NotificationToAllPlayerOnTeam({
-				PlayerID = playerId,
-				item = filterTable.item_entindex_const,
-			})
-		end
+	if hItem:IsNeutralDrop() then
+		local res = NeutralItemsDrop:ItemPickedUp(hItem, hInventoryParent)
+		if res ~= nil then return res end
 	end
 
 	return true
@@ -1720,7 +1692,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		if _G.neutralItems[ability:GetAbilityName()] then
 			local targetID = target:GetPlayerOwnerID()
 			if targetID and targetID~=playerId then
-				if CheckCountOfNeutralItemsForPlayer(targetID) >= _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+				if CountNeutralItemsForPlayer(targetID) >= _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER then
 					DisplayError(playerId, "#unit_still_have_a_lot_of_neutral_items")
 					return
 				end
@@ -1737,8 +1709,8 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		if WARDS_LIST[itemName] then
 			if BlockedWardsFilter(playerId, "#cannotpickupit") == false then return false end
 		end
-		if _G.neutralItems[itemName] then
-			if CheckCountOfNeutralItemsForPlayer(playerId) >= _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+		if pickedItem:IsNeutralDrop() then
+			if pickedItem.neutral_item_player_id ~= playerId and CountNeutralItemsForPlayer(playerId) >= _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER then
 				DisplayError(playerId, "#player_still_have_a_lot_of_neutral_items")
 				return
 			end
@@ -1746,8 +1718,8 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	end
 
 	if orderType == DOTA_UNIT_ORDER_TAKE_ITEM_FROM_NEUTRAL_ITEM_STASH then
-		if _G.neutralItems[ability:GetAbilityName()] then
-			if CheckCountOfNeutralItemsForPlayer(playerId) >= _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+		if ability and ability:IsNeutralDrop() then
+			if CountNeutralItemsForPlayer(playerId) >= _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER then
 				DisplayError(playerId, "#player_still_have_a_lot_of_neutral_items")
 				return
 			end
