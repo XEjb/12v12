@@ -202,6 +202,7 @@ amplified_modifier = {
 	["modifier_item_trickster_cloak_invis"] = true,
 	["modifier_item_book_of_shadows_buff"] = true,
 	["modifier_woodland_striders_active"] = true,
+	["modifier_item_boots_of_bearing_active"] = true,
 }
 counter_updaters = {
 	["modifier_bristleback_warpath_stack"] = "modifier_bristleback_warpath",
