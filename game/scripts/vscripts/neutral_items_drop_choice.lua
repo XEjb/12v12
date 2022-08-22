@@ -77,8 +77,6 @@ function NeutralItemsDrop:DropItem(event)
 	item.neutral_item_team = team
 	item.neutral_item_player_id = nil
 
-	AddNeutralItemToStashWithEffects(event.PlayerID, team, item)
-
 	for i = 0, 24 do
 		if event.PlayerID ~= i and PlayerResource:GetTeam(i) == team then -- remove check "data.PlayerID ~= i" if you want test system
 			local player = PlayerResource:GetPlayer(i)
@@ -95,6 +93,8 @@ function NeutralItemsDrop:DropItem(event)
 			item.neutral_item_state = nil
 			item.neutral_item_team = nil
 			item.neutral_item_player_id = nil
+
+			AddNeutralItemToStashWithEffects(event.PlayerID, team, item)
 		end
 	end)
 end
