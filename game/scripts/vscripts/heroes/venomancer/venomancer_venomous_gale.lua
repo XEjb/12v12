@@ -1,18 +1,5 @@
 venomancer_venomous_gale = class({})
 
-function venomancer_venomous_gale:GetCastRange(location, target)
-	local cast_range = self.BaseClass.GetCastRange(self, location, target)
-	if self:GetCaster():HasShard() then
-		cast_range = cast_range + self:GetSpecialValueFor("shard_bonus_range")
-	end
-	return cast_range
-end
-
-function venomancer_venomous_gale:GetCooldown(level)
-	return self.BaseClass.GetCooldown(self, level) - self:GetCaster():FindTalentValue("special_bonus_unique_venomancer_3")
-end
-
-
 function venomancer_venomous_gale:OnSpellStart()
 	local caster = self:GetCaster()
 	local target_loc = self:GetCursorPosition()
@@ -76,8 +63,9 @@ function venomancer_venomous_gale:OnProjectileHit_ExtraData(target, location, Ex
 		target:AddNewModifier(caster, self, "modifier_venomancer_venomous_gale", {duration = ExtraData.duration})
 		target:EmitSound("Hero_Venomancer.VenomousGaleImpact")
 
-		if target:IsRealHero() and not target:IsIllusion() and caster:HasShard() then 
-			local ward_count = self:GetSpecialValueFor("shard_ward_count")
+		local ward_count = self:GetSpecialValueFor("create_wards")
+
+		if ward_count > 0 and target:IsRealHero() and not target:IsIllusion() then 
 			for i = 1, ward_count do
 				self:SpawnPlagueWard(target)
 			end
