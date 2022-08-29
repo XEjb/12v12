@@ -1076,15 +1076,15 @@
 		"DOTA_Tooltip_modifier_weak_team_bonus_Description"	"Players in this team will get additional gold and experience"
 
 		"less_mmr_bonus_header"	"Your team has {s:mmr_diff} less MMR and will get bonuses for this game"
-		"less_mmr_bonus_exp"	"{s:exp_pct}% Experiance"
+		"less_mmr_bonus_exp"	"{s:exp_pct}% Experience"
 		"less_mmr_bonus_gold"	"{s:gold_pct}% Gold"
 		"show_chat" "Show Chat"
 		"hide_voting"	"Hide Voting"
 		"show_voting"	"Show Voting"
 
-		"npc_dota_hero_chaos_knight"			"Chaos Knight (Modified)"
-		"DOTA_Tooltip_ability_chaos_knight_phantasm"					"Phantasm (Modified)"
-		"DOTA_Tooltip_ability_chaos_knight_phantasm_Description"		"Summons several phantasmal copies of the Chaos Knight from alternate dimensions. The phantasms are strong illusions that deal %outgoing_damage_tooltip%%% damage, but take %incoming_damage_tooltip%%% damage.\nDISPEL TYPE: Basic Dispel\n\n<font color='#70EA72'>In 12v12 this ability has reduced duration.</font>"
+		"DOTA_Tooltip_ability_chaos_knight_phantasm_Description"		"Summons several phantasmal copies of the Chaos Knight from alternate dimensions. The phantasms are strong illusions that deal %outgoing_damage_tooltip%%% damage, but take %incoming_damage_tooltip%%% damage.\nDISPEL TYPE: Basic Dispel\n\n<font color='#70EA72'>In 12v12 this ability has an increased cooldown.</font>"
+		
+		"DOTA_Tooltip_ability_dark_willow_shadow_realm_Description"		"Dark Willow recedes into the shadows, becoming untargetable.  Her next attack has increased attack range and deals bonus magic damage, and will end Shadow Realm. Damage scales based on how long she remains under the effects of Shadow Realm, the maximum being reached after %max_damage_duration% seconds.\n\n<font color='#70EA72'>In 12v12 this ability is not affected by cooldown reduction perks.</font>"
 
 		"collection_header"		"COLLECTION"
 		"player_no_boost"		"NO BOOST"
