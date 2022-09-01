@@ -62,8 +62,16 @@ function GamePerks:Init()
 	CustomGameEventManager:RegisterListener("game_perks:set_perk",function(_, event)
 		self:SetGamePerk(event)
 	end)
-	CustomGameEventManager:RegisterListener("game_perks:check_perks_for_players",function(_, event)
-		self:CheckPerks(event)
+	CustomGameEventManager:RegisterListener("game_perks:check_perks_for_players",function(entity_index, event)
+		local player = EntIndexToHScript(entity_index)
+
+		if not player then return end
+
+		if player:GetTeam() == 1 then
+			self:FetchPerksForSpectator(player)
+		else
+			self:CheckPerks(event)
+		end
 	end)
 end
 
@@ -131,6 +139,22 @@ function GamePerks:SetGamePerk(event)
 		end
 	else
 		GamePerks:SetGamePerkSchedule(event)
+	end
+end
+
+function GamePerks:FetchPerksForSpectator(spectator)
+	for player_id = 0, DOTA_MAX_TEAM_PLAYERS - 1 do
+		if self.choosed_perks[player_id] then
+			local base_name = self.choosed_perks[player_id]
+			if self.family_perks[player_id] then
+				base_name = self.family_perks[player_id]
+			end
+			local perkName = base_name:gsub("_t%d*$", "_t0")
+			CustomGameEventManager:Send_ServerToPlayer(spectator, "game_perks:show_player_perk", { 
+				playerId = player_id, 
+				perkName = perkName
+			})
+		end
 	end
 end
 
