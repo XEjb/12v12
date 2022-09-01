@@ -46,7 +46,7 @@ end
 
 function FountainProtection:OnSpawn(event)
 	local hero = EntIndexToHScript(event.entindex)
-	if not hero or not hero:IsRealHero() or hero:IsReincarnating() then return end
+	if not hero or not hero:IsRealHero() or hero:IsReincarnating() or hero:IsTempestDouble() then return end
 
 	if event.is_respawn == 1 then
 		hero:RemoveModifierByName("modifier_fountain_invulnerability")
@@ -65,7 +65,7 @@ function FountainProtection:IdleChecker(hero)
 
 	--print(hero:IsIdle(), hero:GetLastIdleChangeTime(), idle_long_enough)
 
-	if hero:HasModifier("modifier_fountain_aura_buff") and idle_long_enough then
+	if hero:HasModifier("modifier_fountain_aura_buff") and not hero:IsTempestDouble() and idle_long_enough then
 		hero:AddNewModifier(hero, nil, "modifier_fountain_invulnerability_custom", nil)
 	end
 
