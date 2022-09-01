@@ -16,6 +16,7 @@ local ignored_special_values = {
 	item_nether_shawl 	= {bonus_armor = true },
 	item_ninja_gear 	= {visibility_radius = true },
 	item_misericorde 	= {missing_hp = true },
+	item_spy_gadget		= {scan_cooldown_reduction = true},
 }
 
 local ignored_special_values_common = {
