@@ -200,8 +200,12 @@ function EmitSoundFromServer(data) {
 			.GetChild(0)
 			.GetChild(1).text = $.Localize(rings[0][0][i]);
 	}
-	Game.AddCommand("+WheelButton", StartWheel, "", 0);
-	Game.AddCommand("-WheelButton", StopWheel, "", 0);
+
+	const cmd_name = "WheelButton" + Math.floor(Math.random() * 99999999);
+	Game.AddCommand("+" + cmd_name, StartWheel, "", 0);
+	Game.AddCommand("-" + cmd_name, StopWheel, "", 0);
+	Game.CreateCustomKeyBind("L", "+" + cmd_name);
+	
 	$("#Wheel").visible = false;
 	$("#Bubble").visible = false;
 	$("#PhrasesContainer").visible = false;
