@@ -747,19 +747,19 @@
 		"DOTA_Tooltip_int_for_kill_t3_Description"		"智力提高%dMODIFIER_PROPERTY_STATS_INTELLECT_BONUS%"
 
 		"cleave_t0"										"轻武器"
-		"cleave_t0_tooltip"								"在半径300范围内提供12%（远程英雄为6%）的溅射伤害"
+		"cleave_t0_tooltip"								"在半径300范围内提供12% (6%-远程英雄)的溅射伤害"
 		"DOTA_Tooltip_cleave_t0"						"个人特权：重武器"
 		"DOTA_Tooltip_cleave_t0_Description"			"攻击时提供溅射伤害，远程英雄获得一半溅射伤害"
 		"cleave_t1"										"重武器"
-		"cleave_t1_tooltip"								"在半径300范围内提供24%（远程英雄为12%）的溅射伤害"
+		"cleave_t1_tooltip"								"在半径300范围内提供24% (12%-远程英雄)的溅射伤害"
 		"DOTA_Tooltip_cleave_t1"						"个人特权：重武器"
 		"DOTA_Tooltip_cleave_t1_Description"			"攻击时提供溅射伤害，远程英雄获得一半溅射伤害"
 		"cleave_t2"										"怪兽武器"
-		"cleave_t2_tooltip"								"在半径300范围内提供48%（远程英雄为24%）的溅射伤害"
+		"cleave_t2_tooltip"								"在半径300范围内提供48% (24%-远程英雄)的溅射伤害"
 		"DOTA_Tooltip_cleave_t2"						"个人特权：重武器"
 		"DOTA_Tooltip_cleave_t2_Description"			"攻击时提供溅射伤害，远程英雄获得一半溅射伤害"
 		"cleave_t3"										"家族武器"
-		"cleave_t3_tooltip"								"在半径300范围内提供96%（远程英雄为48%）的溅射伤害"
+		"cleave_t3_tooltip"								"在半径300范围内提供96% (48%-远程英雄)的溅射伤害"
 		"DOTA_Tooltip_cleave_t3"						"个人特权：重武器"
 		"DOTA_Tooltip_cleave_t3_Description"			"攻击时提供溅射伤害，远程英雄获得一半溅射伤害"
 
@@ -1048,7 +1048,7 @@
 		"DOTA_Tooltip_modifier_mega_creep"		"超级兵"
 
 		"game_option_super_towers"				"弱防御塔"
-		"game_option_super_towers_tooltip"		"防御塔的数据将降低：<br><br><br><br><font color='#24d124'>生命值</font>：4800-5100 > 2800-3100<br><font color='#a9cce8'>基本攻击时间</font>：0.65 > 0.8"
+		"game_option_super_towers_tooltip"		"防御塔的数据将降低：<br><br><font color='#24d124'>生命值</font>：4800-5100 > 2800-3100<br><font color='#a9cce8'>基本攻击时间</font>：0.65 > 0.8"
 
 		"game_option_no_trolls_kick"			"不能恶意玩家踢出"
         "game_option_no_trolls_kick_tooltip"	"在本场游戏中，玩家不能发起踢出恶意玩家的投票"
@@ -1082,9 +1082,9 @@
 		"hide_voting"	"隐藏投票"
 		"show_voting"	"显示投票"
 
-		"npc_dota_hero_chaos_knight"			"混乱骑士（已修改）"
-		"DOTA_Tooltip_ability_chaos_knight_phantasm"					"魅影之袭（已修改）"
-		"DOTA_Tooltip_ability_chaos_knight_phantasm_Description"		"从另一个维度召唤多个混乱骑士的魅影之袭副本。魅影之袭是强大的幻象，可造成%outgoing_damage_tooltip%%%伤害，但会承担%incoming_damage_tooltip%%%伤害。\n驱散类型：基础驱散\n\n<font color='#70EA72'>在12v12中，此技能的持续时间较短。</font>"
+		"DOTA_Tooltip_ability_chaos_knight_phantasm_Description"		"从另一个维度召唤多个混乱骑士的魅影之袭副本。魅影之袭是强大的幻象，可造成%outgoing_damage_tooltip%%%伤害，但会承担%incoming_damage_tooltip%%%伤害。\n驱散类型：基础驱散\n\n<font color='#70EA72'>在12v12中，此技能的冷却时间增加。</font>"
+		
+		"DOTA_Tooltip_ability_dark_willow_shadow_realm_Description"		"邪影芳灵遁入暗影之境，无法成为攻击或技能的目标。  其下次攻击将获得额外攻击距离，并且造成额外魔法伤害，暗影之境技能也会结束。伤害将根据其处于暗影之境效果下的持续时间进行调整，最大伤害将在持续%max_damage_duration%秒后达到。\n\n<font color='#70EA72'>在12v12中，此技能不会收到冷却时间减免提升的影响。</font>"
 
 		"collection_header"		"收藏"
 		"player_no_boost"		"无提升"
@@ -1122,7 +1122,7 @@
 		"golden_booster_purchase_description"	"1个月的黄金提升状态"
 
 		"need_buy_base_booster"		"此物品是<font color='#c7552e'>英雄提升</font>玩家的专属物品"
-		"need_buy_golden_booster"		"此物品是<font color='#c7552e'>黄金提升</font>玩家的专属物品"
+		"need_buy_golden_booster"		"此物品是<font color='#e4ba25'>黄金提升</font>玩家的专属物品"
 
 		"not_enough_coins"		"没有足够的荣耀！"
 
@@ -1148,7 +1148,7 @@
 		"treasure_newbloom"							"<font color='#8847ff'>芳晓佳节</font>"
 		"treasure_emotes_basic"						"<font color='#a7b2ce'>表情包</font>"
 		"treasure_emotes_basic_description"			"内含帮助你表达的基本工具。"
-		"treasure_emotes_deluxe"					"<font color='#a7b2ce'>豪华表情包</font>"
+		"treasure_emotes_deluxe"					"<font color='#5a92cd'>豪华表情包</font>"
 		"treasure_emotes_deluxe_description"		"就帅气而言，你比对手的天赋可多多了！"
 
 		"Treasures"		"宝藏"
