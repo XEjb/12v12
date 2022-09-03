@@ -2,7 +2,7 @@ Supporters = Supporters or {}
 Supporters.playerState = Supporters.playerState or {}
 
 function Supporters:GetLevel(playerId)
-	return Supporters.playerState[playerId] and Supporters.playerState[playerId].level or 0
+	return 2--Supporters.playerState[playerId] and Supporters.playerState[playerId].level or 0
 end
 
 function Supporters:GetEndDate(playerId)

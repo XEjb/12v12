@@ -1,6 +1,7 @@
 require("common/game_perks/base_game_perk")
 
 magician = class(base_game_perk)
+
 local aoe_keywords = {
 	aoe = true,
 	area_of_effect = true,
@@ -24,7 +25,6 @@ local other_keywords = {
 	dragon_slave_width_initial = true,
 	dragon_slave_width_end = true,
 	width = true,
-	arrow_width = true,
 	requiem_line_width_start = true,
 	requiem_line_width_end = true,
 	orb_vision = true,
@@ -52,6 +52,12 @@ local other_key_by_abilities = {
 local ignore_abilities = {
 	phantom_assassin_blur = true,
 	spectre_desolate = true,
+}
+
+local affected_talents = {
+	special_bonus_unique_dark_seer_3 = true,
+	special_bonus_unique_legion_commander_5 = true,
+	special_bonus_unique_dragon_knight_8 = true,
 }
 
 function magician:GetTexture() return "perkIcons/magician" end
@@ -98,6 +104,8 @@ function magician:GetModifierOverrideAbilitySpecial(keys)
 
 	local ability_name = keys.ability:GetAbilityName()
 
+	if affected_talents[ability_name] then return 1 end
+
 	if ignore_abilities[ability_name] then return end
 
 	for keyword, _ in pairs(aoe_keywords) do
@@ -121,6 +129,10 @@ end
 function magician:GetModifierOverrideAbilitySpecialValue(keys)
 	local value = keys.ability:GetLevelSpecialValueNoOverride(keys.ability_special_value, keys.ability_special_level)
 	local ability_name = keys.ability.GetAbilityName and keys.ability:GetAbilityName()
+
+	if affected_talents[ability_name] then
+		return value * (self.v or 1)
+	end
 	
 	for keyword, _ in pairs(aoe_keywords) do
 		if string.find(keys.ability_special_value, keyword) then
