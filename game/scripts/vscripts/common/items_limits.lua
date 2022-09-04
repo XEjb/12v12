@@ -22,7 +22,7 @@ local fastItems = {
 }
 
 local maxItemsForPlayer = {
-	["item_banhammer"] = 2,
+	--["item_banhammer"] = 2,
 }
 _G.itemsCooldownForPlayer = {
 	["item_disable_help_custom"] = 10,

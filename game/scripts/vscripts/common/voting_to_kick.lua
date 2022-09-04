@@ -60,7 +60,7 @@ function Kicks:Init()
 end
 
 function Kicks:GetSupplevel(player_id)
-	if not player_id then return end
+	if GameOptions:OptionsIsActive("no_trolls_kick") or not player_id then return end
 
 	local supp_level = Supporters:GetLevel(player_id)
 	if not supp_level then return end

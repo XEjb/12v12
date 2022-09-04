@@ -77,8 +77,9 @@ function _InitPickLocker(level) {
 SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuses) {
 	let local_stats = patreon_bonuses[Game.GetLocalPlayerID()];
 	let level = 0;
-	if (local_stats && local_stats.level) {
-		level = local_stats.level;
-	}
+
+	if (local_stats && local_stats.level) level = local_stats.level;
+	if (Game.IsInToolsMode()) level = 2;
+
 	_InitPickLocker(level);
 });

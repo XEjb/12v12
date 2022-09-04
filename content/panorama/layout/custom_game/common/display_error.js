@@ -1,8 +1,10 @@
 GameEvents.SubscribeProtected("display_custom_error", function (msg) {
-	GameEvents.SendEventClientSide("dota_hud_error_message", {
-		splitscreenplayer: 0,
-		reason: 80,
-		message: msg.message,
+	$.Schedule(0, () => {
+		GameEvents.SendEventClientSide("dota_hud_error_message", {
+			splitscreenplayer: 0,
+			reason: 80,
+			message: msg.message,
+		});
 	});
 });
 GameEvents.SubscribeProtected("display_custom_error_with_value", function (msg) {

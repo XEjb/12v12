@@ -1645,9 +1645,8 @@ function SelectVO(keys)
 		if votimer[keys.PlayerID] ~= nil then
 			if GameRules:GetGameTime() - votimer[keys.PlayerID] > 5 + vousedcol[keys.PlayerID] and (phraseDoesntHasCooldown == nil or phraseDoesntHasCooldown == true) then
 				local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
-				--EmitAnnouncerSound(HEROES_VO[selectedid][selectedid2])
 				ChatSound(HEROES_VO[selectedid][selectedid2], keys.PlayerID)
-				CustomChat:MessageToAll(chat["dota_chatwheel_message_"..selectedstr], keys.PlayerID)
+				ChatMessage(chat["dota_chatwheel_message_"..selectedstr], keys.PlayerID)
 
 				votimer[keys.PlayerID] = GameRules:GetGameTime()
 				vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
@@ -1662,11 +1661,20 @@ function SelectVO(keys)
 			end
 		else
 			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
-			--EmitAnnouncerSound(HEROES_VO[selectedid][selectedid2])
 			ChatSound(HEROES_VO[selectedid][selectedid2], keys.PlayerID)
-			CustomChat:MessageToAll(chat["dota_chatwheel_message_"..selectedstr], keys.PlayerID)
+			ChatMessage(chat["dota_chatwheel_message_"..selectedstr], keys.PlayerID)
 			votimer[keys.PlayerID] = GameRules:GetGameTime()
 			vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
+		end
+	end
+end
+function ChatMessage(text, source_player_id)
+	for player_id = 0, DOTA_MAX_PLAYERS do
+		if PlayerResource:IsValidPlayer(player_id) and not _G.tPlayersMuted.Text[player_id][tostring(source_player_id)] then
+			local player = PlayerResource:GetPlayer(player_id)
+			if player and not player:IsNull() then
+				CustomChat:MessageToPlayer(text, player_id, source_player_id)
+			end
 		end
 	end
 end
@@ -1676,7 +1684,7 @@ function ChatSound(phrase, source_player_id)
 	for _, hero in pairs(all_heroes) do
 		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
 			local player_id = hero:GetPlayerOwnerID()
-			if player_id and not _G.tPlayersMuted[player_id][source_player_id] then
+			if player_id and not _G.tPlayersMuted.Voice[player_id][tostring(source_player_id)] then
 				local player = PlayerResource:GetPlayer(player_id)
 				CustomGameEventManager:Send_ServerToPlayer(player, "chat_wheel:emit_sound", {
 					sound = phrase

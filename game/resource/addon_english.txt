@@ -94,10 +94,6 @@
 		"DOTA_Tooltip_ability_item_patreon_8"						"Festive Firework"
 		"DOTA_Tooltip_ability_item_patreon_8_Description"			"<h1>Use</h1>Shoot a firework into the air."
 		"DOTA_Tooltip_ability_item_patreon_8_Lore"					"There's nothing more festive than explosions!"
-		"DOTA_Tooltip_ability_item_patreonbundle_1"						"New Bloom 2019 Consumables Bundle"
-		"DOTA_Tooltip_ability_item_patreonbundle_1_Description"			"<h1>Use</h1>Contains a full set of New Bloom consumables for use in normal Dota games."
-		"DOTA_Tooltip_ability_item_patreonbundle_2"						"Frosthaven Consumables Bundle"
-		"DOTA_Tooltip_ability_item_patreonbundle_2_Description"			"<h1>Use</h1>Contains a full set of consumables for both normal Dota and the Frosthaven special event."
 
 		"nopatreonerror"											"This item is for Supporters only"
 		"nopatreonerror2"											"Only Hi-Level Supporters (25$) can use this item"
@@ -1922,8 +1918,6 @@
 		"leaderboard_player"				"Player"
 		"leaderboard_rating"				"Rating"
 
-		"mute_all_hint"	"Mute All"
-
 		"report_voting"			"Report Voting"
 		"report_voting_hint"	"Report the voting initiator to block them from starting kick votes in the future"
 
@@ -2032,5 +2026,16 @@
 
 		"DOTA_Tooltip_modifier_fountain_invulnerability_custom"					"Fountain Invulnerability"
 		"DOTA_Tooltip_modifier_fountain_invulnerability_custom_Description"		"Invulnerable until issuing a command."
+		
+		"Scoreboard_K"	"K"
+		"Scoreboard_D"	"D"
+		"Scoreboard_A"	"A"
+		"Scoreboard_Mute_Voice"		"Mute (Voice)"
+		"Scoreboard_Mute_Text"		"Mute (Text)"
+		"Scoreboard_DisableHelp"	"When enabled, prevent {s:player_name} from using certain abilities on your Hero."
+		"Scoreboard_Rank"	"Rank<br>({d:team_rank})"
+
+		"mute_all_hint"			"Mute All (Voice)"
+		"mute_all_text_hint"	"Mute All (Text)"
 	}
 }

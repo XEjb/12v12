@@ -76,10 +76,14 @@ _G.tableRadiantHeroes = {}
 _G.tableDireHeroes = {}
 _G.newRespawnTimes = {}
 
-_G.tPlayersMuted = {}
+_G.tPlayersMuted = {
+	Voice = {},
+	Text = {},
+}
 _G.CUSTOM_GAME_STATS = CUSTOM_GAME_STATS or {}
 for player_id = 0, 24 do
-	_G.tPlayersMuted[player_id] = {}
+	_G.tPlayersMuted.Voice[player_id] = {}
+	_G.tPlayersMuted.Text[player_id] = {}
 	if not CUSTOM_GAME_STATS[player_id] then
 		CUSTOM_GAME_STATS[player_id] = {
 			perk = "",
@@ -1275,78 +1279,6 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 			UTIL_Remove(hItem)
 			return false
 		end
-		local pitems = {
-			"item_patreonbundle_1",
-			"item_patreonbundle_2",
-		}
-		if hInventoryParent:IsRealHero() then
-			local plyID = hInventoryParent:GetPlayerID()
-			if not plyID then return true end
-
-			local pitem = false
-			for i=1,#pitems do
-				if itemName == pitems[i] then
-					pitem = true
-					break
-				end
-			end
-			if pitem == true then
-				local supporter_level = Supporters:GetLevel(plyID)
-				if supporter_level < 1 then
-					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror" })
-					UTIL_Remove(hItem)
-					return false
-				end
-			end
-
-			if itemName == "item_banhammer" then
-				if GameRules:GetDOTATime(false,false) < 300 then
-					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#notyettime" })
-					UTIL_Remove(hItem)
-					return false
-				end
-			end
-		else
-			for i=1,#pitems do
-				if itemName == pitems[i] then
-					local prsh = hItem:GetPurchaser()
-					if prsh ~= nil then
-						if prsh:IsRealHero() then
-							local prshID = prsh:GetPlayerID()
-
-							if not prshID then
-								UTIL_Remove(hItem)
-								return false
-							end
-							local supporter_level = Supporters:GetLevel(prshID)
-							if not supporter_level then
-								UTIL_Remove(hItem)
-								return false
-							end
-							if itemName == "item_banhammer" then
-								if GameRules:GetDOTATime(false,false) < 300 then
-									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#notyettime" })
-									UTIL_Remove(hItem)
-									return false
-								end
-							else
-								if supporter_level < 1 then
-									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror" })
-									UTIL_Remove(hItem)
-									return false
-								end
-							end
-						else
-							UTIL_Remove(hItem)
-							return false
-						end
-					else
-						UTIL_Remove(hItem)
-						return false
-					end
-				end
-			end
-		end
 
 		if hItem:GetPurchaser() and (itemName == "item_relic") then
 			local buyer = hItem:GetPurchaser()
@@ -1852,13 +1784,12 @@ RegisterCustomEventListener("OnTimerClick", function(keys)
 	CustomChat:MessageToTeam(min .. ":" .. sec, PlayerResource:GetTeam(keys.PlayerID), keys.PlayerID)
 end)
 
-RegisterCustomEventListener("set_mute_player", function(data)
-	if data and data.PlayerID and data.toPlayerId then
-		local fromId = data.PlayerID
-		local toId = data.toPlayerId
-		local disable = data.disable
-
-		_G.tPlayersMuted[fromId][toId] = disable == 1
+RegisterCustomEventListener("update_mute_players", function(data)
+	if data and data.PlayerID and data.players then
+		local from_id = data.PlayerID
+		for target_id, b_voice_muted in pairs(data.players) do
+			_G.tPlayersMuted[data.type][from_id][target_id] = b_voice_muted == 1
+		end
 	end
 end)
 

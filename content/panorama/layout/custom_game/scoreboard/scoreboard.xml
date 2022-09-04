@@ -1,0 +1,71 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/layout/custom_game/scoreboard/scoreboard.css"/>
+		<include src="file://{resources}/layout/custom_game/common/party_highlighter/party_highlighter.css"/>
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/party_highlighter/party_highlighter.js"/>
+		<include src="file://{resources}/layout/custom_game/scoreboard/scoreboard.js"/>
+	</scripts>
+
+	<snippets>
+		<snippet name="Scoreboard_Team">
+			<Panel class="Scoreboard_Team">
+				<Panel id="Scoreboard_HeadersRoot">
+					<Panel class="Scoreboard_Header SH_Score"><Label id="TeamName" text="{s:team_name} ({s:team_score})"/></Panel>
+					<Panel class="Scoreboard_Header SH_K"><Label text="#Scoreboard_K"/></Panel>
+					<Panel class="Scoreboard_Header SH_D"><Label text="#Scoreboard_D"/></Panel>
+					<Panel class="Scoreboard_Header SH_A"><Label text="#Scoreboard_A"/></Panel>
+					<Panel class="Scoreboard_Header SH_R"><Label text="#Scoreboard_Rank" html="true"/></Panel>
+					<ToggleButton class="Scoreboard_Header" id="MuteAllButton_Voice" onactivate="MuteAll('Voice')" onmouseover="UIShowTextTooltip(#mute_all_hint)" onmouseout="UIHideTextTooltip()"/>
+					<ToggleButton class="Scoreboard_Header" id="MuteAllButton_Text" onactivate="MuteAll('Text')" onmouseover="UIShowTextTooltip(#mute_all_text_hint)" onmouseout="UIHideTextTooltip()"/>
+				</Panel>
+				
+				<Panel id="TeamColor"/>
+				<Panel id="PlayersList"/>
+			</Panel>
+		</snippet>
+		<snippet name="Scoreboard_Player">
+			<Panel class="Scoreboard_Player">
+				<Image id="HeroImageRoot">
+					<Image id="HeroImage" class="FullSize"/>
+					<Image id="DisconnectState" src="file://{resources}/images/custom_game/icon_disconnect.png"/>
+				</Image>
+				<Panel id="UltimateState"/>
+				<Panel id="PlayerInfo">
+					<Label id="PlayerName" text="{s:player_name}"/>
+					<Label id="HeroNameAndLevel" text="#custom_scoreboard_hero_name_and_desc"/>
+				</Panel>
+				<Panel class="Scoreboard_Stat KDA_Stat"><Label text="{i:kills}"/></Panel>
+				<Panel class="Scoreboard_Stat KDA_Stat"><Label text="{i:deaths}"/></Panel>
+				<Panel class="Scoreboard_Stat KDA_Stat"><Label text="{i:assists}"/></Panel>
+				<Panel class="Scoreboard_Stat Scoreboard_RadialEntity"><DOTAItemImage id="NeutralItem" scaling="stretch-to-fit-y-preserve-aspect"/></Panel>
+				<Panel class="Scoreboard_Stat Scoreboard_RadialEntity"><Image id="Perk" scaling="stretch-to-fit-y-preserve-aspect" onmouseout="DOTAHideTextTooltip()"/></Panel>
+				<Panel class="Scoreboard_Stat Rank_Stat"><Label text="{i:rank}"/></Panel>
+				<Panel class="Scoreboard_Stat Scoreboard_RadialEntity">
+					<Button id="MuteButton_Voice"
+							onmouseover="DOTAShowTextTooltip(#Scoreboard_Mute_Voice)" onmouseout="DOTAHideTextTooltip()"/>
+				</Panel>
+				<Panel class="Scoreboard_Stat Scoreboard_RadialEntity">
+					<Button id="MuteButton_Text"
+							onmouseover="DOTAShowTextTooltip(#Scoreboard_Mute_Text)" onmouseout="DOTAHideTextTooltip()"/>
+				</Panel>
+				
+				<Panel class="Scoreboard_Stat DisableHelp">
+					<ToggleButton id="DisableHelpButton"
+								  onmouseover="DOTAShowTextTooltip(#Scoreboard_DisableHelp)" onmouseout="DOTAHideTextTooltip()" />
+				</Panel>
+				<Panel class="Scoreboard_Stat TeammateGold"><Label text="{s:player_gold}"/></Panel>
+<!--				<Button id="Tip" class="Scoreboard_Stat"><Label text="+++"/></Button>-->
+				<Button id="Kick"/>
+			</Panel>
+		</snippet>
+	</snippets>
+	
+	<Panel class="Custom_ScoreboardRoot" hittest="false">
+		<Panel id="Scoreboard_TeamsList"/>
+	</Panel>
+</root>

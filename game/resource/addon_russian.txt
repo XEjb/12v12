@@ -59,10 +59,6 @@
 		"DOTA_Tooltip_ability_item_patreon_8"						"Запустить фейерверк"
 		"DOTA_Tooltip_ability_item_patreon_8_Description"			"<h1>Использование</h1>Выстреливает в воздух фейерверком."
 		"DOTA_Tooltip_ability_item_patreon_8_Lore"					"Нет ничего праздничнее, чем взрывы!"
-		"DOTA_Tooltip_ability_item_patreonbundle_1"						"Новоцвет 2019: комплект расходников"
-		"DOTA_Tooltip_ability_item_patreonbundle_1_Description"			"<h1>Использование</h1>Содержит полный набор расходников Новоцвета для обычных игр."
-		"DOTA_Tooltip_ability_item_patreonbundle_2"						"Пристанище зимы: комплект расходников"
-		"DOTA_Tooltip_ability_item_patreonbundle_2_Description"			"<h1>Использование</h1>Содержит полный набор расходников как для обычных игр, так и для режима «Пристанище зимы»."
 
 		"nopatreonerror"											"Этот предмет только для поддержавших"
 		"nopatreonerror2"											"Только высокоуровневые поддержавшие (25$) могут использовать этот предмет"

@@ -163,3 +163,7 @@ JSON.print = (object) => {
 		$.Msg(result_array.splice(0, 50).join("\n"));
 	}
 };
+
+function FormatBigNumber(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
