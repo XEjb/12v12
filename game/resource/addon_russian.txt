@@ -1283,8 +1283,6 @@
 		"High_five_just" 					"дали друг другу пять!"
 		"High_five_LeftHanging"	 			"пытается дать кому-нибудь пять, но безуспешно."
 
-		"mute_all_hint"	"Заглушить всех"
-
 		"synced_chat_header"		"Чат для поддержавших и разработчиков"
 		"synced_chat_placeholder"	"Введите сообщение..."
 		"synced_chat_tooltip"		"Отправить введенное сообщение. Его будет видно во всех остальных играх этого режима и в специальном канале Discord сервера разработчиков!"
@@ -1387,5 +1385,16 @@
 
 		"DOTA_Tooltip_modifier_fountain_invulnerability_custom"					"Неуязвимость у фонтана"
 		"DOTA_Tooltip_modifier_fountain_invulnerability_custom_Description"		"Существо неуязвимо до получения команды."
+		
+		"Scoreboard_K"	"У"
+		"Scoreboard_D"	"С"
+		"Scoreboard_A"	"П"
+		"Scoreboard_Mute_Voice"		"Заглушить (Звук)"
+		"Scoreboard_Mute_Text"		"Заглушить (Текст)"
+		"Scoreboard_DisableHelp"	"Когда включено, запрещает <font color='{s:player_color}'>{s:player_name}</font> использоваться некоторые умения на Вашего героя."
+		"Scoreboard_Rank"			"Ранг<br>({d:team_rank})"
+
+		"mute_all_hint"			"Заглушить всех (Звук)"
+		"mute_all_text_hint"	"Заглушить всех (Текст)"
 	}
 }

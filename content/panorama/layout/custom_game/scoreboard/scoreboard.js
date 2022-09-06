@@ -72,6 +72,7 @@ function UpdatePlayerStats_Init(root, player_id) {
 	const player_info = Game.GetPlayerInfo(player_id);
 
 	root.SetDialogVariable("player_name", player_info.player_name);
+	root.SetDialogVariable("player_color", GetHEXPlayerColor(player_id));
 	root.SetDialogVariable("hero_name", $.Localize(`#${player_info.player_selected_hero}`));
 
 	const game_stat = CustomNetTables.GetTableValue("game_state", "player_stats");

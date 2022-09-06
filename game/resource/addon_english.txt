@@ -2032,7 +2032,7 @@
 		"Scoreboard_A"	"A"
 		"Scoreboard_Mute_Voice"		"Mute (Voice)"
 		"Scoreboard_Mute_Text"		"Mute (Text)"
-		"Scoreboard_DisableHelp"	"When enabled, prevent {s:player_name} from using certain abilities on your Hero."
+		"Scoreboard_DisableHelp"	"When enabled, prevent <font color='{s:player_color}'>{s:player_name}</font> from using certain abilities on your Hero."
 		"Scoreboard_Rank"	"Rank<br>({d:team_rank})"
 
 		"mute_all_hint"			"Mute All (Voice)"

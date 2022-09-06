@@ -538,4 +538,9 @@
 	background-image: url("file://{images}/custom_game/mail/mail_gold.png");
 	background-image: url("file://{images}/custom_game/mail/mail_reward_bg.png");
 	background-image: url("file://{images}/custom_game/mail/mail_reward_bg_obtained.png");
+
+	background-image: url("file://{resources}/images/custom_game/import_dota/icon_scoreboard_mute_sound.png");
+	background-image: url("file://{resources}/images/custom_game/import_dota/icon_scoreboard_mute_sound_on.png");
+	background-image: url("file://{resources}/images/custom_game/import_dota/icon_scoreboard_mute_text.png");
+	background-image: url("file://{resources}/images/custom_game/import_dota/icon_scoreboard_mute_text_on.png");
 }
