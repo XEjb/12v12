@@ -94,10 +94,6 @@
 		"DOTA_Tooltip_ability_item_patreon_8"						"节日烟花"
 		"DOTA_Tooltip_ability_item_patreon_8_Description"			"<h1>使用</h1>将烟花射向半空。"
 		"DOTA_Tooltip_ability_item_patreon_8_Lore"					"没有比爆炸更喜庆的了！"
-		"DOTA_Tooltip_ability_item_patreonbundle_1"						"2019芳晓佳节消耗品捆绑包"
-		"DOTA_Tooltip_ability_item_patreonbundle_1_Description"			"<h1>使用</h1>包含一整套芳晓佳节消耗品，可用于普通Dota游戏。"
-		"DOTA_Tooltip_ability_item_patreonbundle_2"						"凌霜圣地消耗品捆绑包"
-		"DOTA_Tooltip_ability_item_patreonbundle_2_Description"			"<h1>使用</h1>包含一整套可用于普通Dota和凌霜圣地特殊活动的消耗品。"
 
 		"nopatreonerror"											"此物品仅限支持者使用"
 		"nopatreonerror2"											"仅高级支持者（￥200）可使用此物品"

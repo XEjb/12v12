@@ -3,14 +3,7 @@ function OnSpellStartMute(event)
 	local caster = event.caster
 	local ability = event.ability
 
-	local targetId = target:GetPlayerID()
-
-	local event_data =
-	{
-		mute = true,
-		to = targetId,
-	}
-	CustomGameEventManager:Send_ServerToPlayer(caster:GetPlayerOwner(), "set_mute_refresh", event_data )
+	CustomGameEventManager:Send_ServerToPlayer(caster:GetPlayerOwner(), "mute_player_item", { target_id = target:GetPlayerID() } )
 	if ability:GetCurrentCharges() > 1 then
 		ability:SetCurrentCharges(ability:GetCurrentCharges()-1)
 	else

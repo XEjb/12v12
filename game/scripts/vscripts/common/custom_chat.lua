@@ -48,13 +48,21 @@ function CustomChat:BetOnTeamAllias(data)
     self:MessageToTeam(data.textData, player:GetTeam(), PlayerID)
 end
 
+function CustomChat:MessageToPlayer(textData, TargetID, SenderID)
+	if not SenderID or not TargetID then return end
+	local player = PlayerResource:GetPlayer(TargetID)
+	if not player or player:IsNull() then return end
+	
+	CustomGameEventManager:Send_ServerToPlayer(player, "custom_chat_message", { textData = textData, PlayerID = SenderID })
+end
+
 function CustomChat:MessageToAll(textData, SenderID)
 	if not SenderID then return end
     CustomGameEventManager:Send_ServerToAllClients("custom_chat_message", { textData = textData, PlayerID = SenderID })
 end
 
 function CustomChat:MessageToTeam(textData, teamNumber, SenderID)
-    for id=0,DOTA_MAX_PLAYERS do
+    for id = 0, DOTA_MAX_PLAYERS do
         if PlayerResource:IsValidPlayer(id) then
         	local player = PlayerResource:GetPlayer(id)
         	if player and not player:IsNull() and (player:GetTeam() == teamNumber) then

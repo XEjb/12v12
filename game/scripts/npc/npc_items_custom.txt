@@ -1,59 +1,5 @@
 "DOTAAbilities"
 {
-    "item_patreonbundle_1"
-    {
-		"ID"							"20011"
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/2019_Consumables_Bundle"
-        "AbilityCastPoint"	"0"
-        "AbilityCooldown"	"1"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStartBundle"
-                "Item1"       "item_patreon_1"
-                "Item2"       "item_patreon_2"
-                "Item3"       "item_patreon_3"
-                "Item4"       "item_patreon_4"
-            }
-        }
-    }
-
-    "item_patreonbundle_2"
-    {
-		"ID"							"20012"
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/Frosthaven_Consumables_Bundle"
-        "AbilityCastPoint"	"0"
-        "AbilityCooldown"	"1"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStartBundle"
-                "Item1"       "item_patreon_5"
-                "Item2"       "item_patreon_6"
-                "Item3"       "item_patreon_7"
-                "Item4"       "item_patreon_8"
-            }
-        }
-    }
-
     "item_monkey_king_bar_fountain"
     {
         // General
@@ -319,9 +265,7 @@
     {
 		"ID"							"20021"
         "BaseClass"						"item_datadriven"
-        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastAnimation"			"ACT_INVALID"
         "Model"							"models/props_gameplay/red_box.vmdl"
         "Effect"						"particles/generic_gameplay/dropped_item.vpcf"
@@ -334,9 +278,15 @@
         "ItemPurchasable"				"1"
         "AbilityCastRange"				"999999"
         "AbilityCastPoint"				"0"
-        "AbilityCooldown"				"600"
+        "AbilityCooldown"				"30"
         "AbilityManaCost"				"0"
         "ItemCost"						"0"
+        
+		"ItemStockTime"					"1"			  
+		"ItemStockInitial"				"0"
+		"ItemStockMax"					"1"
+		"ItemInitialStockTime"			"390.0"
+        
         "OnSpellStart"
         {
             "RunScript"

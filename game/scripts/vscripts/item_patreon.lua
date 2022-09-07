@@ -37,20 +37,15 @@ end
 
 function OnSpellStartBanHammer(event)
 	if not IsServer() then return end
+
+	local owner_id = event.caster:GetPlayerOwnerID()
+	if not owner_id then return end
 	
-    local ability = event.ability
+	local owned_player = PlayerResource:GetPlayer(owner_id)
+	if not owned_player then return end
 
-	local init_kick = Kicks:InitKickFromPlayerToPlayer({
-		target_id = event.target:GetPlayerOwnerID(),
-		caster_id = event.caster:GetPlayerOwnerID(),
-	})
+	CustomGameEventManager:Send_ServerToPlayer(owned_player, "display_custom_error", { message = "#use_scoreboard_button_for_kick" })
+	CustomGameEventManager:Send_ServerToPlayer(owned_player, "voting_for_kick:open_scoreboard", {})
 
-	if init_kick == INIT_KICK_FAIL then
-		ability:EndCooldown()
-		return
-	end
-	if init_kick == INIT_KICK_SUCCESSFUL then
-		ability:RemoveSelf()
-		return
-	end
+	event.ability:RemoveSelf()
 end

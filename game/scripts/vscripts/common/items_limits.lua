@@ -22,12 +22,12 @@ local fastItems = {
 }
 
 local maxItemsForPlayer = {
-	["item_banhammer"] = 2,
+	--["item_banhammer"] = 2,
 }
 _G.itemsCooldownForPlayer = {
 	["item_disable_help_custom"] = 10,
 	["item_mute_custom"] = 10,
-	["item_banhammer"] = 600,
+	["item_banhammer"] = 10,
 	["item_reset_mmr"] = 20,
 }
 
