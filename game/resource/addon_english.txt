@@ -2037,5 +2037,7 @@
 
 		"mute_all_hint"			"Mute All (Voice)"
 		"mute_all_text_hint"	"Mute All (Text)"
+		"kick_voting_cooldown"	"You cannot start voting to kick a player for another (##sec##sec)."
+		"use_scoreboard_button_for_kick"	"Item will be removed soon. Use scoreboard for kick voting start."
 	}
 }

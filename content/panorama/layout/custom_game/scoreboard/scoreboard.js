@@ -175,9 +175,14 @@ function CreatePanelForPlayer(player_id) {
 	player_root.FindChildTraverse("MuteButton_Text").SetPanelEvent("onactivate", () => {
 		mute("Text");
 	});
-	player_root.FindChildTraverse("Kick").SetPanelEvent("onactivate", () => {
+
+	const kick_button = player_root.FindChildTraverse("Kick");
+	kick_button.SetPanelEvent("onactivate", () => {
 		if (HUD.ROOT.BHasClass("BSupporter") && player_id != LOCAL_PLAYER_ID)
 			GameEvents.SendCustomGameEventToServer("ui_kick_player", { target_id: player_id });
+	});
+	kick_button.SetPanelEvent("onmouseover", () => {
+		HUD.ROOT.RemoveClass("KickGlow");
 	});
 
 	interval_funcs[`UpdateDynamicInfo_Scoreboard_Player_${player_id}`] = () => {
@@ -323,4 +328,8 @@ function SetPlayerPatreonLevel(data) {
 	frame.SubscribeProtected("set_disable_help_refresh", RefreshDisableHelpList);
 	frame.SubscribeProtected("mute_player_item", MutePlayerByItem);
 	frame.SubscribeProtected("voting_for_kick:set_supp_level", SetPlayerPatreonLevel);
+	frame.SubscribeProtected("voting_for_kick:open_scoreboard", () => {
+		HUD.ROOT.AddClass("KickGlow");
+		SetScoreboardVisibleState(true);
+	});
 })();

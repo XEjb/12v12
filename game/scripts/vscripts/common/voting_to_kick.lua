@@ -9,6 +9,8 @@ Kicks.supporters_kick_threshold = {
 	[2] = 0.8,
 }
 
+local KICK_COOLDOWN = 600
+
 function Kicks:Init()
 	self.time_to_voting = 40
 	self.votes_for_kick = 6 -- Now redefined on each voting start
@@ -27,6 +29,7 @@ function Kicks:Init()
 		[93913347] = 1, -- Darklord
 	}
 	self.stats = {}
+	self.init_voting_cooldowns = {}
 
 	for player_id = 0, 24 do
 		self.stats[player_id] = {
@@ -284,22 +287,32 @@ function Kicks:InitKickFromPlayerUI(data)
 
 	if Supporters:GetLevel(player_id) < 1 then return end
 	if PlayerResource:GetTeam(player_id) ~= PlayerResource:GetTeam(target_id) then return end
-
+	
 	local player = PlayerResource:GetPlayer(player_id)
-
+	
 	if GameRules:GetDOTATime(false,false) < 300 then
 		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#notyettime" })
 		return
 	end
-
-	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
-
-	if hero:CheckPersonalCooldown(nil, "item_banhammer", true, "#cannot_use_it_for_now", true) then
-		Kicks:InitKickFromPlayerToPlayer({
-			target_id = target_id,
-			caster_id = player_id
+	
+	local cd_time = self.init_voting_cooldowns[player_id]
+	if cd_time and ((GameRules:GetGameTime() - cd_time) <= KICK_COOLDOWN) then
+		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error_with_value", {
+			message = "#kick_voting_cooldown",
+			values = {
+				["sec"] = KICK_COOLDOWN - (GameRules:GetGameTime() - cd_time),
+			}
 		})
+		return
 	end
+
+	self.init_voting_cooldowns[player_id] = GameRules:GetGameTime()
+
+	
+	Kicks:InitKickFromPlayerToPlayer({
+		target_id = target_id,
+		caster_id = player_id
+	})
 end
 
 INIT_KICK_FAIL = 0

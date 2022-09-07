@@ -46,4 +46,6 @@ function OnSpellStartBanHammer(event)
 
 	CustomGameEventManager:Send_ServerToPlayer(owned_player, "display_custom_error", { message = "#use_scoreboard_button_for_kick" })
 	CustomGameEventManager:Send_ServerToPlayer(owned_player, "voting_for_kick:open_scoreboard", {})
+
+	event.ability:RemoveSelf()
 end
