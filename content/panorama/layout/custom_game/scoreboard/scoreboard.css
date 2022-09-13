@@ -359,7 +359,7 @@
 	}
 }
 
-.BSupporter .LocalTeam .Scoreboard_Player:not(.LocalPlayer) #Kick {
+.BKickVotingEnabled .LocalTeam .Scoreboard_Player:not(.LocalPlayer) #Kick {
 	opacity: 1;
 }
 #Kick:hover {

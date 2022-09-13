@@ -138,8 +138,8 @@ function CMegaDotaGameMode:InitGameMode()
 	end
 
 	-- Adjust team limits
-	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 24)
-	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 0)
+	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, IsInToolsMode() and 12 or 24)
+	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, IsInToolsMode() and 12 or 0)
 	GameRules:SetStrategyTime( 0.0 )
 	GameRules:SetShowcaseTime( 0.0 )
 

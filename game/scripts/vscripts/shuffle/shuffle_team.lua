@@ -83,7 +83,7 @@ function ShuffleTeam:ShuffleTeams()
     end
 
 	-- Dont ask
-	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 24)
+	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, IsInToolsMode() and 12 or 24)
 
 	print("Adding players to sorted teams")
 	print("MMR Delta:", self.delta)

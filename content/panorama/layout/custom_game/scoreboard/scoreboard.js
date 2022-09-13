@@ -178,7 +178,7 @@ function CreatePanelForPlayer(player_id) {
 
 	const kick_button = player_root.FindChildTraverse("Kick");
 	kick_button.SetPanelEvent("onactivate", () => {
-		if (HUD.ROOT.BHasClass("BSupporter") && player_id != LOCAL_PLAYER_ID)
+		if (HUD.ROOT.BHasClass("BKickVotingEnabled") && player_id != LOCAL_PLAYER_ID)
 			GameEvents.SendCustomGameEventToServer("ui_kick_player", { target_id: player_id });
 	});
 	kick_button.SetPanelEvent("onmouseover", () => {
@@ -308,11 +308,13 @@ function MutePlayerByItem(data) {
 }
 
 function SetPlayerPatreonLevel(data) {
-	HUD.ROOT.SetHasClass("BSupporter", data.supp_level > 0);
+	HUD.ROOT.SetHasClass("BKickVotingEnabled", true);
 }
 
 (function () {
 	HUD.TEAMS_ROOT.RemoveAndDeleteChildren();
+	HUD.ROOT.SetHasClass("BKickVotingEnabled", false);
+
 	GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, false);
 	InitPlayers();
 	SetScoreboardVisibleState(false);
@@ -320,14 +322,14 @@ function SetPlayerPatreonLevel(data) {
 
 	GameEvents.SendCustomGameEventToServer("Tips:get_data", {});
 	GameEvents.SendCustomGameEventToServer("game_perks:check_perks_for_players", {});
-	GameEvents.SendCustomGameEventToServer("voting_for_kick:get_supp_level", {});
+	GameEvents.SendCustomGameEventToServer("voting_for_kick:get_enable_state", {});
 
 	const frame = GameEvents.NewProtectedFrame($.GetContextPanel());
 	frame.SubscribeProtected("Tips:update", UpdateTips);
 	frame.SubscribeProtected("game_perks:show_player_perk", ShowPlayerPerk);
 	frame.SubscribeProtected("set_disable_help_refresh", RefreshDisableHelpList);
 	frame.SubscribeProtected("mute_player_item", MutePlayerByItem);
-	frame.SubscribeProtected("voting_for_kick:set_supp_level", SetPlayerPatreonLevel);
+	frame.SubscribeProtected("voting_for_kick:enable", SetPlayerPatreonLevel);
 	frame.SubscribeProtected("voting_for_kick:open_scoreboard", () => {
 		HUD.ROOT.AddClass("KickGlow");
 		SetScoreboardVisibleState(true);
