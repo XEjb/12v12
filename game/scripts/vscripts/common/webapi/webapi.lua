@@ -163,6 +163,7 @@ function WebApi:ProcessBeforeMatchResponse(data)
 			loses = player.stats.loses,
 			lastWinnerHeroes = player.stats.lastWinnerHeroes,
 			rating = player.rating,
+			punishment_level = player.punishment_level,
 		}
 
 		SmartRandom:SetPlayerInfo(player_id, player.smartRandomHeroes, "no_stats")
@@ -335,6 +336,45 @@ function WebApi:ProcessMetadata(player_id, steam_id, metadata)
 	end
 
 	BP_PlayerProgress:UpdatePlayerInfo(player_id)
+end
+
+
+--- Returns punishment level of player (usually set from web page)
+---@param player_id number
+function WebApi:GetPunishmentLevel(player_id)
+	local player_stats = CustomNetTables:GetTableValue("game_state", "player_stats")
+	return (player_stats[player_id] or {}).punishment_level or 0
+end
+
+
+--- Sets punishment level of player to passed value
+--- If `submit_to_backend` is passed and true, then updates said value on backend as well (making it persistant)
+---@param player_id number
+---@param punishment_level number
+---@param punishment_reason string
+---@param submit_to_backend boolean
+function WebPlayer:SetPunishmentLevel(player_id, punishment_level, punishment_reason, submit_to_backend)
+	local player_stats = CustomNetTables:GetTableValue("game_state", "player_stats")
+	if not player_stats[player_id] then player_stats[player_id] = {} end
+	player_stats[player_id].punishment_level = punishment_level
+	CustomNetTables:SetTableValue("game_state", "player_stats", player_stats)
+
+	if submit_to_backend then
+		WebApi:Send(
+			"api/lua/match/set_punishment_level",
+			{
+				steam_id = tostring(PlayerResource:GetSteamID(player_id)),
+				punishment_level = punishment_level,
+				punishment_reason = punishment_reason or "automated punishment from Lua"
+			},
+			function(data)
+				print("[WebPlayer] successfully set punishment level for", player_id, "to", punishment_level)
+			end,
+			function(err)
+				print("[WebPlayer] failed to update punishment level of player", player_id)
+			end
+		)
+	end
 end
 
 
