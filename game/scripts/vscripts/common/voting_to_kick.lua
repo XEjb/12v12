@@ -55,21 +55,17 @@ function Kicks:Init()
 		self:Report(keys.PlayerID)
 	end)
 	CustomGameEventManager:RegisterListener("ui_kick_player",function(_, keys)
-		self:InitKickFromPlayerUI(keys)
+		self:InitKickVoting(keys)
 	end)
-	CustomGameEventManager:RegisterListener("voting_for_kick:get_supp_level",function(_, keys)
-		self:GetSupplevel(keys.PlayerID)
+	CustomGameEventManager:RegisterListener("voting_for_kick:get_enable_state",function(_, keys)
+		self:GetEnableState(keys.PlayerID)
 	end)
 end
 
-function Kicks:GetSupplevel(player_id)
+function Kicks:GetEnableState(player_id)
 	if GameOptions:OptionsIsActive("no_trolls_kick") or not player_id then return end
-
-	local supp_level = Supporters:GetLevel(player_id)
-	if not supp_level then return end
-	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "voting_for_kick:set_supp_level", {
-		supp_level = supp_level
-	})
+	
+	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "voting_for_kick:enable", {})
 end
 
 function Kicks:IsPlayerKicked(player_id)
@@ -219,7 +215,9 @@ function Kicks:VoteYes(data)
 
 	self.voting.votes = self.voting.votes + self:GetVoteWeight(data.PlayerID)
 	self.voting.playersVoted[data.PlayerID] = true
+	
 	self:SendDegugResult(data, "YES TOTAL VOICES: "..self.voting.votes)
+	
 	if self.voting.votes >= self.votes_for_kick then
 		self:DropItemsForDisconnetedPlayer(self.voting.target)
 		self.kicks_id[self.voting.target] = true
@@ -280,18 +278,37 @@ function Kicks:DropItemsForDisconnetedPlayer(player_id)
 	end
 end
 
-function Kicks:InitKickFromPlayerUI(data)
+function Kicks:InitKickVoting(data)
 	local player_id = data.PlayerID
 	local target_id = data.target_id
 	if not player_id or not target_id then return end
 
-	if Supporters:GetLevel(player_id) < 1 then return end
 	if PlayerResource:GetTeam(player_id) ~= PlayerResource:GetTeam(target_id) then return end
 	
 	local player = PlayerResource:GetPlayer(player_id)
 	
 	if GameRules:GetDOTATime(false,false) < 300 then
 		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#notyettime" })
+		return
+	end
+	
+	if self:IsPlayerBanned(player_id) then
+		CustomGameEventManager:Send_ServerToPlayer(player, "custom_hud_message:send", { message = "#voting_to_kick_cannot_kick_ban" })
+		return
+	end
+	
+	if self:CheckPartyBan(player_id) then
+		CustomGameEventManager:Send_ServerToPlayer(player, "custom_hud_message:send", { message = "#voting_to_kick_cannot_kick_ban_party" })
+		return
+	end
+
+	if PlayerResource:GetConnectionState(target_id) == DOTA_CONNECTION_STATE_ABANDONED then
+		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#voting_to_kick_abandoned" })
+		return
+	end
+
+	if self.voting then
+		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#voting_to_kick_voiting_for_now" })
 		return
 	end
 	
@@ -305,69 +322,24 @@ function Kicks:InitKickFromPlayerUI(data)
 		})
 		return
 	end
-
 	self.init_voting_cooldowns[player_id] = GameRules:GetGameTime()
-
 	
-	Kicks:InitKickFromPlayerToPlayer({
-		target_id = target_id,
-		caster_id = player_id
-	})
-end
-
-INIT_KICK_FAIL = 0
-INIT_KICK_SUCCESSFUL = 1
-function Kicks:InitKickFromPlayerToPlayer(data)
-	local target_id = data.target_id
-	local caster_id = data.caster_id
-
-	if not target_id or not caster_id then return end
-
-	local target = PlayerResource:GetSelectedHeroEntity(target_id)
-	local caster = PlayerResource:GetSelectedHeroEntity(caster_id)
-	if not target or not caster then return end
-	local caster_player = caster:GetPlayerOwner()
-
-	if caster_id and self:IsPlayerBanned(caster_id) then
-		CustomGameEventManager:Send_ServerToPlayer(caster_player, "custom_hud_message:send", { message = "#voting_to_kick_cannot_kick_ban" })
-		return INIT_KICK_FAIL
-	end
-	if self:CheckPartyBan(caster_id) then
-		CustomGameEventManager:Send_ServerToPlayer(caster_player, "custom_hud_message:send", { message = "#voting_to_kick_cannot_kick_ban_party" })
-		return INIT_KICK_FAIL
+	
+	if self:IsPlayerWarning(player_id) then
+		CustomGameEventManager:Send_ServerToPlayer(player, "custom_hud_message:send", { message = "#voting_to_kick_warning" })
 	end
 
-	if target_id and PlayerResource:GetConnectionState(target_id) == DOTA_CONNECTION_STATE_ABANDONED then
-		CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_abandoned" })
-		return INIT_KICK_FAIL
-	end
+	self:PreVoting(player_id, target_id)
 
-	if caster:IsRealHero() then
-		if target:IsRealHero() and target:IsControllableByAnyPlayer() and not target:IsTempestDouble() then
-			if not Kicks.voting then
+	CustomGameEventManager:Send_ServerToPlayer(player, "voting_to_kick_show_reason", { target_id = target_id })
 
-				if caster_id and self:IsPlayerWarning(caster_id) then
-					CustomGameEventManager:Send_ServerToPlayer(caster_player, "custom_hud_message:send", { message = "#voting_to_kick_warning" })
-				end
+	GameRules:SendCustomMessage("#alert_for_ban_message_1", player_id, 0)
+	GameRules:SendCustomMessage("#alert_for_ban_message_2", target_id, 0)
 
-				Kicks:PreVoting(caster_id, target_id)
-
-				CustomGameEventManager:Send_ServerToPlayer(caster_player, "voting_to_kick_show_reason", { target_id = target_id })
-
-				GameRules:SendCustomMessage("#alert_for_ban_message_1", caster_id, 0)
-				GameRules:SendCustomMessage("#alert_for_ban_message_2", target_id, 0)
-
-				local all_heroes = HeroList:GetAllHeroes()
-				for _, hero in pairs(all_heroes) do
-					if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
-						EmitSoundOn("CustomSounds.Bonk", hero)
-					end
-				end
-				return INIT_KICK_SUCCESSFUL
-			else
-				CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_voiting_for_now" })
-				return INIT_KICK_FAIL
-			end
+	local all_heroes = HeroList:GetAllHeroes()
+	for _, hero in pairs(all_heroes) do
+		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
+			EmitSoundOn("CustomSounds.Bonk", hero)
 		end
 	end
 end
@@ -388,7 +360,7 @@ function Kicks:CheckPartyBan(player_id)
 	return false
 end
 
-function Kicks:PreVoting(caster_id, target_id) self.pre_voting[caster_id] = target_id end
+function Kicks:PreVoting(player_id, target_id) self.pre_voting[player_id] = target_id end
 
 function Kicks:GetReports(player_id) return self.stats[player_id] and self.stats[player_id].reports or 0 end
 function Kicks:GetInitVotings(player_id) return self.stats[player_id] and self.stats[player_id].voting_start or 0 end
