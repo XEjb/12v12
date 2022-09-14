@@ -353,7 +353,7 @@ end
 ---@param punishment_level number
 ---@param punishment_reason string
 ---@param submit_to_backend boolean
-function WebPlayer:SetPunishmentLevel(player_id, punishment_level, punishment_reason, submit_to_backend)
+function WebApi:SetPunishmentLevel(player_id, punishment_level, punishment_reason, submit_to_backend)
 	local player_stats = CustomNetTables:GetTableValue("game_state", "player_stats")
 	if not player_stats[player_id] then player_stats[player_id] = {} end
 	player_stats[player_id].punishment_level = punishment_level
@@ -368,10 +368,10 @@ function WebPlayer:SetPunishmentLevel(player_id, punishment_level, punishment_re
 				punishment_reason = punishment_reason or "automated punishment from Lua"
 			},
 			function(data)
-				print("[WebPlayer] successfully set punishment level for", player_id, "to", punishment_level)
+				print("[WebApi] successfully set punishment level for", player_id, "to", punishment_level)
 			end,
 			function(err)
-				print("[WebPlayer] failed to update punishment level of player", player_id)
+				print("[WebApi] failed to update punishment level of player", player_id)
 			end
 		)
 	end
