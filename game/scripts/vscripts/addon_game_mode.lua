@@ -1412,6 +1412,29 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	end
 
 	if playerId then
+		-- Punishment 1: players can only send one order per second
+		if WebApi:GetPunishmentLevel(playerId) == 1 then
+			if self.last_player_orders[playerId] + 1 > GameRules:GetGameTime() then
+				return false
+			end
+		end
+		-- Punishment 2: players' orders have a 50% chance to be ignored
+		if WebApi:GetPunishmentLevel(playerId) == 2 then
+			if RandomInt(0, 1) == 0 then
+				return false
+			end
+		end
+		-- Punishment 3: players' orders have a 1% chance to instantly suicide them
+		if WebApi:GetPunishmentLevel(playerId) == 3 then
+			if RandomInt(0, 99) == 0 then
+				local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+
+				if hero then
+					hero:ForceKill(false)
+				end
+			end
+		end
+
 		self.last_player_orders[playerId] = GameRules:GetGameTime()
 	end
 

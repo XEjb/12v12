@@ -342,6 +342,8 @@ end
 --- Returns punishment level of player (usually set from web page)
 ---@param player_id number
 function WebApi:GetPunishmentLevel(player_id)
+	if IsInToolsMode() then return 0 end
+
 	local player_stats = CustomNetTables:GetTableValue("game_state", "player_stats")
 	return (player_stats[player_id] or {}).punishment_level or 0
 end
