@@ -53,6 +53,7 @@ PORTRAITS_FROM_MODEL = {
 	["models/heroes/zeus/zeus_arcana.vmdl"] = "npc_dota_hero_zuus_alt1",
 	["models/heroes/dragon_knight_persona/dk_persona_base.vmdl"] = "npc_dota_hero_dragon_knight_persona1",
 	["models/items/io/io_ti7/io_ti7.vmdl"] = "npc_dota_hero_wisp_alt",
+	["models/heroes/phantom_assassin_persona/phantom_assassin_persona.vmdl"] = "npc_dota_hero_phantom_assassin_persona1",
 }
 function UniquePortraits:Init()
 	self.portraitsData = {}
