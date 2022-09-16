@@ -373,7 +373,7 @@ let rings = [
 			"#next_level",
 			"#oy_oy_oy",
 			"#ta_daaaa",
-			"#ceeb",
+			"",
 			"#goodness_gracious",
 		],
 		[false, true, true, true, true, true, true, true],

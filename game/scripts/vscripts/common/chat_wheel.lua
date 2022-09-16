@@ -222,7 +222,7 @@ local HEROES_VO =
 		"soundboard.next_level",
 		"soundboard.oy_oy_oy",
 		"soundboard.ta_daaaa",
-		"soundboard.ceb.start",
+		"",
 		"soundboard.goodness_gracious",
 		--epic2
 		"soundboard.nakupuuu",
@@ -1559,7 +1559,7 @@ local MISC_VO = {
 	"next_level",
 	"oy_oy_oy",
 	"ta_daaaa",
-	"ceeb",
+	"",
 	"goodness_gracious",
 	--epic2
 	"nakupuuu",
