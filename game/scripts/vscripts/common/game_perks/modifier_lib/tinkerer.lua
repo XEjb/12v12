@@ -12,11 +12,12 @@ local ignored_special_values = {
 	item_bullwhip 				= {bullwhip_delay_time = true},
 	item_stormcrafter 			= {interval = true},
 	item_teleports_behind_you 	= {meteor_fall_time = true, blink_damage_cooldown = true},
-
-	item_nether_shawl 	= {bonus_armor = true },
-	item_ninja_gear 	= {visibility_radius = true },
-	item_misericorde 	= {missing_hp = true },
-	item_spy_gadget		= {scan_cooldown_reduction = true},
+	item_nether_shawl 			= {bonus_armor = true },
+	item_ninja_gear 			= {visibility_radius = true },
+	item_misericorde 			= {missing_hp = true },
+	item_spy_gadget				= {scan_cooldown_reduction = true},
+	item_havoc_hammer			= {angle = true},
+	item_eye_of_the_vizier		= {mana_reduction_pct = true},
 }
 
 local ignored_special_values_common = {
