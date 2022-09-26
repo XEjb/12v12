@@ -114,8 +114,11 @@
 		"new_stat_wards"											"Sentries/observers"
 		"new_stat_killed_heroes"									"Killed enemies"
 
-		"DOTA_Tooltip_ability_luna_moon_glaive_fountain"						"Bouncing Attack"
-		"DOTA_Tooltip_ability_luna_moon_glaive_fountain_Description"			"Can attack multiple players."
+		"DOTA_Tooltip_ability_luna_moon_glaive_fountain"						"Fountain Moon Glaives"
+		"DOTA_Tooltip_ability_luna_moon_glaive_fountain_Description"			"Causes the Fountain's attacks to bounce between enemy units within %range% range up to %bounces% times."
+		
+		"DOTA_Tooltip_ability_ursa_fury_swipes_fountain"						"Fountain Fury Swipes"
+		"DOTA_Tooltip_ability_ursa_fury_swipes_fountain_Description"			"Causes the Fountain's attacks to deal %damage_per_stack% more damage with each consecutive hit on the same enemy."
 
 		"DOTA_Tooltip_ability_item_banhammer"						"Kick Troll"
 		"DOTA_Tooltip_ability_item_banhammer_Description"			"<h1>Use: Start Kick Vote</h1>Vote to kick a trolling allied player from the game. Should only be used against genuine trolls. Supporters require more votes to be kicked."
