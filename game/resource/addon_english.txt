@@ -1016,7 +1016,7 @@
 
 		"LoadingTip_1"				"You can use custom chat wheel in game (Press L). It has a cooldown when used."
 		"LoadingTip_2"				"Buildings in 12v12 have twice as much HP as regular dota. Their attack rate is also faster, from 1 > 0.65."
-		"LoadingTip_3"				"If there is a troll in your game, you can use the kick troll item to initiate a vote against them. For a vote to pass it requires 6 votes. Use this feature fairly."
+		"LoadingTip_3"				"If there is a troll in your game, you can use the kick troll button in the scoreboard to initiate a vote against them. Use this feature fairly."
 		"LoadingTip_4"				"Respawn rates are reduced by 35% in 12v12."
 		"LoadingTip_5"				"If an ally is using their abilities to troll you, you can use the Disable Help item on them to prevent this. You an also tick a checkbox in the scoreboard which does the same thing."
 		"LoadingTip_6"				"You can mute players by using the Mute Player item, alternatively you can click the icon on the scoreboard next to their name. Muting a player also prevents hearing their chat wheel spam."
