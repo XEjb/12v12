@@ -122,17 +122,17 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"range"						"700"
+				"range"						"500"
 			}
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"bounces"					"2"
+				"bounces"					"10"
 			}
 			"03"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"damage_reduction_percent"	"10"
+				"damage_reduction_percent"	"0"
 				"LinkedSpecialBonus"			"special_bonus_unique_luna_7"
 				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_SUBTRACT"
 			}
@@ -170,7 +170,7 @@
 			"03"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"damage_per_stack"				"1"
+				"damage_per_stack"				"5"
 				"LinkedSpecialBonus"			"special_bonus_unique_ursa"
 			}
 		}
