@@ -292,6 +292,11 @@ function Kicks:InitKickVoting(data)
 		return
 	end
 	
+	if self:IsPlayerKicked(target_id) then
+		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#player_already_kicked" })
+		return
+	end
+	
 	if self:IsPlayerBanned(player_id) then
 		CustomGameEventManager:Send_ServerToPlayer(player, "custom_hud_message:send", { message = "#voting_to_kick_cannot_kick_ban" })
 		return

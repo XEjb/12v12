@@ -2041,5 +2041,6 @@
 		"use_scoreboard_button_for_kick"	"Item will be removed soon. Use scoreboard for kick voting start."
 		
 		"top_menu_open_discord"	"Join our Discord"
+		"player_already_kicked"	"Player has already been kicked"
 	}
 }
