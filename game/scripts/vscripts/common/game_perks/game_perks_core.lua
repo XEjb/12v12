@@ -137,6 +137,7 @@ function GamePerks:SetGamePerk(event)
 		if self.family_perks[player_id] then
 			self:CheckPatreonLevelAndPerks({ PlayerID = player_id })
 		end
+		CustomGameEventManager:Send_ServerToTeam(1, "game_perks:show_player_perk", { playerId = player_id, perkName = perk_name:gsub("_t%d*$", "_t0")})
 	else
 		GamePerks:SetGamePerkSchedule(event)
 	end

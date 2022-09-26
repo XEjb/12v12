@@ -42,8 +42,14 @@
 				<Panel class="Scoreboard_Stat KDA_Stat"><Label text="{i:kills}"/></Panel>
 				<Panel class="Scoreboard_Stat KDA_Stat"><Label text="{i:deaths}"/></Panel>
 				<Panel class="Scoreboard_Stat KDA_Stat"><Label text="{i:assists}"/></Panel>
-				<Panel class="Scoreboard_Stat Scoreboard_RadialEntity"><DOTAItemImage id="NeutralItem" scaling="stretch-to-fit-y-preserve-aspect"/></Panel>
-				<Panel class="Scoreboard_Stat Scoreboard_RadialEntity"><Image id="Perk" scaling="stretch-to-fit-y-preserve-aspect" onmouseout="DOTAHideTextTooltip()"/></Panel>
+				<Panel class="Scoreboard_Stat Scoreboard_RadialEntity">
+					<DOTAItemImage id="NeutralItem" scaling="stretch-to-fit-y-preserve-aspect"><Panel class="RadialShadowOverlay"/></DOTAItemImage>
+				</Panel>
+				<Panel class="Scoreboard_Stat Scoreboard_RadialEntity">
+					<Image id="Perk" scaling="stretch-to-fit-y-preserve-aspect" onmouseout="DOTAHideTextTooltip()">
+						<Panel class="RadialShadowOverlay"/>
+					</Image>
+				</Panel>
 				<Panel class="Scoreboard_Stat Rank_Stat"><Label text="{i:rank}"/></Panel>
 				<Panel class="Scoreboard_Stat Scoreboard_RadialEntity">
 					<Button id="MuteButton_Voice"

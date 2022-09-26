@@ -170,15 +170,21 @@
 .Scoreboard_RadialEntity Button {
 	width: 25px;
 	height: 25px;
-	border-radius: 50px;
+	border-radius: 50%;
 	vertical-align: center;
 	margin: 0px 4px;
 }
 #NeutralItem,
 #Perk {
-	box-shadow: inset 0 0 5px -1px rgba(0, 0, 0, 0.95);
 	background-image: url("file://{resources}/images/custom_game/import_dota/emptyitembg_png.png");
 	background-size: 100%;
+}
+.RadialShadowOverlay {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	pre-transform-scale2d: 1.04;
+	box-shadow: inset 0 0 5px 0px rgba(0, 0, 0, 0.98);
 }
 #MuteButton_Voice,
 #MuteButton_Text {
