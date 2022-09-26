@@ -1,17 +1,14 @@
 require("common/game_perks/base_game_perk")
 
 local ignored_special_values = {
-	item_eye_of_midas 			= {active_cooldown = true},
 	item_witless_shako 			= {max_mana = true},
 	item_spell_prism 			= {bonus_cooldown = true},
-	item_spell_fractal 			= {bonus_cooldown = true},
 	item_quickening_charm 		= {bonus_cooldown = true},
 	item_force_boots 			= {push_duration = true},
 	item_mirror_shield 			= {block_cooldown = true},
 	item_fallen_sky 			= {land_time = true, burn_interval = true, blink_damage_cooldown = true},
 	item_bullwhip 				= {bullwhip_delay_time = true},
 	item_stormcrafter 			= {interval = true},
-	item_teleports_behind_you 	= {meteor_fall_time = true, blink_damage_cooldown = true},
 	item_nether_shawl 			= {bonus_armor = true },
 	item_ninja_gear 			= {visibility_radius = true },
 	item_misericorde 			= {missing_hp = true },
