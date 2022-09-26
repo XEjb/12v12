@@ -13,5 +13,7 @@ function CloseMessage() {
 }
 (function () {
 	CloseMessage();
-	GameEvents.SubscribeProtected("custom_hud_message:send", CreateCustomMessage);
+
+	const frame = GameEvents.NewProtectedFrame($.GetContextPanel());
+	frame.SubscribeProtected("custom_hud_message:send", CreateCustomMessage);
 })();

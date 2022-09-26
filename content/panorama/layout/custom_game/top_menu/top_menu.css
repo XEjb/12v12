@@ -113,3 +113,6 @@
 #CTP_Menu .Custom_TopButton {
 	margin: 3px 0;
 }
+#DiscordButton .CTP_Icon {
+	background-image: url("file://{resources}/images/custom_game/discord_base.png");
+}
