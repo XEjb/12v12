@@ -1,8 +1,9 @@
 if not IsDedicatedServer() and not IsInToolsMode() then error("") end
 -- Rebalance the distribution of gold and XP to make for a better 10v10 game
-local GOLD_SCALE_FACTOR_INITIAL = 1
-local GOLD_SCALE_FACTOR_FINAL = 2.5
+local GOLD_SCALE_FACTOR_INITIAL = 1.5
+local GOLD_SCALE_FACTOR_FINAL = 1.5
 local GOLD_SCALE_FACTOR_FADEIN_SECONDS = (60 * 60) -- 60 minutes
+local GOLD_MULTIPLIER_FOR_LANE_CREEPS = 1.5
 local XP_SCALE_FACTOR_INITIAL = 2
 local XP_SCALE_FACTOR_FINAL = 2
 local XP_SCALE_FACTOR_FADEIN_SECONDS = (60 * 60) -- 60 minutes
@@ -956,6 +957,11 @@ function CMegaDotaGameMode:FilterModifyGold( filterTable )
 	if PlayerResource:GetTeam(filterTable.player_id_const) == ShuffleTeam.weak_team_id then
 		filterTable["gold"] = ShuffleTeam.gold_multiplier * filterTable["gold"]
 	end
+
+	if filterTable.reason_const and filterTable.reason_const == DOTA_ModifyGold_CreepKill then
+		filterTable["gold"] = filterTable["gold"] * GOLD_MULTIPLIER_FOR_LANE_CREEPS
+	end
+	
 	return true
 end
 
@@ -1317,6 +1323,9 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 						end
 						if transfer_result == true then
 							purchaser:AddItem(hItem)
+							if purchaser.CalculateStatBonus then
+								purchaser:CalculateStatBonus(false)
+							end
 						end
 					end)
 				end
