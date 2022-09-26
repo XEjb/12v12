@@ -41,7 +41,7 @@
 				<Panel class="CTP_Icon"/>
 				<Panel class="CTP_Shadow"/>
 			</Button>
-			<Button id="DiscordButton" class="Custom_TopButton" onactivate="$.DispatchEvent('ExternalBrowserGoToURL', 'https://discord.gg/d9EUsVbu')"
+			<Button id="DiscordButton" class="Custom_TopButton" onactivate="$.DispatchEvent('ExternalBrowserGoToURL', 'https://discord.gg/9PTC7PBaJv')"
 					onmouseover="DOTAShowTextTooltip(#top_menu_open_discord)" onmouseout="DOTAHideTextTooltip()">
 				<Panel class="CTP_Icon"/>
 			</Button>
