@@ -11,7 +11,7 @@ function manaburn:GetModifierProcAttack_Feedback(params)
 	if params.target:IsMagicImmune() then return end
 
 	local target_mana = params.target:GetMana()
-	local mana_burn = self.v
+	local mana_burn = self:GetPerkValue(self.v[1], self.v[2], self.v[3])
 	local mana_burn_damage_ratio = 1
 	if self:GetParent():IsIllusion() then
 		mana_burn = mana_burn / 2
@@ -40,7 +40,7 @@ manaburn_t1 = class(manaburn)
 manaburn_t2 = class(manaburn)
 manaburn_t3 = class(manaburn)
 
-function manaburn_t0:OnCreated() self.v = 15 end
-function manaburn_t1:OnCreated() self.v = 30 end
-function manaburn_t2:OnCreated() self.v = 60 end
-function manaburn_t3:OnCreated() self.v = 120 end
+function manaburn_t0:OnCreated() self.v = {5, 1, 1} end
+function manaburn_t1:OnCreated() self.v = {10, 1, 2} end
+function manaburn_t2:OnCreated() self.v = {20, 1, 4} end
+function manaburn_t3:OnCreated() self.v = {40, 1, 8} end

@@ -1,38 +1,26 @@
 require("common/game_perks/base_game_perk")
 
 bonus_gold = class(base_game_perk)
+local MINUTES_FOR_FULL_GOLD = 5
 
 function bonus_gold:GetTexture() return "perkIcons/bonus_gold" end
+function bonus_gold:OnCreated(kv)
+	if IsClient() then return end
+	
+	self:GetParent().bonus_gold_perk = {
+		per_minute = self.v / MINUTES_FOR_FULL_GOLD,
+		max_procs = MINUTES_FOR_FULL_GOLD,
+		current_procs = 0,
+	}
+end
 
 bonus_gold_t0 = class(bonus_gold)
 bonus_gold_t1 = class(bonus_gold)
 bonus_gold_t2 = class(bonus_gold)
 bonus_gold_t3 = class(bonus_gold)
 
-function bonus_gold_t0:OnCreated()
-	if not IsServer() then return end
-	local parent = self:GetParent()
-	if not parent:IsRealHero() or parent:IsClone() or parent:IsTempestDouble() then return end
-	parent:ModifyGold(300, true, 0)
-end
 
-function bonus_gold_t1:OnCreated()
-	if not IsServer() then return end
-	local parent = self:GetParent()
-	if not parent:IsRealHero() or parent:IsClone() or parent:IsTempestDouble() then return end
-	parent:ModifyGold(600, true, 0)
-end
-
-function bonus_gold_t2:OnCreated()
-	if not IsServer() then return end
-	local parent = self:GetParent()
-	if not parent:IsRealHero() or parent:IsClone() or parent:IsTempestDouble() then return end
-	parent:ModifyGold(1200, true, 0)
-end
-
-function bonus_gold_t3:OnCreated()
-	if not IsServer() then return end
-	local parent = self:GetParent()
-	if not parent:IsRealHero() or parent:IsClone() or parent:IsTempestDouble() then return end
-	parent:ModifyGold(2400, true, 0)
-end
+bonus_gold_t0.v = 400
+bonus_gold_t1.v = 800
+bonus_gold_t2.v = 1600
+bonus_gold_t3.v = 3200
