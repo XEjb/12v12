@@ -1081,9 +1081,25 @@
 		"hide_voting"	"Hide Voting"
 		"show_voting"	"Show Voting"
 
-		"DOTA_Tooltip_ability_chaos_knight_phantasm_Description"		"Summons several phantasmal copies of the Chaos Knight from alternate dimensions. The phantasms are strong illusions that deal %outgoing_damage_tooltip%%% damage, but take %incoming_damage_tooltip%%% damage.\nDISPEL TYPE: Basic Dispel\n\n<font color='#70EA72'>In 12v12 this ability has an increased cooldown.</font>"
+		"DOTA_Tooltip_ability_chaos_knight_phantasm_Description"		"Summons several phantasmal copies of the Chaos Knight from alternate dimensions. The phantasms are strong illusions that deal %outgoing_damage_tooltip%%% damage, but take %incoming_damage_tooltip%%% damage.\nDISPEL TYPE: Basic Dispel\n\n<font color='#70EA72'>In Dota 12v12 this ability has an increased cooldown.</font>"
 		
-		"DOTA_Tooltip_ability_dark_willow_shadow_realm_Description"		"Dark Willow recedes into the shadows, becoming untargetable.  Her next attack has increased attack range and deals bonus magic damage, and will end Shadow Realm. Damage scales based on how long she remains under the effects of Shadow Realm, the maximum being reached after %max_damage_duration% seconds.\n\n<font color='#70EA72'>In 12v12 this ability is not affected by cooldown reduction perks.</font>"
+		"DOTA_Tooltip_ability_dark_willow_shadow_realm_Description"		"Dark Willow recedes into the shadows, becoming untargetable.  Her next attack has increased attack range and deals bonus magic damage, and will end Shadow Realm. Damage scales based on how long she remains under the effects of Shadow Realm, the maximum being reached after %max_damage_duration% seconds.\n\n<font color='#70EA72'>In Dota 12v12 this ability is not affected by cooldown reduction perks.</font>"
+		
+		"DOTA_Tooltip_ability_spectre_haunt_Description"					"Creates a spectral nemesis to attack each enemy hero. At any moment during the duration, Spectre can use Reality to exchange places of a given haunt.\n\nHaunt illusions are uncontrollable, take extra damage, and deal less damage than Spectre herself.  They ignore terrain.\n\n<font color='#70EA72'>In Dota 12v12 this ability has an increased cooldown.</font>"
+		
+		"DOTA_Tooltip_ability_spectre_haunt_single_Description"             "Allows Spectre to perform a single target unit Haunt. Casts a Spectral Dagger on the target.\n\n<font color='#70EA72'>In Dota 12v12 this ability has an increased cooldown.</font>"
+		
+		"DOTA_Tooltip_ability_zuus_static_field_Description"							"Zeus shocks any enemy that he attacks or is hit by his abilities, causing damage equal to %damage_health_pct%%% of their current health.\n\n<font color='#70EA72'>In Dota 12v12 this ability deals reduced damage.</font>"
+		
+		"DOTA_Tooltip_ability_zuus_thundergods_wrath_Description"						"Strikes all enemy heroes with a bolt of lightning, no matter where they may be.  Thundergod's Wrath also provides True Sight around each hero struck.  If an enemy hero is invisible, it takes no damage, but the True Sight is still created at that hero's location.\n\n<font color='#70EA72'>In Dota 12v12 this ability has an increased cooldown.</font>"
+		
+		"DOTA_Tooltip_ability_mirana_invis_Description"									"Turns Mirana and all allied heroes invisible and grants bonus movement speed. If a hero is revealed, invisibility will restore after the fade delay as long as Moonlight Shadow's duration has not expired.\n\n<font color='#70EA72'>In Dota 12v12 this ability has an increased cooldown, increased fade delay and a reduced duration.</font>"
+		
+		"DOTA_Tooltip_ability_furion_teleportation_Description"							"Teleports to any point on the map.\n\n<font color='#70EA72'>In Dota 12v12 this ability has an increased cooldown.</font>"
+		
+		"DOTA_Tooltip_ability_silencer_glaives_of_wisdom_shard_description"			"Every %stacks_for_silence% attacks, Glaives silence the enemy hit for %silence_duration% seconds. Additionally, it increases the Intelligence stolen per attack by 2.\n\n<font color='#70EA72'>In Dota 12v12 this does not increase the intelligence stolen per kill.</font>"
+		
+		"DOTA_Tooltip_ability_elder_titan_ancestral_spirit_Description"			"Elder Titan sends forth his Astral Spirit, damaging any units it passes through.  When the spirit rejoins the Titan, it grants bonus damage, armor, and movement speed for each unit it passed through.\n\nThe Astral Spirit can be controlled and possesses the Echo Stomp, Return Spirit, and Natural Order abilities.\n\n<font color='#70EA72'>In Dota 12v12 this ability gives reduced bonus damage from heroes.</font>"
 
 		"collection_header"		"COLLECTION"
 		"player_no_boost"		"NO BOOST"

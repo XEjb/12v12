@@ -24,23 +24,11 @@
 
 	"zuus_static_field"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5112"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"	
-		"AbilitySound"					"Hero_Zuus.StaticField"
-		"MaxLevel"						"1"
-		"IsGrantedByShard"			    "1"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 				"damage_health_pct"			
 				{
-					"value"	"4.5"
+					"value"	"4"
 					"CalculateSpellDamageTooltip"	"0"
 				}
 		}
@@ -61,6 +49,11 @@
 				"var_type"				"FIELD_FLOAT"
 				"fade_delay"			"2.5 2.25 2.0"
 			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"15.0"
+			}
 		}
 	}
 	
@@ -76,37 +69,32 @@
 
 	"silencer_glaives_of_wisdom"
 	{
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"permanent_int_steal_amount"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"intellect_damage_pct"	"15 35 55 75"
-				"LinkedSpecialBonus"	"special_bonus_unique_silencer_3"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"int_steal"				"1 1 2 2"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"int_steal_duration"	"15 20 25 30"
+				"value"						"2"
+				"special_bonus_shard"		"+0"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
-
-	"special_bonus_unique_silencer_2"
+	
+	"elder_titan_ancestral_spirit"
 	{
 		"AbilitySpecial"
 		{
-			"01"
+			"09"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"1"
-				"ad_linked_ability"			"silencer_glaives_of_wisdom"
+				"var_type"						"FIELD_INTEGER"
+				"damage_heroes"					"12 28 44 60"
+				"LinkedSpecialBonus"			"special_bonus_unique_elder_titan"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"30"	//scepter_magic_immune_per_hero
+			{
+				"var_type"						"FIELD_FLOAT"
+				"scepter_magic_immune_per_hero_new_value"	"1.5"
 			}
 		}
 	}
@@ -135,71 +123,33 @@
 		"ItemStockTime"					"300.0"
 	}
 
-	//=================================================================================================================
-	// Ability: Elder Titan's Astral Spirit
-	//=================================================================================================================
-	"elder_titan_ancestral_spirit"
-	{
-		"AbilitySpecial"
-		{
-			"09"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"damage_heroes"					"12 28 44 60"
-				"LinkedSpecialBonus"			"special_bonus_unique_elder_titan"
-				"CalculateSpellDamageTooltip"	"0"
-			}
-			"30"	//scepter_magic_immune_per_hero
-			{
-				"var_type"						"FIELD_FLOAT"
-				"scepter_magic_immune_per_hero_new_value"	"1.5"
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Mirana's Moonlight Shadow
-	//=================================================================================================================
-	"mirana_invis"
-	{
-		"AbilitySpecial"
-		{
-			"02"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"15.0"
-				"LinkedSpecialBonus"	"special_bonus_unique_mirana_5"
-			}
-		}
-	}
-
 	"item_bracer"
 	{
-		"ItemLevelByGameTime"			"17.5"
+		"ItemLevelByGameTime"			"17"
 
 		"AbilityValues"
 		{
-			"clock_time"			"17.5"
+			"clock_time"			"17"
 		}
 	}
 
 	"item_wraith_band"
 	{
-		"ItemLevelByGameTime"			"17.5"
+		"ItemLevelByGameTime"			"17"
 
 		"AbilityValues"
 		{
-			"clock_time"			"17.5"
+			"clock_time"			"17"
 		}
 	}
 
 	"item_null_talisman"
 	{
-		"ItemLevelByGameTime"			"17.5"
+		"ItemLevelByGameTime"			"17"
 
 		"AbilityValues"
 		{
-			"clock_time"			"17.5"
+			"clock_time"			"17"
 		}
 	}
 }
