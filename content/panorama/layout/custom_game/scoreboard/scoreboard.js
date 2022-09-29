@@ -179,7 +179,7 @@ function CreatePanelForPlayer(player_id) {
 	const kick_button = player_root.FindChildTraverse("Kick");
 	kick_button.SetPanelEvent("onactivate", () => {
 		if (HUD.ROOT.BHasClass("BKickVotingEnabled") && player_id != LOCAL_PLAYER_ID)
-			GameEvents.SendCustomGameEventToServer("ui_kick_player", { target_id: player_id });
+			GameEvents.SendCustomGameEventToServer("voting_for_kick:kick_player", { target_id: player_id });
 	});
 	kick_button.SetPanelEvent("onmouseover", () => {
 		HUD.ROOT.RemoveClass("KickGlow");

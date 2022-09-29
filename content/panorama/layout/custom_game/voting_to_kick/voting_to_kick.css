@@ -15,7 +15,7 @@
 	transition-duration: 0.3s;
 }
 
-#VotingToKickReasonPanel.Slide {
+.ShowReason #VotingToKickReasonPanel {
 	transform: translatex(0px);
 }
 
@@ -102,18 +102,15 @@
 #VotingToKickVoting {
 	flow-children: down;
 	width: 250px;
-	/*height: 400px;*/
-	/*padding-bottom: 5px;*/
 	horizontal-align: right;
-	vertical-align: center;
-	margin-bottom: 200px;
+	margin-top: 300px;
 	background-image: url("file://{resources}/images/custom_game/import_dota/item_purchase_bg_psd.png");
 	background-size: cover;
 	transform: translatex(1000px);
 	transition: opacity 0.2s ease-in-out 0s, transform 0.3s ease-in-out 0s;
 	opacity: 1;
 }
-#VotingToKickVoting.Slide {
+.ShowVoting:not(.BHideVoting) #VotingToKickVoting {
 	transform: translatex(0px);
 }
 #VotingToKickVoting.Hide {
@@ -140,7 +137,19 @@
 	horizontal-align: center;
 	vertical-align: center;
 }
-
+.BHideVotingButtons .VotingToKickVotingButtons,
+.BHideVotingButtons #ReportButton {
+	visibility: collapse;
+}
+.BPlayerVoted .VotingToKickVotingButtons {
+	visibility: collapse;
+}
+.VotingToKickRoot:not(.ShowVoting) .VotingToKickVotingButton {
+	visibility: collapse;
+}
+.BPlayerReported #ReportButton {
+	visibility: collapse;
+}
 .VotingToKickVotingButton {
 	font-size: 22px;
 	height: 30px;
@@ -219,14 +228,17 @@
 #HideVotingWrap {
 	width: 35px;
 	height: 25px;
-	align: right center;
-	margin-bottom: 325px;
+	horizontal-align: right;
 	margin-right: 3px;
 	padding-left: 5px;
 	transition: transform 0.2s ease-in-out 0s;
+	margin-top: 385px;
 	opacity: 0;
 }
-#HideVoting {
+.BHideVoting #HideVotingWrap {
+	transform: rotateY(180deg);
+}
+#HideVotingArrowIcon {
 	width: 25px;
 	height: 25px;
 	background-image: url("file://{resources}/images/custom_game/import_dota/arrow_solid_right_png.png");
@@ -235,20 +247,14 @@
 	transition: brightness 0.2s ease-in-out 0s, transform 0.2s ease-in-out 0s;
 }
 
-#HideVotingWrap:hover #HideVoting {
+#HideVotingWrap:hover #HideVotingArrowIcon {
 	brightness: 2;
 	transform: translatex(5px);
 }
-#HideVotingWrap.Reverse {
-	transform: rotateY(180deg);
-}
-#HideVotingWrap.Reverse #HideVoting {
+.BHideVoting #HideVotingArrowIcon {
 	wash-color: #ffffff;
 }
-#HideVotingWrap.Reverse:hover #HideVoting {
-	brightness: 2;
-}
-#HideVotingWrap.show {
+.ShowVoting #HideVotingWrap {
 	opacity: 1;
 }
 #ReportButton {
@@ -277,4 +283,13 @@
 }
 #ReportButton:active Label {
 	pre-transform-scale2d: 0.95;
+}
+#VotingToKickModelPanel {
+	width: 210px;
+	height: 210px;
+	horizontal-align: center;
+}
+#VotingToKickVotingHeroModel {
+	width: 100%;
+	height: 100%;
 }

@@ -97,7 +97,7 @@
 
 		"nopatreonerror"											"此物品仅限支持者使用"
 		"nopatreonerror2"											"仅高级支持者（￥200）可使用此物品"
-		"notyettime"												"前5分钟内无法踢出恶意玩家"
+		"not_yet_kick_time"											"前5分钟内无法踢出恶意玩家"
 		"block_spawn_error"											"无法阻止团队的中立阵营"
 		"cannot_cast_on_tree_dance"									"无法砍倒友方的跳舞树"
 

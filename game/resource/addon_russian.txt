@@ -62,7 +62,7 @@
 
 		"nopatreonerror"											"Этот предмет только для поддержавших"
 		"nopatreonerror2"											"Только высокоуровневые поддержавшие (25$) могут использовать этот предмет"
-		"notyettime"												"Вы можете голосовать за изгнание игрока только после 5-ой минуты игры."
+		"not_yet_kick_time"											"Вы можете голосовать за изгнание игрока только после 5-ой минуты игры."
 
 		"block_spawn_error"												"Запрещено блокировать союзные лагеря"
 
@@ -171,10 +171,7 @@
 		"playerhasalertforban"					   						"Игрок уже предупрежден. Попробуйте позже."
 		"DOTA_Tooltip_modifier_alert_before_kick_lua"					"Предупреждение об отключении от этой игры."
 		"cannotkickotherpatreons"					               		"Нельзя выгнать других подддержавших"
-
-		"alert_for_ban_message_1"					               			"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> хочет выгнать из игры:"
-		"alert_for_ban_message_2"					               			"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font>"
-
+		
 		"patreonperktooltip_hint"					   						"Выбери свой Талант для этой игры"
 		"close_patreons_game_perks_menu"					   				"Закрыть"
 		"patreons_perk_hide_choose"					   						"ВЫБЕРИ  СВОЙ  ТАЛАНТ"
@@ -734,18 +731,19 @@
 
 		"voting_to_kick_yes"						"За"
 		"voting_to_kick_no"							"Против"
-		"voting_to_kick_reason_tooltip"				"Причина"
-		"voting_to_kick_player_kicked"				"%s1 Был выгнан из игры."
-		"voting_to_kick_voiting_for_now"			"Уже идет голосование против игрока. Подождите"
-		"voting_to_kick_voting_failed"				"Голосование на изгнание %s1 провалилось."
-		"you_cannot_buy_more_items_this_type"		"Вы больше не можете купить данный предмет"
-		"voting_to_kick_tooltip"					"Выгнать"
-		"voting_to_kick_choose_reason_tooltip"		"Выберите причину для изгнания"
-		"voting_to_kick_kda_tooltip"				"<font color='#94a6be'>У/С/П</font>"
+		"voting_to_kick_choose_reason_tooltip"		"Выберите причину для изгнания <font color='#23d923'>{s:target_player_name}</font>"
+		"voting_to_kick_reason_tooltip"				"Причина: {s:reason}"
 		"voting_to_kick_reason_feeding"				"Фид"
 		"voting_to_kick_reason_ability_abuse"		"Злоупотребление умениями"
 		"voting_to_kick_reason_hateful_talk"		"Агрессивное поведение"
 		"voting_to_kick_reason_afk"					"АФК"
+		"voting_to_kick_tooltip"					"Выгнать <font color='#ed1313'>{s:target_player_name}</font> ?"
+		"voting_to_kick_player_kicked"				"%s1 Был выгнан из игры."
+		"voting_to_kick_voiting_for_now"			"Уже идет голосование против игрока. Подождите."
+		"voting_to_kick_voting_failed"				"Голосование на изгнание %s1 провалилось."
+		"voting_to_kick_kda_tooltip"				"<font color='#94a6be'>У/С/П</font>        {d:kills}/{d:deaths}/{d:assists}"
+		"alert_for_ban_message_1"					 "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> хочет выгнать из игры:"
+		"alert_for_ban_message_2"					 "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font>"
 
 		"LoadingTip_1"			"Вы можете использовать нестандартное колесо чата в игре если зажмете (L). Колесо имеет перезарядку для использования"
 		"LoadingTip_2"			"Башни в 12v12 имеют на 1000 больше здоровья, чем в обычной доте. Их базовое время атаки увеличено с 1 до 0.8"
@@ -1396,7 +1394,7 @@
 
 		"mute_all_hint"			"Заглушить всех (Звук)"
 		"mute_all_text_hint"	"Заглушить всех (Текст)"
-		"kick_voting_cooldown"	"Вы не можете начать голосование за исключение игрока еще (##sec##сек)"
+		"voting_to_kick_cooldown"	"Вы не можете начать голосование за исключение игрока еще (##sec##сек)"
 		"use_scoreboard_button_for_kick"	"Предмет скоро будет удален из игры. Используйте игровую таблицу для начала голосования за изгнание игрока."
 		
 		"top_menu_open_discord"		"Присоедениться к Discord"

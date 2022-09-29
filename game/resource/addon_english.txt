@@ -97,7 +97,7 @@
 
 		"nopatreonerror"											"This item is for Supporters only"
 		"nopatreonerror2"											"Only Hi-Level Supporters (25$) can use this item"
-		"notyettime"												"Cannot kick trolls in the first 5 minutes"
+		"not_yet_kick_time"											"Cannot kick trolls in the first 5 minutes"
 		"block_spawn_error"											"Cannot block your team's neutral camps"
 		"cannot_cast_on_tree_dance"									"Cannot cut down an ally's tree dance tree"
 
@@ -1004,17 +1004,17 @@
 
 		"voting_to_kick_yes"						"Yes"
 		"voting_to_kick_no"							"No"
-		"voting_to_kick_choose_reason_tooltip"		"Choose a reason to kick"
-		"voting_to_kick_reason_tooltip"				"Reason"
+		"voting_to_kick_choose_reason_tooltip"		"Choose a reason to kick <font color='#23d923'>{s:target_player_name}</font>"
+		"voting_to_kick_reason_tooltip"				"Reason: {s:reason}"
 		"voting_to_kick_reason_feeding"				"Feeding"
 		"voting_to_kick_reason_ability_abuse"		"Ability Abuse"
 		"voting_to_kick_reason_hateful_talk"		"Hateful Talk"
 		"voting_to_kick_reason_afk"					"AFK"
-		"voting_to_kick_tooltip"					"Kick"
+		"voting_to_kick_tooltip"					"Kick <font color='#ed1313'>{s:target_player_name}</font> ?"
 		"voting_to_kick_player_kicked"				"%s1 Kicked from game."
 		"voting_to_kick_voiting_for_now"			"There is already a voting for kick player"
 		"voting_to_kick_voting_failed"				"Voting for kick %s1 failed."
-		"voting_to_kick_kda_tooltip"				"<font color='#94a6be'>K/D/A</font>"
+		"voting_to_kick_kda_tooltip"				"<font color='#94a6be'>K/D/A</font>        {d:kills}/{d:deaths}/{d:assists}"
 		"you_cannot_buy_more_items_this_type"		"You cannot buy more items of this type"
 
 		"LoadingTip_1"				"You can use custom chat wheel in game (Press L). It has a cooldown when used."
@@ -2056,7 +2056,7 @@
 
 		"mute_all_hint"			"Mute All (Voice)"
 		"mute_all_text_hint"	"Mute All (Text)"
-		"kick_voting_cooldown"	"You cannot start voting to kick a player for another (##sec##sec)."
+		"voting_to_kick_cooldown"	"You cannot start voting to kick a player for another (##sec##sec)."
 		"use_scoreboard_button_for_kick"	"Item will be removed soon. Use scoreboard for kick voting start."
 		
 		"top_menu_open_discord"	"Join our Discord"

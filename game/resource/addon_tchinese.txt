@@ -94,7 +94,7 @@
 
 		"nopatreonerror"											"仅适用于Patreon支持者"
 		"nopatreonerror2"											"此项目仅适用于高级支持者（25美元）"
-		"notyettime"												"在头5分钟内尚无法剔除不良玩家"
+		"not_yet_kick_time"											"在头5分钟内尚无法剔除不良玩家"
 
 		"block_spawn_error"												"无法阻止你的团队的中立阵营"
 
