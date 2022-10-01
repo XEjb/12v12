@@ -2054,7 +2054,7 @@
 		"Scoreboard_DisableHelp"	"When enabled, prevent <font color='{s:player_color}'>{s:player_name}</font> from using certain abilities on your Hero."
 		"Scoreboard_Rank"	"Rank<br>({d:team_rank})"
 		"Scoreboard_DisableHelp_Hint"	"Disable Help"
-		"Scoreboard_Networth"	"Networth"
+		"Scoreboard_Networth"	"Gold"
 		"Scoreboard_Kick"		"Kick"
 		"Scoreboard_Kick_Hint"		"Starts a vote to kick <font color='{s:player_color}'>{s:player_name}</font>."
 
