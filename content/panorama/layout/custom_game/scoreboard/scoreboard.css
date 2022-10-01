@@ -148,7 +148,7 @@
 	margin-top: 1px;
 }
 .TeammateGold {
-	width: 70px;
+	width: 80px;
 	opacity: 0;
 }
 .TeammateGold Label {
@@ -223,7 +223,6 @@
 	margin: 0px 4px 0px 4px;
 }
 #Scoreboard_HeadersRoot {
-	width: 100%;
 	flow-children: right;
 	padding: 3px 4px;
 	background-color: gradient(linear, 100% 0%, -300% 0%, from(rgb(30, 30, 32)), to(#381b1b));
@@ -264,7 +263,7 @@
 
 .Team_3 #MuteAllButton_Voice,
 .Team_3 #MuteAllButton_Text {
-	visibility: collapse;
+	opacity: 0;
 }
 
 #MuteAllButton_Voice,
@@ -344,7 +343,7 @@
 	border-radius: 50%;
 	opacity: 0;
 	vertical-align: center;
-	margin-right: 2px;
+	margin: 0 11px 0 12px;
 }
 .KickGlow #Kick {
 	animation-name: kick_glow;
@@ -398,4 +397,43 @@
 }
 .Team_3 #TeamName {
 	color: gradient(linear, 0% 0%, 0% 100%, from(#ff0400), to(#bc0400));
+}
+
+.SH_DisalbeHelp {
+	background-image: url("file://{images}/custom_game/import_dota/information_psd.png");
+	background-size: 18px;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	width: 26px;
+	height: 22px;
+	vertical-align: center;
+	margin-left: 10px;
+	wash-color: #d6d6d6;
+	transition: wash-color 0.1s ease-in-out 0s;
+	opacity: 0;
+}
+.SH_DisalbeHelp:hover {
+	wash-color: #f9f9f9;
+}
+.SH_Gold {
+	width: 80px;
+	margin-left: 5px;
+	vertical-align: bottom;
+	opacity: 0;
+}
+.LocalTeam .SH_DisalbeHelp,
+.LocalTeam .SH_Gold,
+.LocalTeam .SH_Kick {
+	opacity: 1;
+}
+.Scoreboard_Header.SH_Gold Label,
+.Scoreboard_Header.SH_Kick Label {
+	text-align: center;
+	horizontal-align: center;
+}
+.SH_Kick {
+	width: 38px;
+	margin-left: 5px;
+	vertical-align: bottom;
+	opacity: 0;
 }

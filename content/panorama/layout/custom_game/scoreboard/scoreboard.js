@@ -182,6 +182,7 @@ function CreatePanelForPlayer(player_id) {
 			GameEvents.SendCustomGameEventToServer("voting_for_kick:kick_player", { target_id: player_id });
 	});
 	kick_button.SetPanelEvent("onmouseover", () => {
+		$.DispatchEvent("DOTAShowTextTooltip", kick_button, $.Localize(`Scoreboard_Kick_Hint`, player_root));
 		HUD.ROOT.RemoveClass("KickGlow");
 	});
 

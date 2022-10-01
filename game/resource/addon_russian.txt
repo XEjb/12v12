@@ -1391,6 +1391,10 @@
 		"Scoreboard_Mute_Text"		"Заглушить (Текст)"
 		"Scoreboard_DisableHelp"	"Когда включено, запрещает <font color='{s:player_color}'>{s:player_name}</font> использоваться некоторые умения на Вашего героя."
 		"Scoreboard_Rank"			"Ранг<br>({d:team_rank})"
+		"Scoreboard_DisableHelp_Hint"	"Отключение помощи"
+		"Scoreboard_Networth"	"Золото"
+		"Scoreboard_Kick"		"Кик"
+		"Scoreboard_Kick_Hint"		"Начать голосование за изгнание <font color='{s:player_color}'>{s:player_name}</font>."
 
 		"mute_all_hint"			"Заглушить всех (Звук)"
 		"mute_all_text_hint"	"Заглушить всех (Текст)"

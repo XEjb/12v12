@@ -2053,6 +2053,10 @@
 		"Scoreboard_Mute_Text"		"Mute (Text)"
 		"Scoreboard_DisableHelp"	"When enabled, prevent <font color='{s:player_color}'>{s:player_name}</font> from using certain abilities on your Hero."
 		"Scoreboard_Rank"	"Rank<br>({d:team_rank})"
+		"Scoreboard_DisableHelp_Hint"	"Disable Help"
+		"Scoreboard_Networth"	"Networth"
+		"Scoreboard_Kick"		"Kick"
+		"Scoreboard_Kick_Hint"		"Starts a vote to kick <font color='{s:player_color}'>{s:player_name}</font>."
 
 		"mute_all_hint"			"Mute All (Voice)"
 		"mute_all_text_hint"	"Mute All (Text)"

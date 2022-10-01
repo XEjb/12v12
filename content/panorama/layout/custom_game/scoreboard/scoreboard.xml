@@ -22,6 +22,9 @@
 					<Panel class="Scoreboard_Header SH_R"><Label text="#Scoreboard_Rank" html="true"/></Panel>
 					<ToggleButton class="Scoreboard_Header" id="MuteAllButton_Voice" onactivate="MuteAll('Voice')" onmouseover="UIShowTextTooltip(#mute_all_hint)" onmouseout="UIHideTextTooltip()"/>
 					<ToggleButton class="Scoreboard_Header" id="MuteAllButton_Text" onactivate="MuteAll('Text')" onmouseover="UIShowTextTooltip(#mute_all_text_hint)" onmouseout="UIHideTextTooltip()"/>
+					<Panel class="Scoreboard_Header SH_DisalbeHelp" onmouseover="DOTAShowTextTooltip(#Scoreboard_DisableHelp_Hint)" onmouseout="DOTAHideTextTooltip()"/>
+					<Panel class="Scoreboard_Header SH_Gold"><Label text="#Scoreboard_Networth"/></Panel>
+					<Panel class="Scoreboard_Header SH_Kick"><Label text="#Scoreboard_Kick"/></Panel>
 				</Panel>
 				
 				<Panel id="TeamColor"/>
@@ -62,11 +65,11 @@
 				
 				<Panel class="Scoreboard_Stat DisableHelp">
 					<ToggleButton id="DisableHelpButton"
-								  onmouseover="DOTAShowTextTooltip(#Scoreboard_DisableHelp)" onmouseout="DOTAHideTextTooltip()" />
+								  onmouseover="DOTAShowTextTooltip(#Scoreboard_DisableHelp)" onmouseout="DOTAHideTextTooltip()"/>
 				</Panel>
 				<Panel class="Scoreboard_Stat TeammateGold"><Label text="{s:player_gold}"/></Panel>
 <!--				<Button id="Tip" class="Scoreboard_Stat"><Label text="+++"/></Button>-->
-				<Button id="Kick"/>
+				<Button id="Kick" onmouseout="DOTAHideTextTooltip()"/>
 			</Panel>
 		</snippet>
 	</snippets>
