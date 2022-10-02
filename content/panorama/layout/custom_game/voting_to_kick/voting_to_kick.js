@@ -59,6 +59,7 @@ function VotingToKickVoteYes() {
 }
 
 function VotingToKickVoteNo() {
+	GameEvents.SendCustomGameEventToServer("voting_to_kick:vote_no", {});
 	HUD.CONTEXT.AddClass("BPlayerVoted");
 }
 

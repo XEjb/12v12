@@ -2060,7 +2060,8 @@
 
 		"mute_all_hint"			"Mute All (Voice)"
 		"mute_all_text_hint"	"Mute All (Text)"
-		"voting_to_kick_cooldown"	"You cannot start voting to kick a player for another (##sec##sec)."
+		"voting_to_kick_cooldown"		"You cannot start voting to kick a player for another (##sec##sec)."
+		"voting_to_kick_cooldown_party"	"Your party cannot start voting to kick a player for another (##sec##sec)."
 		"use_scoreboard_button_for_kick"	"Item will be removed soon. Use scoreboard for kick voting start."
 		
 		"top_menu_open_discord"	"Join our Discord"

@@ -9,19 +9,21 @@ Kicks.supporters_kick_threshold = {
 	[2] = 0.8,
 }
 
-local KICK_COOLDOWN = 600
 local TIME_FOR_ALLOW_INIT_VOTING = 300
 
 function Kicks:Init()
 	self.user_ids = {}
 	self.time_to_voting = 40
-	self.votes_for_kick = 6 -- Now redefined on each voting start
 	self.voting = nil
 	self.kicks_id = {}
 	self.pre_voting = {}
 	self.stats = {}
 	self.init_voting_cooldowns = {}
+	self.init_voting_cooldowns_party = {}
 	self.b_enable = true
+	
+	self.kick_cooldown = 600
+	self.kick_cooldown_party = 300
 
 	if GameOptions:OptionsIsActive("no_trolls_kick") then self.b_enable = false end
 
@@ -48,6 +50,10 @@ function Kicks:Init()
 	CustomGameEventManager:RegisterListener("voting_to_kick:vote_yes",function(_, keys)
 		if not self.b_enable then return end
 		self:VoteYes(keys.PlayerID)
+	end)
+	CustomGameEventManager:RegisterListener("voting_to_kick:vote_no",function(_, keys)
+		if not self.b_enable then return end
+		self:VoteNo(keys.PlayerID)
 	end)
 	CustomGameEventManager:RegisterListener("voting_to_kick:check_state",function(_, keys)
 		if not self.b_enable then return end
@@ -141,13 +147,13 @@ function Kicks:StartVoting(data)
 		reason = data.reason,
 		init = data.PlayerID,
 		target = player_target_id,
-		votes = 0,
+		votes_yes = 0,
+		votes_total = 0,
 		players_reports = {},
 		reports_count = 0,
 	}
 
 	self:AlertPlayersAboutStartVoting()
-	self:UpdateVotingForKick()
 
 	self.stats[data.PlayerID].voting_start = self.stats[data.PlayerID].voting_start + 1
 
@@ -165,7 +171,15 @@ function Kicks:StartVoting(data)
 		useGameTime = false,
 		endTime = self.time_to_voting,
 		callback = function()
-			self:StopVoting(false)
+			local votes_for_kick = Kicks:GetVotesCountForKick()
+			if self.voting.votes_yes >= votes_for_kick then
+				self:DropItemsForDisconnetedPlayer(self.voting.target)
+				self.kicks_id[self.voting.target] = true
+				self:Kick(self.voting.target)
+				self:StopVoting(true)
+			else
+				self:StopVoting(false)
+			end
 			return nil
 		end
 	})
@@ -180,32 +194,12 @@ function Kicks:StopVoting(successful_voting)
 	self.voting = nil
 end
 
-function Kicks:UpdateVotingForKick()
+function Kicks:GetVotesCountForKick()
 	if not self.voting then return end
-	local max_voices_in_team = 0
-	local voted_parties = {}
-	for player_id = 0, 24 do
-		local connection_state = PlayerResource:GetConnectionState(player_id)
-
-		if PlayerResource:IsValidPlayerID(player_id)
-			and PlayerResource:GetTeam(self.voting.target) == PlayerResource:GetTeam(player_id)
-			and connection_state ~= DOTA_CONNECTION_STATE_ABANDONED then
-			local party = tostring(PlayerResource:GetPartyID(player_id));
-			if voted_parties[party] then
-				max_voices_in_team = max_voices_in_team + 0.5
-			else
-				max_voices_in_team = max_voices_in_team + 1
-				if party ~= "0" then -- Players that not in party have partyID == 0
-					voted_parties[party] = true
-				end
-			end
-		end
-	end
-
 	local target_id = self.voting.target
 	local is_new_player = WebApi.playerMatchesCount and WebApi.playerMatchesCount[target_id] and WebApi.playerMatchesCount[target_id] < 5
 	local level = is_new_player and -1 or Supporters:GetLevel(target_id)
-	self.votes_for_kick = math.floor(max_voices_in_team * self.supporters_kick_threshold[level])
+	return math.floor(self.voting.votes_total * self.supporters_kick_threshold[level])
 end
 
 function Kicks:GetVoteWeight(player_id)
@@ -232,19 +226,22 @@ function Kicks:Kick(player_id)
 	SendToServerConsole('kickid '.. user_id);
 end
 
+function Kicks:VoteNo(player_id)
+	if not self.voting then return end
+	if self.voting.players_voted[player_id] then return end
+
+	self.voting.votes_total = self.voting.votes_total + self:GetVoteWeight(player_id)
+	self.voting.players_voted[player_id] = true
+end
+
 function Kicks:VoteYes(player_id)
 	if not self.voting then return end
 	if self.voting.players_voted[player_id] then return end
 
-	self.voting.votes = self.voting.votes + self:GetVoteWeight(player_id)
+	local vote_weight = self:GetVoteWeight(player_id)
+	self.voting.votes_total = self.voting.votes_total + vote_weight
+	self.voting.votes_yes = self.voting.votes_yes + vote_weight
 	self.voting.players_voted[player_id] = true
-
-	if self.voting.votes >= self.votes_for_kick then
-		self:DropItemsForDisconnetedPlayer(self.voting.target)
-		self.kicks_id[self.voting.target] = true
-		self:Kick(self.voting.target)
-		self:StopVoting(true)
-	end
 end
 
 function Kicks:CheckState(data)
@@ -328,20 +325,31 @@ function Kicks:InitKickVoting(data)
 		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#voting_to_kick_voiting_for_now" })
 		return
 	end
-
-	local cd_time = self.init_voting_cooldowns[player_id]
-	if cd_time and ((GameRules:GetGameTime() - cd_time) <= KICK_COOLDOWN) then
-		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error_with_value", {
-			message = "#voting_to_kick_cooldown",
-			values = {
-				["sec"] = KICK_COOLDOWN - (GameRules:GetGameTime() - cd_time),
-			}
-		})
-		return
+	
+	local check_cd = function(type, table_key)
+		local game_time = GameRules:GetGameTime()
+		local cd_time = Kicks["init_voting_cooldowns" .. type][table_key]
+		local cooldown_value = Kicks["kick_cooldown" .. type]
+		if cd_time and ((game_time - cd_time) <= cooldown_value) then
+			CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error_with_value", {
+				message = "#voting_to_kick_cooldown" .. type,
+				values = {
+					["sec"] = cooldown_value - (game_time - cd_time),
+				}
+			})
+			return true
+		end
+		Kicks["init_voting_cooldowns" .. type][table_key] = game_time
+		return false
 	end
-	self.init_voting_cooldowns[player_id] = GameRules:GetGameTime()
 
-
+	if check_cd("", player_id) then return end
+	
+	local party = tostring(PlayerResource:GetPartyID(player_id));
+	if party ~= "0" then
+		if check_cd("_party", party) then return end
+	end
+	
 	if self:IsPlayerWarning(player_id) then
 		CustomGameEventManager:Send_ServerToPlayer(player, "custom_hud_message:send", { message = "#voting_to_kick_warning" })
 	end
