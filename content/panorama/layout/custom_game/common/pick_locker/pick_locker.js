@@ -12,6 +12,17 @@ var localized_text = [
 
 var interval = 0.3;
 
+const custom_random_button = $.GetContextPanel().FindChildTraverse("CustomRandomButton")
+let random_button = FindDotaHudElement("RandomButton");
+let random_pressed = false;
+
+function PickRandomHero() {
+	// discard random requests if we've already pressed that or have hero selected
+	if (random_pressed || Players.GetSelectedHeroID(Players.GetLocalPlayer()) != -1) return;
+	random_pressed = true;
+	GameEvents.SendCustomGameEventToServer("pick_random_hero", {});
+}
+
 function _InvokeUpdate(initial_time, new_time, buttons) {
 	$.Schedule(interval, function () {
 		_UpdatePickButton(initial_time, new_time, buttons);
@@ -33,6 +44,7 @@ function _UpdatePickButton(initial_time, time, buttons) {
 	buttons[0].GetChild(0).text = `${lock_text} (${time.toFixed(0)})`;
 	if (time < interval) {
 		buttons.forEach((button) => {
+			button.enabled = true;
 			button.SetAcceptsFocus(true);
 			button.BAcceptsInput(true);
 			button.style.saturation = null;
@@ -52,12 +64,13 @@ function _InitPickLocker(level) {
 	let random_button = FindDotaHudElement("RandomButton");
 	let smart_random_button = FindDotaHudElement("smartRandomButton");
 
-	let buttons = [pick_button, random_button, smart_random_button];
+	let buttons = [pick_button, custom_random_button, smart_random_button];
 
 	if (level < 2) {
 		let time = wait_time[level];
 
 		buttons.forEach((button) => {
+			button.enabled = false;
 			button.SetAcceptsFocus(false);
 			button.BAcceptsInput(false);
 			button.style.saturation = 0.0;
@@ -83,3 +96,10 @@ SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuse
 
 	_InitPickLocker(level);
 });
+
+
+(() => {
+	random_button.visible = false;
+	custom_random_button.visible = true;
+	custom_random_button.SetParent(random_button.GetParent());
+})();

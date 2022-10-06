@@ -1,9 +1,18 @@
 <root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/common/pick_locker/pick_locker.css" />
+	</styles>
+
 	<scripts>
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/layout/custom_game/common/pick_locker/pick_locker.js" />
 	</scripts>
 
 	<Panel hittest="false">
+		<Button id="CustomRandomButton" class="PickButton" onactivate="PickRandomHero()" onmouseout="UIHideTextTooltip();" onmouseover="UIShowTextTooltip( #DOTA_Hud_Pregame_Random_Tooltip );">
+			<Panel class="RandomIcon" />
+			<Label text="#random" />
+		</Button>
 	</Panel>
 </root>

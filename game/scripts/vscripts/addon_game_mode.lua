@@ -28,6 +28,8 @@ local TROLL_FEED_FORBIDDEN_TO_BUY_ITEMS = {
 	item_ward_sentry = true,
 }
 
+RANDOM_BONUS_ITEMS = { "item_faerie_fire", "item_enchanted_mango" }
+
 --Requirements to Buy Divine Rapier
 local NET_WORSE_FOR_RAPIER_MIN = 20000
 
@@ -186,6 +188,8 @@ function CMegaDotaGameMode:InitGameMode()
 	ListenToGameEvent('player_disconnect', Dynamic_Wrap(CMegaDotaGameMode, 'OnPlayerDisconnect'), self)
 	ListenToGameEvent( "player_chat", Dynamic_Wrap( CMegaDotaGameMode, "OnPlayerChat" ), self )
 	ListenToGameEvent("dota_player_learned_ability", 	Dynamic_Wrap(CMegaDotaGameMode, "OnPlayerLearnedAbility" ),  self)
+
+	CustomGameEventManager:RegisterListener("pick_random_hero", function(_, event) CMegaDotaGameMode:PickRandomHero(event) end)
 
 	self.m_CurrentGoldScaleFactor = GOLD_SCALE_FACTOR_INITIAL
 	self.m_CurrentXpScaleFactor = XP_SCALE_FACTOR_INITIAL
@@ -399,6 +403,16 @@ function CMegaDotaGameMode:OnHeroPicked(event)
 
 	if hero:GetTeamNumber() == DOTA_TEAM_BADGUYS then
 		table.insert(_G.tableDireHeroes, hero)
+	end
+
+	local player_id = hero:GetPlayerID()
+	if PlayerResource:HasRandomed(player_id) then
+		for _, item_name in ipairs(RANDOM_BONUS_ITEMS) do
+			local item = hero:AddItemByName(item_name)
+			if item then
+				item:SetSellable(false)
+			end
+		end
 	end
 
 	-- Hopefully we never need this ever again
@@ -1897,4 +1911,16 @@ function CMegaDotaGameMode:OnPlayerLearnedAbility(data)
 	if ability_name == "special_bonus_attributes" then
 		hero:RegisterManuallySpentAttributePoint()
 	end
+end
+
+function CMegaDotaGameMode:PickRandomHero(event)
+	local player_id = event.PlayerID
+	if GameRules:State_Get() > DOTA_GAMERULES_STATE_HERO_SELECTION then return end
+	if GameRules:IsInBanPhase() then return end
+	if not player_id or not PlayerResource:IsValidPlayerID(player_id) then return end
+	local player = PlayerResource:GetPlayer(player_id)
+	if not player then return end
+	if PlayerResource:HasRandomed(player_id) or player:GetAssignedHero() then return end
+	player:MakeRandomHeroSelection()
+	PlayerResource:SetHasRandomed(player_id)
 end
