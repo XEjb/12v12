@@ -1100,6 +1100,8 @@
 		"DOTA_Tooltip_ability_silencer_glaives_of_wisdom_shard_description"			"Every %stacks_for_silence% attacks, Glaives silence the enemy hit for %silence_duration% seconds. Additionally, it increases the Intelligence stolen per attack by 2.\n\n<font color='#70EA72'>In Dota 12v12 this does not increase the intelligence stolen per kill.</font>"
 		
 		"DOTA_Tooltip_ability_elder_titan_ancestral_spirit_Description"			"Elder Titan sends forth his Astral Spirit, damaging any units it passes through.  When the spirit rejoins the Titan, it grants bonus damage, armor, and movement speed for each unit it passed through.\n\nThe Astral Spirit can be controlled and possesses the Echo Stomp, Return Spirit, and Natural Order abilities.\n\n<font color='#70EA72'>In Dota 12v12 this ability gives reduced bonus damage from heroes.</font>"
+		
+		"DOTA_Tooltip_ability_elder_titan_ancestral_spirit_scepter_description"	"Causes Elder Titan to become spell immune for %scepter_magic_immune_per_hero% seconds per affected enemy Hero when the spirit returns.\n\n<font color='#70EA72'>In Dota 12v12 this gives reduced magic immunity duration per hero.</font>"
 
 		"collection_header"		"COLLECTION"
 		"player_no_boost"		"NO BOOST"
