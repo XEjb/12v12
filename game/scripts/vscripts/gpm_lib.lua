@@ -22,11 +22,6 @@ function GPM_Init()
 				if hero.bonusGpmForPerkPerMinute then
 					hero:ModifyGold(hero.bonusGpmForPerkPerMinute, false, 0)
 				end
-				local gold_perk = hero.bonus_gold_perk
-				if gold_perk and gold_perk.current_procs < gold_perk.max_procs then
-					hero:ModifyGold(gold_perk.per_minute, false, 0)
-					hero.bonus_gold_perk.current_procs = gold_perk.current_procs + 1
-				end
 			end
 		end
 		return 60
